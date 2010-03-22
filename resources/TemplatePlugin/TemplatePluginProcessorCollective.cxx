@@ -1,0 +1,20 @@
+/*
+* Copyright (c) 2009,
+* Computational Image and Simulation Technologies in Biomedicine (CISTIB),
+* Universitat Pompeu Fabra (UPF), Barcelona, Spain. All rights reserved.
+* See license.txt file for details.
+*/
+
+#include "TemplatePluginProcessorCollective.h"
+
+TemplatePlugin::ProcessorCollective::ProcessorCollective()
+{
+	m_SandboxProcessor = SandboxProcessor::New( );
+}
+
+TemplatePlugin::SandboxProcessor::Pointer 
+TemplatePlugin::ProcessorCollective::GetSandboxProcessor() const
+{
+	return m_SandboxProcessor;
+}
+

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+# Copyright 2008 Pompeu Fabra University (Computational Imaging Laboratory), Barcelona, Spain.
+# Web: www.cilab.upf.edu
+# This software is distributed WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Cruise Control project configuration file.
+-->
+
+<cruisecontrol>
+
+   <!-- 
+   \name StartNewModule
+   \brief Builds the StartNewModule tool.
+   -->
+   <project name="StartNewModule" requireModification="true" buildafterfailed="false">
+
+      <!-- Properties -->
+      <!-- Note: config paths are relative to the cruise control location on the server -->
+      <property name="project.source_path" value="${main.toolkit_src_folder}/tools/${project.name}"/>
+
+      <!-- Listeners: notified with every project event -->
+      <listeners>
+         <currentbuildstatuslistener/>
+      </listeners>
+
+      <!-- Bootstrappers are run every time the build runs, *before* the modification checks -->
+      <bootstrappers>
+         <svnbootstrapper/>
+      </bootstrappers>
+
+      <!-- Modificationset: triggers for rebuild -->
+      <modificationset quietperiod="${main.quietperiod}">
+         <svn/>
+      </modificationset>
+
+      <!-- Schedule: configures the actual build loop, how often and which build file/target -->
+      <schedule interval="${main.schedule_interval}">
+         <!-- Call ant with the main build.xml -->
+         <ant target="python_config">
+            <!-- target: python -->
+            <property name="path" value="${project.source_path}/tests"/>
+            <property name="python_path" value="${project.source_path}/src:${main.csnake_src_folder}/tests"/>
+            <property name="arg_line" value="AllTests.py -o '${project.test_log_folder}/testslog.xml'"/>
+         </ant>
+      </schedule>
+
+      <!-- Use the svn revision in the build number -->
+      <svnlabelincrementer/>
+
+      <!-- Log dir and files to merge -->
+      <log/>
+
+      <!-- Publishers are run *after* a build completes -->
+      <publishers>
+         <!-- Email to interested persons -->
+         <htmlemail/>
+      </publishers>
+
+   </project>
+
+</cruisecontrol>
