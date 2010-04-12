@@ -19,7 +19,7 @@ Cruise Control project configuration file.
       <!-- Properties -->
       <!-- Note: config paths are relative to the cruise control location on the server -->
       <property name="project.source_path" value="${main.toolkit_folder}/tools/${project.name}"/>
-      <property name="project.artifacts_temp_folder" value="${main.csnake_src_folder}/artifacts"/>
+      <property name="project.artifacts_temp_folder" value="${project.source_path}/artifacts"/>
 
       <!-- Listeners: notified with every project event -->
       <listeners>
@@ -41,9 +41,9 @@ Cruise Control project configuration file.
          <!-- Call ant with the main build.xml -->
          <ant target="${ant.python_target}">
             <!-- target: python_test -->
-            <property name="path" value="${project.source_path}/tests"/>
+            <property name="test_path" value="${project.source_path}/tests"/>
             <property name="python_path" value="${project.source_path}/src:${main.csnake_src_folder}/tests"/>
-            <property name="arg_line" value="AllTests.py -o '${project.test_log_folder}/testslog.xml'"/>
+            <property name="test_arg_line" value="AllTests.py -o '${project.test_log_folder}/testslog.xml'"/>
             <!-- target: python_build -->
             <property name="build_path" value="${project.source_path}/src"/>
             <property name="build_dest_folder" value="${project.artifacts_temp_folder}"/>
