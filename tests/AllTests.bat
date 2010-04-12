@@ -1,9 +1,9 @@
 @echo off
-REM --------------------------
-REM Run the csnake tests
-REM --------------------------
+REM --------------
+REM Run the tests
+REM --------------
 
-REM Add csnake src to the python path
+REM Add the src folder to the python path
 @set PYTHONPATH=../src;
 REM Run all tests
 @python AllTests.py
