@@ -93,9 +93,17 @@ class MainFrame(wx.Frame):
 # end of class MainFrame
 
 if __name__ == "__main__":
-    # 
-    rootForTemplateFiles = os.path.dirname(sys.argv[0]) + "/../resources"
-    assert os.path.exists("%s/TemplatePlugin" % rootForTemplateFiles), "Folder not found %s" % rootForTemplateFiles
+    # Possible resources folders
+    root = os.path.dirname(sys.argv[0])
+    # '/resources' for built application
+    # '/../resources' for running from source
+    resourceFolders = ["/resources", "/../resources"]
+    for folder in resourceFolders:
+        rootForTemplateFiles = root + folder
+        if os.path.exists( rootForTemplateFiles ):
+            break
+    assert os.path.exists("%s/TemplatePlugin" % rootForTemplateFiles), "Template plugin folder not found in: %s" % rootForTemplateFiles
+    assert os.path.exists("%s/TemplateLibrary" % rootForTemplateFiles), "Template library folder not found in: %s" % rootForTemplateFiles
     
     app = wx.PySimpleApp(0)
     wx.InitAllImageHandlers()
