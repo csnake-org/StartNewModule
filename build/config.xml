@@ -38,11 +38,14 @@ Cruise Control project configuration file.
       <!-- Schedule: configures the actual build loop, how often and which build file/target -->
       <schedule interval="${main.schedule_interval}">
          <!-- Call ant with the main build.xml -->
-         <ant target="python">
-            <!-- target: python -->
+         <ant target="${ant.python_target}">
+            <!-- target: python_test -->
             <property name="path" value="${project.source_path}/tests"/>
             <property name="python_path" value="${project.source_path}/src:${main.csnake_src_folder}/tests"/>
             <property name="arg_line" value="AllTests.py -o '${project.test_log_folder}/testslog.xml'"/>
+            <!-- target: python_build -->
+            <property name="build_path" value="${project.source_path}"/>
+            <property name="build_dest_folder" value="${project.artifacts_folder}"/>
          </ant>
       </schedule>
 
