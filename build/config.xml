@@ -45,7 +45,7 @@ Cruise Control project configuration file.
             <property name="arg_line" value="AllTests.py -o '${project.test_log_folder}/testslog.xml'"/>
             <!-- target: python_build -->
             <property name="build_path" value="${project.source_path}/src"/>
-            <property name="build_dest_folder" value="${project.artifacts_folder}"/>
+            <property name="build_dest_folder" value="${project.artifacts_temp_folder}"/>
          </ant>
       </schedule>
 
