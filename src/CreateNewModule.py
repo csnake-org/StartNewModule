@@ -42,6 +42,8 @@ def CreateLibrary(_projectRoot, _libraryName, _rootForTemplateFiles):
     # check inputs
     assert len(_projectRoot) != 0
     assert len(_libraryName) != 0
+    tkFilename = "%s/../csnCISTIBToolkit.py" % (_projectRoot)
+    assert os.path.exists(tkFilename)
     
     # create dictionary
     dictionary = dict()
@@ -69,15 +71,17 @@ def CreateLibrary(_projectRoot, _libraryName, _rootForTemplateFiles):
     ConfigureFile("%s/TemplateLibrary/tests/tlFirstTest/tlFirstTest.cpp" % _rootForTemplateFiles, "%s/%s/tests/tlFirstTest/tlFirstTest.cpp" % (_projectRoot, _libraryName), dictionary)
     
     # append to toolkit file
-    filename = "%s/../csnCISTIBToolkit.py" % (_projectRoot)
-    assert os.path.exists(filename)
-    EditFile(filename, "def %s():\n    import cilabModules.%s.csn%s\n    return cilabModules.%s.csn%s.%s" %(_libraryName[0].lower()+_libraryName[1:], _libraryName, _libraryName, _libraryName, _libraryName, _libraryName[0].lower()+_libraryName[1:]), 1)    
+    EditFile(tkFilename, "def %s():\n    import cilabModules.%s.csn%s\n    return cilabModules.%s.csn%s.%s" %(_libraryName[0].lower()+_libraryName[1:], _libraryName, _libraryName, _libraryName, _libraryName, _libraryName[0].lower()+_libraryName[1:]), 1)    
 
 def CreatePlugin(_projectRoot, _pluginName, _rootForTemplateFiles):
     """ Create a new Plugin from template. """
     # check inputs
     assert len(_projectRoot) != 0
     assert len(_pluginName) != 0
+    tkFilename = "%s/../../csnCISTIBToolkit.py" % (_projectRoot)
+    assert os.path.exists(tkFilename)
+    gimiasFilename = "%s/../Gimias/csnGIMIAS.py" % (_projectRoot)
+    assert os.path.exists(gimiasFilename)
 
     # create dictionary
     dictionary = dict()
@@ -110,24 +114,22 @@ def CreatePlugin(_projectRoot, _pluginName, _rootForTemplateFiles):
     ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidgetUI.wxg" % _rootForTemplateFiles, "%s/%s/widgets/%sSandboxPanelWidget/%sSandboxPanelWidgetUI.wxg" % (_projectRoot, _pluginName, _pluginName, _pluginName), dictionary)
     
     # append to toolkit files
-    filename = "%s/../../csnCISTIBToolkit.py" % (_projectRoot)
-    assert os.path.exists(filename)
-    EditFile(filename, "def %s():\n    import Apps.Plugins.%s.csn%s\n    return Apps.Plugins.%s.csn%s.%s"  %(_pluginName[0].lower()+_pluginName[1:] , _pluginName, _pluginName, _pluginName, _pluginName, _pluginName[0].lower()+_pluginName[1:] ), 1)
-    filename = "%s/../Gimias/csnGIMIAS.py" % (_projectRoot)
-    assert os.path.exists(filename)
-    EditFile(filename, "%s" % (_pluginName[0].lower()+_pluginName[1:] ), 2)
+    EditFile(tkFilename, "def %s():\n    import Apps.Plugins.%s.csn%s\n    return Apps.Plugins.%s.csn%s.%s"  %(_pluginName[0].lower()+_pluginName[1:] , _pluginName, _pluginName, _pluginName, _pluginName, _pluginName[0].lower()+_pluginName[1:] ), 1)
+    EditFile(gimiasFilename, "%s" % (_pluginName[0].lower()+_pluginName[1:] ), 2)
 
 def CreatePluginWidget(_projectRoot, _pluginWidgetName, _rootForTemplateFiles):
     """ Create a new Widget from template. """
     # check inputs
     assert len(_projectRoot) != 0
     assert len(_pluginWidgetName) != 0
+    _pluginName = os.path.basename(_projectRoot)
+    csnFilename = "%s/csn%s.py" % (_projectRoot, _pluginName)
+    assert os.path.exists(csnFilename)
 
     # create dictionary
     dictionary = dict()
     dictionary["Sandbox"] = _pluginWidgetName;
     dictionary["sandbox"] = _pluginWidgetName[ 0 ].lower( ) + _pluginWidgetName[ 1: ];
-    _pluginName = os.path.basename(_projectRoot)
 
     # copy template files
     ConfigureFile("%s/TemplatePlugin/processors/TemplatePluginSandboxProcessor.cxx" % _rootForTemplateFiles, "%s/processors/%s%sProcessor.cxx" % (_projectRoot, _pluginName, _pluginWidgetName), dictionary)
@@ -139,7 +141,5 @@ def CreatePluginWidget(_projectRoot, _pluginWidgetName, _rootForTemplateFiles):
     ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidgetUI.wxg" % _rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.wxg" % (_projectRoot, _pluginName, _pluginWidgetName, _pluginName, _pluginWidgetName), dictionary)
     
     # append to toolkit files
-    filename = "%s/csn%s.py" % (_projectRoot, _pluginName)
-    assert os.path.exists(filename)
-    EditFile(filename, "%s%sPanelWidget" % (_pluginName, _pluginWidgetName ), 3)
+    EditFile(csnFilename, "%s%sPanelWidget" % (_pluginName, _pluginWidgetName ), 3)
 
