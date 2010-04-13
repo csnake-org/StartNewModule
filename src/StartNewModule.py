@@ -6,6 +6,7 @@ import wx
 import os
 import sys
 import CreateNewModule
+import logging.config
 
 rootForTemplateFiles = ""
 
@@ -83,11 +84,23 @@ class MainFrame(wx.Frame):
 
     def OnCreateNewProject(self, event): # wxGlade: MainFrame.<event_handler>
         if( self.cmbNewProjectType.GetValue() == "Library" ):
-            CreateNewModule.CreateLibrary(self.txtProjectRoot.GetValue(), self.txtNewProjectName.GetValue(), rootForTemplateFiles)
+            try:
+                CreateNewModule.CreateLibrary(self.txtProjectRoot.GetValue(), self.txtNewProjectName.GetValue(), rootForTemplateFiles)
+            except AssertionError:
+                wx.MessageBox("Error creating library. See log file for details.", 'Error', wx.ICON_ERROR)
+                logger.exception("Error creating library.")
         if( self.cmbNewProjectType.GetValue() == "GIMIAS Plugin" ):
-            CreateNewModule.CreatePlugin(self.txtProjectRoot.GetValue(), self.txtNewProjectName.GetValue(), rootForTemplateFiles)
+            try:
+                CreateNewModule.CreatePlugin(self.txtProjectRoot.GetValue(), self.txtNewProjectName.GetValue(), rootForTemplateFiles)
+            except AssertionError:
+                wx.MessageBox("Error creating plugin. See log file for details.", 'Error', wx.ICON_ERROR)
+                logger.exception("Error creating plugin.")
         if( self.cmbNewProjectType.GetValue() == "GIMIAS Plugin Widget" ):
-            CreateNewModule.CreatePluginWidget(self.txtProjectRoot.GetValue(), self.txtNewProjectName.GetValue(), rootForTemplateFiles)
+            try:
+                CreateNewModule.CreatePluginWidget(self.txtProjectRoot.GetValue(), self.txtNewProjectName.GetValue(), rootForTemplateFiles)
+            except AssertionError:
+                wx.MessageBox("Error creating widget. See log file for details.", 'Error', wx.ICON_ERROR)
+                logger.exception("Error creating widget.")
         event.Skip()
 
 # end of class MainFrame
@@ -105,9 +118,16 @@ if __name__ == "__main__":
     assert os.path.exists("%s/TemplatePlugin" % rootForTemplateFiles), "Template plugin folder not found in: %s" % rootForTemplateFiles
     assert os.path.exists("%s/TemplateLibrary" % rootForTemplateFiles), "Template library folder not found in: %s" % rootForTemplateFiles
     
+    # logging init
+    logging.config.fileConfig(rootForTemplateFiles + "/logging.conf")
+    logger = logging.getLogger("StartNewModule")
+    logger.info("Starting program.")
+
     app = wx.PySimpleApp(0)
     wx.InitAllImageHandlers()
     mainFrame = MainFrame(None, -1, "")
     app.SetTopWindow(mainFrame)
     mainFrame.Show()
     app.MainLoop()
+
+    logger.info("Ending program.")
