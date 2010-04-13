@@ -78,5 +78,7 @@ class About():
         info = wx.AboutDialogInfo()
         info.SetName(self.getName())
         info.SetVersion(self.getVersion())
+        info.SetDescription(self.getDescription())
+        info.SetCopyright(self.getAuthor())
         return info
         
