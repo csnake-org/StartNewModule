@@ -4,6 +4,7 @@ from distutils.core import setup
 import os
 # Added options for setup
 import py2exe #@UnusedImport
+from about import About
 
 class exeSetup():
     ''' Helper class to generate windows executable.'''
@@ -12,6 +13,13 @@ class exeSetup():
         pathToSrc = "../src/"
         # Resource files to add to bin folder.
         self.resources = []
+        f1 = os.path.join(pathToResources, "about.txt")
+        f2 = "resources", [f1]
+        self.resources.append(f2)
+        f1 = os.path.join(pathToResources, "logging.conf")
+        f2 = "resources", [f1]
+        self.resources.append(f2)
+        # Template code
         folderToParse = ["TemplateLibrary", "TemplatePlugin"]
         for folder in folderToParse:
             for root, dirs, files in os.walk(pathToResources + folder):
@@ -21,12 +29,15 @@ class exeSetup():
                     f1 = os.path.join(root, name)
                     f2 = "resources/" + root, [f1]
                     self.resources.append(f2)
-        # options
-        self.name = "StartNewModule"
-        self.version = "0.1"
-        self.description = "New module/plugin configuration helper."
-        self.author = "SSD Team"
+        # script file
         self.script = pathToSrc + "StartNewModule.py"
+        # options
+        about = About()
+        about.read( pathToResources + "about.txt")
+        self.name = about.getName()
+        self.version = about.getVersion()
+        self.description = about.getDescription()
+        self.author = about.getAuthor()
     
     def run(self):
         ''' Run the setup. '''

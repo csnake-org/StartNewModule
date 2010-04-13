@@ -5,6 +5,7 @@ import sys
 import getopt
 
 from CreateNewModuleTests import CreateNewModuleTests
+from aboutTests import AboutTests
 
 class AllTests:
     def __init__(self, _outputFileName):
@@ -14,8 +15,9 @@ class AllTests:
         '''
         # create suites from unit tests
         snmSuite = unittest.TestLoader().loadTestsFromTestCase(CreateNewModuleTests)
+        aboutSuite = unittest.TestLoader().loadTestsFromTestCase(AboutTests)
         # main suite
-        self.suite = unittest.TestSuite([snmSuite])
+        self.suite = unittest.TestSuite([snmSuite, aboutSuite])
         # output file name
         self.outputFileName = _outputFileName
         

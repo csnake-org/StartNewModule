@@ -1,0 +1,5 @@
+[About]
+name = StartNewModule
+version = 0.1
+description = New module/plugin configuration helper.
+author = SSD Team
