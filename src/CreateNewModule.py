@@ -38,11 +38,18 @@ def EditFile(_source, _line, _type):
         
 
 def CreateLibrary(_projectRoot, _libraryName, _rootForTemplateFiles):
+    """ Create a new Library from template. """
+    # check inputs
+    assert len(_projectRoot) != 0
+    assert len(_libraryName) != 0
+    
+    # create dictionary
     dictionary = dict()
     dictionary["TemplateLibrary"] = _libraryName;
     dictionary["TEMPLATELIBRARY"] = _libraryName.upper();
     dictionary["templateLibrary"] = _libraryName[ 0 ].lower( ) + _libraryName[ 1: ];
 
+    # copy template files
     ConfigureFile("%s/TemplateLibrary/__init__.py" % _rootForTemplateFiles, "%s/%s/__init__.py" % (_projectRoot, _libraryName), dictionary)
     ConfigureFile("%s/TemplateLibrary/csnTemplateLibrary.py" % _rootForTemplateFiles, "%s/%s/csn%s.py" % (_projectRoot, _libraryName, _libraryName), dictionary)        
     ConfigureFile("%s/TemplateLibrary/csnTemplateLibraryApps.py" % _rootForTemplateFiles, "%s/%s/csn%sApps.py" % (_projectRoot, _libraryName, _libraryName), dictionary)        
@@ -60,13 +67,24 @@ def CreateLibrary(_projectRoot, _libraryName, _rootForTemplateFiles):
 
     ConfigureFile("%s/TemplateLibrary/tests/tlFirstTest/tlFirstTest.h" % _rootForTemplateFiles, "%s/%s/tests/tlFirstTest/tlFirstTest.h" % (_projectRoot, _libraryName), dictionary)        
     ConfigureFile("%s/TemplateLibrary/tests/tlFirstTest/tlFirstTest.cpp" % _rootForTemplateFiles, "%s/%s/tests/tlFirstTest/tlFirstTest.cpp" % (_projectRoot, _libraryName), dictionary)
-    EditFile("%s/../csnCISTIBToolkit.py" % (_projectRoot), "def %s():\n    import cilabModules.%s.csn%s\n    return cilabModules.%s.csn%s.%s" %(_libraryName[0].lower()+_libraryName[1:], _libraryName, _libraryName, _libraryName, _libraryName, _libraryName[0].lower()+_libraryName[1:]), 1)    
+    
+    # append to toolkit file
+    filename = "%s/../csnCISTIBToolkit.py" % (_projectRoot)
+    assert os.path.exists(filename)
+    EditFile(filename, "def %s():\n    import cilabModules.%s.csn%s\n    return cilabModules.%s.csn%s.%s" %(_libraryName[0].lower()+_libraryName[1:], _libraryName, _libraryName, _libraryName, _libraryName, _libraryName[0].lower()+_libraryName[1:]), 1)    
 
 def CreatePlugin(_projectRoot, _pluginName, _rootForTemplateFiles):
+    """ Create a new Plugin from template. """
+    # check inputs
+    assert len(_projectRoot) != 0
+    assert len(_pluginName) != 0
+
+    # create dictionary
     dictionary = dict()
     dictionary["TemplatePlugin"] = _pluginName;
     dictionary["templatePlugin"] = _pluginName[ 0 ].lower( ) + _pluginName[ 1: ];
 
+    # copy template files
     ConfigureFile("%s/TemplatePlugin/build/config.xml" % _rootForTemplateFiles, "%s/%s/build/config.xml" % (_projectRoot, _pluginName), dictionary)        
 
     ConfigureFile("%s/TemplatePlugin/doc/Doxyfile.doxy" % _rootForTemplateFiles, "%s/%s/doc/Doxyfile.doxy" % (_projectRoot, _pluginName), dictionary)        
@@ -90,15 +108,28 @@ def CreatePlugin(_projectRoot, _pluginName, _rootForTemplateFiles):
     ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidgetUI.cpp" % _rootForTemplateFiles, "%s/%s/widgets/%sSandboxPanelWidget/%sSandboxPanelWidgetUI.cpp" % (_projectRoot, _pluginName, _pluginName, _pluginName), dictionary)    
     ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidgetUI.h" % _rootForTemplateFiles, "%s/%s/widgets/%sSandboxPanelWidget/%sSandboxPanelWidgetUI.h" % (_projectRoot, _pluginName, _pluginName, _pluginName), dictionary)    
     ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidgetUI.wxg" % _rootForTemplateFiles, "%s/%s/widgets/%sSandboxPanelWidget/%sSandboxPanelWidgetUI.wxg" % (_projectRoot, _pluginName, _pluginName, _pluginName), dictionary)
-    EditFile("%s/../../csnCISTIBToolkit.py" % (_projectRoot), "def %s():\n    import Apps.Plugins.%s.csn%s\n    return Apps.Plugins.%s.csn%s.%s"  %(_pluginName[0].lower()+_pluginName[1:] , _pluginName, _pluginName, _pluginName, _pluginName, _pluginName[0].lower()+_pluginName[1:] ), 1)
-    EditFile("%s/../Gimias/csnGIMIAS.py" % (_projectRoot), "%s" % (_pluginName[0].lower()+_pluginName[1:] ), 2)
+    
+    # append to toolkit files
+    filename = "%s/../../csnCISTIBToolkit.py" % (_projectRoot)
+    assert os.path.exists(filename)
+    EditFile(filename, "def %s():\n    import Apps.Plugins.%s.csn%s\n    return Apps.Plugins.%s.csn%s.%s"  %(_pluginName[0].lower()+_pluginName[1:] , _pluginName, _pluginName, _pluginName, _pluginName, _pluginName[0].lower()+_pluginName[1:] ), 1)
+    filename = "%s/../Gimias/csnGIMIAS.py" % (_projectRoot)
+    assert os.path.exists(filename)
+    EditFile(filename, "%s" % (_pluginName[0].lower()+_pluginName[1:] ), 2)
 
 def CreatePluginWidget(_projectRoot, _pluginWidgetName, _rootForTemplateFiles):
+    """ Create a new Widget from template. """
+    # check inputs
+    assert len(_projectRoot) != 0
+    assert len(_pluginWidgetName) != 0
+
+    # create dictionary
     dictionary = dict()
     dictionary["Sandbox"] = _pluginWidgetName;
     dictionary["sandbox"] = _pluginWidgetName[ 0 ].lower( ) + _pluginWidgetName[ 1: ];
     _pluginName = os.path.basename(_projectRoot)
 
+    # copy template files
     ConfigureFile("%s/TemplatePlugin/processors/TemplatePluginSandboxProcessor.cxx" % _rootForTemplateFiles, "%s/processors/%s%sProcessor.cxx" % (_projectRoot, _pluginName, _pluginWidgetName), dictionary)
     ConfigureFile("%s/TemplatePlugin/processors/TemplatePluginSandboxProcessor.h" % _rootForTemplateFiles, "%s/processors/%s%sProcessor.h" % (_projectRoot, _pluginName, _pluginWidgetName), dictionary)
     ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidget.cpp" % _rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidget.cpp" % (_projectRoot, _pluginName, _pluginWidgetName, _pluginName, _pluginWidgetName), dictionary)    
@@ -106,5 +137,9 @@ def CreatePluginWidget(_projectRoot, _pluginWidgetName, _rootForTemplateFiles):
     ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidgetUI.cpp" % _rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.cpp" % (_projectRoot, _pluginName, _pluginWidgetName, _pluginName, _pluginWidgetName), dictionary)    
     ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidgetUI.h" % _rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.h" % (_projectRoot, _pluginName, _pluginWidgetName, _pluginName, _pluginWidgetName), dictionary)    
     ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidgetUI.wxg" % _rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.wxg" % (_projectRoot, _pluginName, _pluginWidgetName, _pluginName, _pluginWidgetName), dictionary)
-    EditFile("%s/csn%s.py" % (_projectRoot, _pluginName), "%s%sPanelWidget" % (_pluginName, _pluginWidgetName ), 3)
+    
+    # append to toolkit files
+    filename = "%s/csn%s.py" % (_projectRoot, _pluginName)
+    assert os.path.exists(filename)
+    EditFile(filename, "%s%sPanelWidget" % (_pluginName, _pluginWidgetName ), 3)
 
