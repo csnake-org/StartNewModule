@@ -21,7 +21,8 @@ class CreateNewModuleTests(unittest.TestCase):
         csnToolkitFileName = "csnCISTIBToolkit.py"
         # create hierarchy 
         os.mkdir(toolkitRoot)
-        csnToolkitFile = open(toolkitRoot + "/" + csnToolkitFileName, 'w')
+        csnToolkitFilePath = toolkitRoot + "/" + csnToolkitFileName
+        csnToolkitFile = open(csnToolkitFilePath, 'w')
         csnToolkitFile.close()
         os.mkdir(modulesRoot)
         
@@ -29,7 +30,7 @@ class CreateNewModuleTests(unittest.TestCase):
         projectName = "TestLibrary"
         rootForTemplateFiles = "./../resources"
         # call method
-        CreateNewModule.CreateLibrary(modulesRoot, projectName, rootForTemplateFiles)
+        CreateNewModule.CreateLibrary(modulesRoot, projectName, rootForTemplateFiles, csnToolkitFilePath)
         
         # check results
         projectFolder = modulesRoot + '/' + projectName
@@ -70,12 +71,14 @@ class CreateNewModuleTests(unittest.TestCase):
         csnGimiasFileName = "csnGIMIAS.py"
         # create hierarchy 
         os.mkdir(toolkitRoot)
-        csnToolkitFile = open(toolkitRoot + '/' + csnToolkitFileName, 'w')
+        csnToolkitFilePath = toolkitRoot + '/' + csnToolkitFileName
+        csnToolkitFile = open(csnToolkitFilePath, 'w')
         csnToolkitFile.close()
         os.mkdir(appsRoot)
         #open(appsRoot + "/csnplugins.py", 'w')
         os.mkdir(gimiasRoot)
-        csnGimiasFile = open(gimiasRoot + '/' + csnGimiasFileName, 'w')
+        csnGimiasFilePath = gimiasRoot + '/' + csnGimiasFileName
+        csnGimiasFile = open(csnGimiasFilePath, 'w')
         csnGimiasFile.write("gimias.AddProjects([DefaultPlugin])")
         csnGimiasFile.close()
         os.mkdir(pluginsRoot)
@@ -84,7 +87,7 @@ class CreateNewModuleTests(unittest.TestCase):
         projectName = "TestPlugin"
         rootForTemplateFiles = "./../resources"
         # call method
-        CreateNewModule.CreatePlugin(pluginsRoot, projectName, rootForTemplateFiles)
+        CreateNewModule.CreatePlugin(pluginsRoot, projectName, rootForTemplateFiles, csnToolkitFilePath, csnGimiasFilePath)
 
         # check results
         projectFolder = pluginsRoot + '/' + projectName
@@ -134,9 +137,10 @@ class CreateNewModuleTests(unittest.TestCase):
         os.mkdir(appsRoot)
         os.mkdir(pluginsRoot)
         os.mkdir(projectRoot)
-        csnGimiasFile = open(projectRoot + '/' + csnFileName, 'w')
-        csnGimiasFile.write("widgetModules = [DefaultWidget]")
-        csnGimiasFile.close()
+        csnPluginFilePath = projectRoot + '/' + csnFileName
+        csnPluginFile = open(csnPluginFilePath, 'w')
+        csnPluginFile.write("widgetModules = [DefaultWidget]")
+        csnPluginFile.close()
         
         # vars
         widgetName = "TestWidget"
