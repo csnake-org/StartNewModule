@@ -115,22 +115,31 @@ class MainFrame(wx.Frame):
         if( self.cmbNewProjectType.GetValue() == "Library" ):
             try:
                 CreateNewModule.CreateLibrary(self.txtProjectRoot.GetValue(), self.txtNewProjectName.GetValue(), pathToResources)
-            except AssertionError:
-                wx.MessageBox("Error creating library. See log file for details.", 'Error', wx.ICON_ERROR)
-                logger.exception("Error creating library.")
+            except ValueError, error:
+                self._handleError("Error creating library", error)
+            except IOError, error:
+                self._handleError("Error creating library", error)
         if( self.cmbNewProjectType.GetValue() == "GIMIAS Plugin" ):
             try:
                 CreateNewModule.CreatePlugin(self.txtProjectRoot.GetValue(), self.txtNewProjectName.GetValue(), pathToResources)
-            except AssertionError:
-                wx.MessageBox("Error creating plugin. See log file for details.", 'Error', wx.ICON_ERROR)
-                logger.exception("Error creating plugin.")
+            except ValueError, error:
+                self._handleError("Error creating plugin", error)
+            except IOError, error:
+                self._handleError("Error creating plugin", error)
         if( self.cmbNewProjectType.GetValue() == "GIMIAS Plugin Widget" ):
             try:
                 CreateNewModule.CreatePluginWidget(self.txtProjectRoot.GetValue(), self.txtNewProjectName.GetValue(), pathToResources)
-            except AssertionError:
-                wx.MessageBox("Error creating widget. See log file for details.", 'Error', wx.ICON_ERROR)
-                logger.exception("Error creating widget.")
+            except ValueError, error:
+                self._handleError("Error creating widget", error)
+            except IOError, error:
+                self._handleError("Error creating widget", error)
         event.Skip()
+        
+    def _handleError(self, message, error):
+        """ Handle errors. """
+        wx.MessageBox("%s: %s\nSee log file for details." % (message, str(error)), 'Error', wx.ICON_ERROR)
+        logger.exception("%s." % message)
+        
 
 # end of class MainFrame
 
