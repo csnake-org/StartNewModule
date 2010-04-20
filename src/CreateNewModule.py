@@ -143,7 +143,7 @@ def CreatePluginWidget(moduleRoot, pluginWidgetName, rootForTemplateFiles):
     pluginName = os.path.basename(moduleRoot)
     csnFilename = "%s/csn%s.py" % (moduleRoot, pluginName)
     if not os.path.exists(csnFilename):
-        raise IOError("The toolkit csnake file does not exist.")
+        raise IOError("The plugin csnake file does not exist.")
 
     # create dictionary
     dictionary = dict()
