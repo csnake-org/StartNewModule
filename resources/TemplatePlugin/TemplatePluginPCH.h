@@ -57,7 +57,7 @@
 #include "coreSmartPointerMacros.h"
 #include "coreUserHelperWidget.h"
 #include "coreVTKPolyDataHolder.h"
-#include "coreViewToolBar.h"
+#include "coreToolBar.h"
 #include "coreWxMitkCoreMainWindow.h"
 
 // GUIBridgeLib
