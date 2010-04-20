@@ -10,6 +10,7 @@ import sys
 import CreateNewModule
 import logging.config
 from about import About
+from helpDialog import HelpDialog
 
 pathToResources = ""
 
@@ -22,118 +23,230 @@ class MainFrame(wx.Frame):
         # Menu Bar
         self.mainFrame_menubar = wx.MenuBar()
         wxglade_tmp_menu = wx.Menu()
-        wxglade_tmp_menu.Append(wx.NewId(), "About", "", wx.ITEM_NORMAL)
+        self.content = wx.MenuItem(wxglade_tmp_menu, 0, "Content", "Basic help information.", wx.ITEM_NORMAL)
+        wxglade_tmp_menu.AppendItem(self.content)
+        self.about = wx.MenuItem(wxglade_tmp_menu, 1, "About", "About information.", wx.ITEM_NORMAL)
+        wxglade_tmp_menu.AppendItem(self.about)
         self.mainFrame_menubar.Append(wxglade_tmp_menu, "Help")
         self.SetMenuBar(self.mainFrame_menubar)
         # Menu Bar end
+        self.lblName = wx.StaticText(self, -1, "Name")
+        self.txtName = wx.TextCtrl(self, -1, "")
+        self.lblRootPath = wx.StaticText(self, -1, "Root path")
+        self.txtRootPath = wx.TextCtrl(self, -1, "")
+        self.btnSelectRootPath = wx.Button(self, -1, "...")
+        self.static_line_1 = wx.StaticLine(self, -1)
+        self.lblType = wx.StaticText(self, -1, "Type")
+        self.cmbType = wx.ComboBox(self, -1, choices=["Library", "GIMIAS Plugin", "GIMIAS Plugin Widget"], style=wx.CB_DROPDOWN)
+        self.lblToolkitFile = wx.StaticText(self, -1, "Toolkit csn file")
+        self.txtToolkitFile = wx.TextCtrl(self, -1, "")
+        self.btnSelectToolkitFile = wx.Button(self, -1, "...")
+        self.lblGimiasFile = wx.StaticText(self, -1, "Gimias csn file")
+        self.txtGimiasFile = wx.TextCtrl(self, -1, "")
+        self.btnSelectGimiasFile = wx.Button(self, -1, "...")
+        self.static_line_2 = wx.StaticLine(self, -1)
+        self.btnCreate = wx.Button(self, -1, "Start New Module")
         self.mainFrame_statusbar = self.CreateStatusBar(1, 0)
-        self.lblProjectRoot = wx.StaticText(self, -1, "Module Root")
-        self.txtProjectRoot = wx.TextCtrl(self, -1, "")
-        self.btnSelectProjectRoot = wx.Button(self, -1, "...")
-        self.textProjectRootHelp = wx.TextCtrl(self, -1, "\"Module Root\" should be the path to your module (ie. ToolkitSrc/src/cilabModules for a library or ToolkitSrc/src/Apps/Plugins for a plugin).", style=wx.TE_MULTILINE|wx.TE_READONLY)
-        self.lblNewProjectName = wx.StaticText(self, -1, "Name")
-        self.txtNewProjectName = wx.TextCtrl(self, -1, "")
-        self.lblNewProjectType = wx.StaticText(self, -1, "Type")
-        self.cmbNewProjectType = wx.ComboBox(self, -1, choices=["Library", "GIMIAS Plugin", "GIMIAS Plugin Widget"], style=wx.CB_DROPDOWN)
-        self.textCreateProjectHelp = wx.TextCtrl(self, -1, "Users at CISTIB should consult the Scientific Development Team before creating a new module.", style=wx.TE_MULTILINE|wx.TE_READONLY)
-        self.btnCreateProject = wx.Button(self, -1, "Start new Module")
 
         self.__set_properties()
         self.__do_layout()
 
-        self.Bind(wx.EVT_MENU, self.OnAbout, id=-1)
-        self.Bind(wx.EVT_TEXT, self.OnTypingProjectRoot, self.txtProjectRoot)
-        self.Bind(wx.EVT_BUTTON, self.OnSelectProjectRoot, self.btnSelectProjectRoot)
-        self.Bind(wx.EVT_BUTTON, self.OnCreateNewProject, self.btnCreateProject)
+        self.Bind(wx.EVT_MENU, self.OnMenuContent, self.content)
+        self.Bind(wx.EVT_MENU, self.OnMenuAbout, self.about)
+        self.Bind(wx.EVT_BUTTON, self.OnSelectRootPath, self.btnSelectRootPath)
+        self.Bind(wx.EVT_TEXT, self.OnModuleTypeChoice, self.cmbType)
+        self.Bind(wx.EVT_BUTTON, self.OnSelectToolkitFile, self.btnSelectToolkitFile)
+        self.Bind(wx.EVT_BUTTON, self.OnSelectGimiasFile, self.btnSelectGimiasFile)
+        self.Bind(wx.EVT_BUTTON, self.OnCreateNewProject, self.btnCreate)
         # end wxGlade
 
     def __set_properties(self):
         # begin wxGlade: MainFrame.__set_properties
         self.SetTitle("StartNewModule")
-        self.SetSize((-1, 300))
+        self.SetSize((-1, 483))
         self.SetBackgroundColour(wx.SystemSettings_GetColour(wx.SYS_COLOUR_3DLIGHT))
+        self.lblName.SetToolTipString("The name of the module.")
+        self.lblRootPath.SetToolTipString("The path to the module (ie. ToolkitSrc/src/cilabModules for a library or ToolkitSrc/src/Apps/Plugins for a plugin).")
+        self.txtRootPath.SetToolTipString("Optional field for the root of the source tree that contains the Project Folder. CSnake will search this source tree for other projects.")
+        self.btnSelectRootPath.SetToolTipString("Browse disk...")
+        self.lblType.SetToolTipString("The type of the module.")
+        self.cmbType.SetSelection(0)
+        self.lblToolkitFile.SetToolTipString("The location of the Toolkit csn file (csnCISTIBToolkit.py).")
+        self.btnSelectToolkitFile.SetToolTipString("Browse disk...")
+        self.lblGimiasFile.SetToolTipString("The location of theGimias csn file (csnGIMIAS.py).")
+        self.txtGimiasFile.Enable(False)
+        self.btnSelectGimiasFile.SetToolTipString("Browse disk...")
+        self.btnSelectGimiasFile.Enable(False)
+        self.btnCreate.SetToolTipString("Start a new project in the Project Folder based on a template.")
         self.mainFrame_statusbar.SetStatusWidths([-1])
         # statusbar fields
-        mainFrame_statusbar_fields = ["mainFrame_statusbar"]
+        mainFrame_statusbar_fields = [""]
         for i in range(len(mainFrame_statusbar_fields)):
             self.mainFrame_statusbar.SetStatusText(mainFrame_statusbar_fields[i], i)
-        self.txtProjectRoot.SetToolTipString("Optional field for the root of the source tree that contains the Project Folder. CSnake will search this source tree for other projects.")
-        self.btnSelectProjectRoot.SetToolTipString("Browse disk...")
-        self.cmbNewProjectType.SetSelection(0)
-        self.btnCreateProject.SetToolTipString("Start a new project in the Project Folder based on a template.")
         # end wxGlade
 
     def __do_layout(self):
         # begin wxGlade: MainFrame.__do_layout
         sizer_main = wx.BoxSizer(wx.VERTICAL)
-        boxCreateProjectBtn = wx.BoxSizer(wx.HORIZONTAL)
-        boxCreateProjectHelp = wx.BoxSizer(wx.HORIZONTAL)
-        boxCreateProject = wx.BoxSizer(wx.HORIZONTAL)
-        sizeNewProjectType = wx.BoxSizer(wx.HORIZONTAL)
-        sizeNewProjectName = wx.BoxSizer(wx.HORIZONTAL)
-        boxProjectRootHelp = wx.BoxSizer(wx.HORIZONTAL)
-        boxProjectRoot = wx.BoxSizer(wx.HORIZONTAL)
-        sizeProjectRoot = wx.BoxSizer(wx.HORIZONTAL)
-        sizeProjectRoot.Add(self.lblProjectRoot, 0, wx.ALL|wx.EXPAND, 5)
-        sizeProjectRoot.Add(self.txtProjectRoot, 2, wx.ALL, 5)
-        sizeProjectRoot.Add(self.btnSelectProjectRoot, 0, wx.ALL, 5)
-        boxProjectRoot.Add(sizeProjectRoot, 2, wx.ALL, 5)
-        sizer_main.Add(boxProjectRoot, 0, wx.EXPAND, 0)
-        boxProjectRootHelp.Add(self.textProjectRootHelp, 2, 0, 0)
-        sizer_main.Add(boxProjectRootHelp, 0, wx.EXPAND, 0)
-        sizeNewProjectName.Add(self.lblNewProjectName, 0, wx.ALL|wx.EXPAND, 5)
-        sizeNewProjectName.Add(self.txtNewProjectName, 2, wx.ALL, 5)
-        boxCreateProject.Add(sizeNewProjectName, 2, wx.ALL|wx.EXPAND, 5)
-        sizeNewProjectType.Add(self.lblNewProjectType, 0, wx.ALL|wx.EXPAND, 5)
-        sizeNewProjectType.Add(self.cmbNewProjectType, 0, wx.ALL, 5)
-        boxCreateProject.Add(sizeNewProjectType, 0, wx.ALL|wx.EXPAND|wx.ALIGN_RIGHT, 5)
-        sizer_main.Add(boxCreateProject, 0, wx.EXPAND, 0)
-        boxCreateProjectHelp.Add(self.textCreateProjectHelp, 2, 0, 0)
-        sizer_main.Add(boxCreateProjectHelp, 0, wx.EXPAND, 0)
-        boxCreateProjectBtn.Add((0, 0), 1, wx.ALL, 20)
-        boxCreateProjectBtn.Add(self.btnCreateProject, 0, wx.ALL, 20)
-        sizer_main.Add(boxCreateProjectBtn, 0, wx.ALL|wx.EXPAND, 0)
+        box_4 = wx.BoxSizer(wx.HORIZONTAL)
+        sizerCreateBtn = wx.BoxSizer(wx.HORIZONTAL)
+        box_3 = wx.BoxSizer(wx.HORIZONTAL)
+        gridFiles = wx.GridSizer(2, 1, 0, 0)
+        sizerGimiasFile = wx.BoxSizer(wx.HORIZONTAL)
+        sizerToolkitFile = wx.BoxSizer(wx.HORIZONTAL)
+        box_2 = wx.BoxSizer(wx.HORIZONTAL)
+        sizerType = wx.BoxSizer(wx.HORIZONTAL)
+        box_1 = wx.BoxSizer(wx.HORIZONTAL)
+        sizerRootPath = wx.BoxSizer(wx.HORIZONTAL)
+        box_0 = wx.BoxSizer(wx.HORIZONTAL)
+        sizerName = wx.BoxSizer(wx.HORIZONTAL)
+        sizerName.Add(self.lblName, 1, wx.ALL|wx.EXPAND, 5)
+        sizerName.Add(self.txtName, 3, wx.ALL, 5)
+        box_0.Add(sizerName, 4, wx.ALL|wx.EXPAND, 5)
+        sizer_main.Add(box_0, 0, wx.EXPAND, 0)
+        sizerRootPath.Add(self.lblRootPath, 1, wx.ALL|wx.EXPAND, 5)
+        sizerRootPath.Add(self.txtRootPath, 2, wx.ALL, 5)
+        sizerRootPath.Add(self.btnSelectRootPath, 1, wx.ALL, 5)
+        box_1.Add(sizerRootPath, 4, wx.ALL|wx.EXPAND, 5)
+        sizer_main.Add(box_1, 0, wx.EXPAND, 0)
+        sizer_main.Add(self.static_line_1, 0, wx.EXPAND, 0)
+        sizerType.Add(self.lblType, 1, wx.ALL|wx.EXPAND, 5)
+        sizerType.Add(self.cmbType, 3, wx.ALL, 5)
+        box_2.Add(sizerType, 4, wx.ALL|wx.EXPAND, 5)
+        sizer_main.Add(box_2, 0, wx.EXPAND, 0)
+        sizerToolkitFile.Add(self.lblToolkitFile, 1, wx.ALL|wx.EXPAND, 5)
+        sizerToolkitFile.Add(self.txtToolkitFile, 2, wx.ALL, 5)
+        sizerToolkitFile.Add(self.btnSelectToolkitFile, 1, wx.ALL, 5)
+        gridFiles.Add(sizerToolkitFile, 4, wx.ALL|wx.EXPAND, 5)
+        sizerGimiasFile.Add(self.lblGimiasFile, 1, wx.ALL|wx.EXPAND, 5)
+        sizerGimiasFile.Add(self.txtGimiasFile, 2, wx.ALL, 5)
+        sizerGimiasFile.Add(self.btnSelectGimiasFile, 1, wx.ALL, 5)
+        gridFiles.Add(sizerGimiasFile, 4, wx.ALL|wx.EXPAND, 5)
+        box_3.Add(gridFiles, 1, wx.EXPAND, 0)
+        sizer_main.Add(box_3, 0, wx.EXPAND, 0)
+        sizer_main.Add(self.static_line_2, 0, wx.EXPAND, 0)
+        sizerCreateBtn.Add((0, 0), 2, wx.ALL|wx.EXPAND, 5)
+        sizerCreateBtn.Add(self.btnCreate, 2, wx.ALL|wx.ALIGN_RIGHT, 5)
+        box_4.Add(sizerCreateBtn, 4, wx.ALL|wx.EXPAND, 5)
+        sizer_main.Add(box_4, 0, wx.EXPAND, 0)
         self.SetSizer(sizer_main)
         self.Layout()
         # end wxGlade
 
-    def OnAbout(self, event): # wxGlade: MainFrame.<event_handler>
+    def OnMenuAbout(self, event): # wxGlade: MainFrame.<event_handler>
         about = About()
         about.read(pathToResources + "/about.txt")
         info = about.getWxAboutDialogInfo()
         wx.AboutBox(info)
 
-    def OnTypingProjectRoot(self, event): # wxGlade: MainFrame.<event_handler>
-        event.Skip()
+    def OnMenuContent(self, event): # wxGlade: MainFrame.<event_handler>
+        dlg = HelpDialog(None, -1, "Help")
+        dlg.ShowModal()
+        dlg.Destroy()
 
-    def OnSelectProjectRoot(self, event): # wxGlade: MainFrame.<event_handler>
+    def OnSelectRootPath(self, event): # wxGlade: MainFrame.<event_handler>
         dlg = wx.DirDialog(None, "Select Project Root Folder")
+        if not self.txtRootPath.GetValue() is None:
+            dlg.SetPath(self.txtRootPath.GetValue()) 
         if dlg.ShowModal() == wx.ID_OK:
-            self.txtProjectRoot.SetValue(dlg.GetPath())
+            self.txtRootPath.SetValue(dlg.GetPath())
+        dlg.Destroy()
+
+    def OnSelectToolkitFile(self, event): # wxGlade: MainFrame.<event_handler>
+        dlg = wx.FileDialog(None, "Select the Toolkit csn file.")
+        if dlg.ShowModal() == wx.ID_OK:
+            self.txtToolkitFile.SetValue(dlg.GetPath())
+        dlg.Destroy()
+
+    def OnSelectGimiasFile(self, event): # wxGlade: MainFrame.<event_handler>
+        dlg = wx.FileDialog(None, "Select the Gimias csn file.")
+        if dlg.ShowModal() == wx.ID_OK:
+            self.txtGimiasFile.SetValue(dlg.GetPath())
+        dlg.Destroy()
+
+    def OnModuleTypeChoice(self, event): # wxGlade: MainFrame.<event_handler>
+        if( self.cmbType.GetValue() == "Library" ):
+            self.txtToolkitFile.Enable()
+            self.btnSelectToolkitFile.Enable()
+            self.txtGimiasFile.Disable()
+            self.btnSelectGimiasFile.Disable()
+        elif( self.cmbType.GetValue() == "GIMIAS Plugin" ):
+            self.txtToolkitFile.Enable()
+            self.btnSelectToolkitFile.Enable()
+            self.txtGimiasFile.Enable()
+            self.btnSelectGimiasFile.Enable()
+        elif( self.cmbType.GetValue() == "GIMIAS Plugin Widget" ):
+            self.txtToolkitFile.Disable()
+            self.btnSelectToolkitFile.Disable()
+            self.txtGimiasFile.Disable()
+            self.btnSelectGimiasFile.Disable()
+        else:
+            self._handleError("Unsupported module type", ValueError())
 
     def OnCreateNewProject(self, event): # wxGlade: MainFrame.<event_handler>
-        if( self.cmbNewProjectType.GetValue() == "Library" ):
+        """ Create the new module. """
+        # error flag
+        withError = False
+        # set up frame for creation begin 
+        self.mainFrame_statusbar.SetStatusText("Creating module...")
+        self.btnCreate.Disable()
+        dialog = wx.ProgressDialog( "Progress", "Creating module...", maximum = 100, style = wx.PD_AUTO_HIDE )
+        dialog.Update(0)
+        # create library
+        if( self.cmbType.GetValue() == "Library" ):
             try:
-                CreateNewModule.CreateLibrary(self.txtProjectRoot.GetValue(), self.txtNewProjectName.GetValue(), pathToResources)
+                CreateNewModule.CreateLibrary(
+                    self.txtRootPath.GetValue(), 
+                    self.txtName.GetValue(), 
+                    pathToResources,
+                    self.txtToolkitFile.GetValue())
             except ValueError, error:
                 self._handleError("Error creating library", error)
+                withError = True
             except IOError, error:
                 self._handleError("Error creating library", error)
-        if( self.cmbNewProjectType.GetValue() == "GIMIAS Plugin" ):
+                withError = True
+        # create plugin
+        elif( self.cmbType.GetValue() == "GIMIAS Plugin" ):
             try:
-                CreateNewModule.CreatePlugin(self.txtProjectRoot.GetValue(), self.txtNewProjectName.GetValue(), pathToResources)
+                CreateNewModule.CreatePlugin(
+                     self.txtRootPath.GetValue(), 
+                     self.txtName.GetValue(), 
+                     pathToResources,
+                     self.txtToolkitFile.GetValue(),
+                     self.txtGimiasFile.GetValue())
             except ValueError, error:
                 self._handleError("Error creating plugin", error)
+                withError = True
             except IOError, error:
                 self._handleError("Error creating plugin", error)
-        if( self.cmbNewProjectType.GetValue() == "GIMIAS Plugin Widget" ):
+                withError = True
+        # create widget
+        elif( self.cmbType.GetValue() == "GIMIAS Plugin Widget" ):
             try:
-                CreateNewModule.CreatePluginWidget(self.txtProjectRoot.GetValue(), self.txtNewProjectName.GetValue(), pathToResources)
+                CreateNewModule.CreatePluginWidget(
+                       self.txtRootPath.GetValue(), 
+                       self.txtName.GetValue(), 
+                       pathToResources)
             except ValueError, error:
+                withError = True
                 self._handleError("Error creating widget", error)
             except IOError, error:
                 self._handleError("Error creating widget", error)
-        event.Skip()
+                withError = True
+        # default
+        else:
+            self._handleError("Unsupported module type", ValueError())
+            withError = True
+        # set up frame for creation end 
+        if not withError:
+            dialog.Update(100)
+            self.mainFrame_statusbar.SetStatusText("Module created.")
+        else:
+            self.mainFrame_statusbar.SetStatusText("Error creating module.")
+        # clean up   
+        dialog.Destroy()
+        self.btnCreate.Enable()
         
     def _handleError(self, message, error):
         """ Handle errors. """
@@ -159,6 +272,7 @@ if __name__ == "__main__":
     # logging init
     logging.config.fileConfig(pathToResources + "/logging.conf")
     logger = logging.getLogger("StartNewModule")
+    
     logger.info("Starting program.")
 
     app = wx.PySimpleApp(0)
