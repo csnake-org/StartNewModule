@@ -30,6 +30,7 @@ class MainFrame(wx.Frame):
         self.mainFrame_menubar.Append(wxglade_tmp_menu, "Help")
         self.SetMenuBar(self.mainFrame_menubar)
         # Menu Bar end
+        self.mainFrame_statusbar = self.CreateStatusBar(1, 0)
         self.lblName = wx.StaticText(self, -1, "Name")
         self.txtName = wx.TextCtrl(self, -1, "")
         self.lblRootPath = wx.StaticText(self, -1, "Root path")
@@ -46,7 +47,6 @@ class MainFrame(wx.Frame):
         self.btnSelectGimiasFile = wx.Button(self, -1, "...")
         self.static_line_2 = wx.StaticLine(self, -1)
         self.btnCreate = wx.Button(self, -1, "Start New Module")
-        self.mainFrame_statusbar = self.CreateStatusBar(1, 0)
 
         self.__set_properties()
         self.__do_layout()
@@ -63,8 +63,14 @@ class MainFrame(wx.Frame):
     def __set_properties(self):
         # begin wxGlade: MainFrame.__set_properties
         self.SetTitle("StartNewModule")
+        self.__setIcon()
         self.SetSize((-1, 483))
         self.SetBackgroundColour(wx.SystemSettings_GetColour(wx.SYS_COLOUR_3DLIGHT))
+        self.mainFrame_statusbar.SetStatusWidths([-1])
+        # statusbar fields
+        mainFrame_statusbar_fields = [""]
+        for i in range(len(mainFrame_statusbar_fields)):
+            self.mainFrame_statusbar.SetStatusText(mainFrame_statusbar_fields[i], i)
         self.lblName.SetToolTipString("The name of the module.")
         self.lblRootPath.SetToolTipString("The path to the module (ie. ToolkitSrc/src/cilabModules for a library or ToolkitSrc/src/Apps/Plugins for a plugin).")
         self.txtRootPath.SetToolTipString("Optional field for the root of the source tree that contains the Project Folder. CSnake will search this source tree for other projects.")
@@ -78,11 +84,6 @@ class MainFrame(wx.Frame):
         self.btnSelectGimiasFile.SetToolTipString("Browse disk...")
         self.btnSelectGimiasFile.Enable(False)
         self.btnCreate.SetToolTipString("Start a new project in the Project Folder based on a template.")
-        self.mainFrame_statusbar.SetStatusWidths([-1])
-        # statusbar fields
-        mainFrame_statusbar_fields = [""]
-        for i in range(len(mainFrame_statusbar_fields)):
-            self.mainFrame_statusbar.SetStatusText(mainFrame_statusbar_fields[i], i)
         # end wxGlade
 
     def __do_layout(self):
@@ -133,6 +134,11 @@ class MainFrame(wx.Frame):
         self.Layout()
         # end wxGlade
 
+    def __setIcon(self):
+        _iconFile = pathToResources + "/startnewmodule.ico"
+        _icon = wx.Icon(_iconFile, wx.BITMAP_TYPE_ICO)
+        self.SetIcon(_icon)
+    
     def OnMenuAbout(self, event): # wxGlade: MainFrame.<event_handler>
         about = About()
         about.read(pathToResources + "/about.txt")
