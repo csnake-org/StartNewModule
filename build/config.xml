@@ -45,8 +45,11 @@ Cruise Control project configuration file.
             <property name="python_path" value="${project.source_path}/src:${main.csnake_src_folder}/tests"/>
             <property name="test_arg_line" value="AllTests.py -o '${project.test_log_folder}/testslog.xml'"/>
             <!-- target: python_build -->
-            <property name="build_path" value="${project.source_path}/src"/>
+            <property name="build_path" value="${project.source_path}/build"/>
             <property name="build_dest_folder" value="${project.artifacts_temp_folder}"/>
+            <property name="mpi_folder" value="${project.source_path}/build"/>
+            <property name="mpi_file" value="startnewmodule.mpi"/>
+            <property name="install_generator" value="${project.installer_generator}"/>
          </ant>
       </schedule>
 
