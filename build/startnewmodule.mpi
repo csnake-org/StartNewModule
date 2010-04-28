@@ -389,6 +389,7 @@ InstallComponent E0C6C929-E5B3-4FE8-850E-3319B2CD5AC6 -setup Install -type actio
 Condition 6EE795E9-77D7-45F2-AC00-74B46EF2C05B -active Yes -parent E0C6C929-E5B3-4FE8-850E-3319B2CD5AC6 -title {String Is Condition} -component StringIsCondition -TreeObject::id 6EE795E9-77D7-45F2-AC00-74B46EF2C05B
 InstallComponent 50BF7CF1-3BCF-4F72-869F-81E75C1B5CD0 -setup Install -type action -conditions 50B7EF37-6098-48FA-84F6-8261825E700C -title {Uninstall Shortcut} -component InstallProgramFolderShortcut -command insert -active Yes -parent FB866D75-EC5D-40E0-8D28-2306D6A4125F
 Condition 50B7EF37-6098-48FA-84F6-8261825E700C -active Yes -parent 50BF7CF1-3BCF-4F72-869F-81E75C1B5CD0 -title {String Is Condition} -component StringIsCondition -TreeObject::id 50B7EF37-6098-48FA-84F6-8261825E700C
+InstallComponent DD9AB63F-5D5C-4FC8-A96F-F4FF8F971D96 -setup Install -type action -title {Create Folder} -component CreateFolder -active Yes -parent FB866D75-EC5D-40E0-8D28-2306D6A4125F
 InstallComponent 0ADA6F55-977D-4DDF-81F6-E42D789E8EBE -setup Install -type actiongroup -title {Finish Actions} -alias {Finish Actions} -active Yes -parent ActionGroupsInstall
 InstallComponent D8371B47-5AD6-4191-AE93-87BB9C1F2528 -setup Install -type action -conditions {1D4A2972-E4B7-413B-AECD-9FB8C4F30547 962164A1-4D83-4443-A8F9-40CB6AAAC646} -title {Install Desktop Shortcut} -component InstallDesktopShortcut -command insert -active Yes -parent 0ADA6F55-977D-4DDF-81F6-E42D789E8EBE
 Condition 1D4A2972-E4B7-413B-AECD-9FB8C4F30547 -active Yes -parent D8371B47-5AD6-4191-AE93-87BB9C1F2528 -title {String Is Condition} -component StringIsCondition -TreeObject::id 1D4A2972-E4B7-413B-AECD-9FB8C4F30547
@@ -405,6 +406,7 @@ Condition 10429037-6252-4552-9B76-C2195C71FD81 -active Yes -parent F0CA0634-524B
 Condition 4D8CDA41-C541-4264-972E-29006B42CF90 -active Yes -parent F0CA0634-524B-4E0D-BD9B-3E6144D82524 -title {String Is Condition} -component StringIsCondition -TreeObject::id 4D8CDA41-C541-4264-972E-29006B42CF90
 Condition E386D616-EA63-4201-9EAD-1A07BDB0369E -active Yes -parent F0CA0634-524B-4E0D-BD9B-3E6144D82524 -title {File Exists Condition} -component FileExistsCondition -TreeObject::id E386D616-EA63-4201-9EAD-1A07BDB0369E
 InstallComponent C44F1141-1275-4FE4-8324-C0B15528B783 -setup Install -type actiongroup -title {Cancel Actions} -alias {Cancel Actions} -active Yes -parent ActionGroupsInstall
+InstallComponent C82B3B51-B211-490E-96FB-784898870C22 -setup Install -type action -title {Delete File} -component DeleteFile -command reorder -active Yes -parent C44F1141-1275-4FE4-8324-C0B15528B783
 InstallComponent 03377243-299C-4AE8-85E9-FBA87C42578F -setup Uninstall -type pane -title Uninstall -component Uninstall -active Yes -parent StandardUninstall
 InstallComponent FD46D9BB-1552-4D6E-9B3A-5872CE4D4F6C -setup Uninstall -type action -title {Modify Widget} -component ModifyWidget -active Yes -parent 03377243-299C-4AE8-85E9-FBA87C42578F
 InstallComponent 0DDA43AC-93E9-4AAF-BD61-272B343905AB -setup Uninstall -type action -title {Execute Action} -component ExecuteAction -active Yes -parent 03377243-299C-4AE8-85E9-FBA87C42578F
@@ -427,6 +429,8 @@ InstallComponent 29DC49B4-D207-4278-BE5F-525443451498 -setup Uninstall -type act
 Condition 1DA8DAA8-59E1-49AD-96C8-F62CCBD81E11 -active Yes -parent 29DC49B4-D207-4278-BE5F-525443451498 -title {String Is Condition} -component StringIsCondition -TreeObject::id 1DA8DAA8-59E1-49AD-96C8-F62CCBD81E11
 Condition E49274FC-D371-4E17-A18F-DAD863694230 -active Yes -parent 29DC49B4-D207-4278-BE5F-525443451498 -title {Ask Yes or No} -component AskYesOrNo -TreeObject::id E49274FC-D371-4E17-A18F-DAD863694230
 InstallComponent AA2D766C-F720-4677-9241-C812A38D878B -setup Uninstall -type actiongroup -title {Uninstall Actions} -alias {Uninstall Actions} -active Yes -parent ActionGroupsUninstall
+InstallComponent CBDA2828-17F9-4B47-A3AD-AA7554EF7C5E -setup Uninstall -type action -conditions 93C72D14-1627-4D3A-8961-D98BBE1BDE90 -title {Delete File} -component DeleteFile -command insert -active Yes -parent AA2D766C-F720-4677-9241-C812A38D878B
+Condition 93C72D14-1627-4D3A-8961-D98BBE1BDE90 -active Yes -parent CBDA2828-17F9-4B47-A3AD-AA7554EF7C5E -title {Ask Yes or No} -component AskYesOrNo -TreeObject::id 93C72D14-1627-4D3A-8961-D98BBE1BDE90
 InstallComponent 1C47E69C-7119-4176-A095-4BF1DCDFE522 -setup Uninstall -type action -title {Uninstall Selected Files} -component UninstallSelectedFiles -active Yes -parent AA2D766C-F720-4677-9241-C812A38D878B
 InstallComponent 8B656183-326F-4345-A6B7-4A848B14DF19 -setup Uninstall -type actiongroup -title {Finish Actions} -alias {Finish Actions} -active Yes -parent ActionGroupsUninstall
 InstallComponent 291A45CF-DA0D-44E1-B755-073416D5A21F -setup Uninstall -type actiongroup -title {Cancel Actions} -alias {Cancel Actions} -active Yes -parent ActionGroupsUninstall
@@ -507,6 +511,9 @@ false
 0ADA6F55-977D-4DDF-81F6-E42D789E8EBE,Alias
 {Finish Actions}
 
+0ADA6F55-977D-4DDF-81F6-E42D789E8EBE,Conditions
+{0 conditions}
+
 0DCCFA55-603F-4B5E-AEF9-372F7BA98E66,CheckCondition
 {Before Action is Executed}
 
@@ -585,6 +592,9 @@ ViewReadme
 1A85693B-7EC2-4479-81C5-3C3AD2757392,Y
 140
 
+1C47E69C-7119-4176-A095-4BF1DCDFE522,Conditions
+{0 conditions}
+
 1C84B4D8-B3BE-44D5-9371-334F5481D5B6,Comment
 {Ask the user if they want to proceed with the install.}
 
@@ -644,6 +654,9 @@ false
 
 29DC49B4-D207-4278-BE5F-525443451498,Comment
 {Ask the user if they want to proceed with the uninstall.}
+
+29DC49B4-D207-4278-BE5F-525443451498,Conditions
+{2 conditions}
 
 2A4DFA4B-1942-4200-BFDF-526A635EC0BB,CheckCondition
 {Before Action is Executed}
@@ -708,11 +721,14 @@ CreateDesktopShortcut
 40C21AD2-30F2-466E-AF0B-C9BF36FDFC2E,Alias
 {Setup Actions}
 
+40C21AD2-30F2-466E-AF0B-C9BF36FDFC2E,Conditions
+{0 conditions}
+
 48993C1A-DDEF-4B15-BAFF-40FC86FB0F1F,Destination
 <%InstallDir%>
 
 48993C1A-DDEF-4B15-BAFF-40FC86FB0F1F,FileSize
-17995339
+17816413
 
 48993C1A-DDEF-4B15-BAFF-40FC86FB0F1F,Name
 {Program Files}
@@ -821,6 +837,9 @@ Yes
 
 57DD8426-673E-4EB2-97D8-523F89350124,Action
 {Install Actions}
+
+57DD8426-673E-4EB2-97D8-523F89350124,Conditions
+{0 conditions}
 
 5D2649F1-C0BE-4DFF-809E-894A303851BD,CheckCondition
 {Before Action is Executed}
@@ -1077,6 +1096,9 @@ CreateQuickLaunchShortcut
 8B656183-326F-4345-A6B7-4A848B14DF19,Alias
 {Finish Actions}
 
+8B656183-326F-4345-A6B7-4A848B14DF19,Conditions
+{0 conditions}
+
 8ED528DA-7079-4A93-AA85-62A605696FB2,CheckCondition
 {Before Action is Executed}
 
@@ -1091,6 +1113,15 @@ CreateQuickLaunchShortcut
 
 93BB818C-3E99-4A15-90A2-BB7DF6D9E5E4,String
 <%GuiMode%>
+
+93C72D14-1627-4D3A-8961-D98BBE1BDE90,CheckCondition
+{Before Action is Executed}
+
+93C72D14-1627-4D3A-8961-D98BBE1BDE90,Message,subst
+1
+
+93C72D14-1627-4D3A-8961-D98BBE1BDE90,Title,subst
+1
 
 962164A1-4D83-4443-A8F9-40CB6AAAC646,CheckCondition
 {Before Action is Executed}
@@ -1139,6 +1170,9 @@ A643C3D4-9FFF-43A8-A1F0-A3B424A902A5,Permission
 
 AA2D766C-F720-4677-9241-C812A38D878B,Alias
 {Uninstall Actions}
+
+AA2D766C-F720-4677-9241-C812A38D878B,Conditions
+{0 conditions}
 
 AB20BA4A-A0E1-488A-99F4-1EF0E79412B8,Background
 white
@@ -1227,8 +1261,17 @@ Finish
 C44F1141-1275-4FE4-8324-C0B15528B783,Alias
 {Cancel Actions}
 
+C44F1141-1275-4FE4-8324-C0B15528B783,Conditions
+{0 conditions}
+
 C5F78285-866A-4917-A6C7-A87EE5F30EAC,Action
 {Install Actions}
+
+C82B3B51-B211-490E-96FB-784898870C22,Conditions
+{0 conditions}
+
+C82B3B51-B211-490E-96FB-784898870C22,Files
+<%APPDATA%>/<%AppName%>
 
 C84EC092-8231-4D0D-BDC2-77C055F766C1,Message,subst
 1
@@ -1250,6 +1293,12 @@ false
 
 C9810DEC-FBE6-45FA-ACC0-095BF5FFD9C4,String
 <%InstallStopped%>
+
+CBDA2828-17F9-4B47-A3AD-AA7554EF7C5E,Conditions
+{1 condition}
+
+CBDA2828-17F9-4B47-A3AD-AA7554EF7C5E,Files
+{<%APPDATA%>/<%AppName%>/*.*;<%APPDATA%>/<%AppName%>;}
 
 CD364824-53B8-4D54-A10D-59D2900D0032,Action
 {Install Actions}
@@ -1277,6 +1326,12 @@ DBD1A8BB-376F-46C4-A67C-FF14222EA0C3,CheckCondition
 
 DBD1A8BB-376F-46C4-A67C-FF14222EA0C3,String
 <%CreateQuickLaunchShortcut%>
+
+DD9AB63F-5D5C-4FC8-A96F-F4FF8F971D96,Conditions
+{0 conditions}
+
+DD9AB63F-5D5C-4FC8-A96F-F4FF8F971D96,FolderName
+<%APPDATA%>/<%AppName%>
 
 DF3DE089-AB96-47D0-9064-8C047F2FCF3E,BackButton,subst
 1
@@ -1404,6 +1459,9 @@ EFDFA41C-EC1E-402B-B785-59CED10EBF8A,Text,subst
 EFDFA41C-EC1E-402B-B785-59CED10EBF8A,Title,subst
 1
 
+F0CA0634-524B-4E0D-BD9B-3E6144D82524,Conditions
+{3 conditions}
+
 F0CA0634-524B-4E0D-BD9B-3E6144D82524,ProgramCommandLine
 <%ProgramExecutable%>
 
@@ -1421,6 +1479,9 @@ F2A34C07-9D9B-4BF4-AF28-E596343D32F1,CancelButton,subst
 
 F2A34C07-9D9B-4BF4-AF28-E596343D32F1,Caption,subst
 1
+
+F2A34C07-9D9B-4BF4-AF28-E596343D32F1,Conditions
+{1 condition}
 
 F2A34C07-9D9B-4BF4-AF28-E596343D32F1,Message,subst
 1
@@ -1457,6 +1518,9 @@ FA364821-10C3-43AE-B10D-08518785D149,Filename
 
 FB866D75-EC5D-40E0-8D28-2306D6A4125F,Alias
 {Install Actions}
+
+FB866D75-EC5D-40E0-8D28-2306D6A4125F,Conditions
+{0 conditions}
 
 FD46D9BB-1552-4D6E-9B3A-5872CE4D4F6C,ExecuteAction
 {Before Pane is Displayed}
@@ -2242,6 +2306,9 @@ FE8CC395-76E9-40FD-B168-32E94AFDCCCC,Message
 32B597D4-2D7E-4D4B-8F41-3F8C0458F6E0,Description
 <%ProgramFilesDescription%>
 
+387D1AC0-B9A3-4C19-B50C-DBF54A0BEEA0,Message
+{Delete Application Data folder?}
+
 3A4F10E5-4707-4F89-863E-7761A3977A14,Text
 <%CreateDesktopShortcutText%>
 
@@ -2272,6 +2339,9 @@ FE8CC395-76E9-40FD-B168-32E94AFDCCCC,Message
 8A9AE4DA-3847-45B9-96D4-5ACAED62A9A7,Title
 <%ApplicationReadmeText%>
 
+93C72D14-1627-4D3A-8961-D98BBE1BDE90,Message
+{Delete Application Data files?}
+
 AB20BA4A-A0E1-488A-99F4-1EF0E79412B8,Text
 <%ViewReadmeText%>
 
@@ -2280,6 +2350,9 @@ C84EC092-8231-4D0D-BDC2-77C055F766C1,Message
 
 E05609E6-A2C3-491E-BE23-97630BFCC731,Text
 <%CreateQuickLaunchShortcutText%>
+
+E3A02F02-A84B-4A50-A394-7A509C9D133F,Message
+{Delete Application}
 
 E49274FC-D371-4E17-A18F-DAD863694230,Message
 <%UninstallStartupText%>
