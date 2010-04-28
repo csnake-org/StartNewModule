@@ -2,12 +2,12 @@
 Start New Module readme
 ------------------------
 
-Version: 1.0.0
+Version: 0.1.1
 
 Change log
 ----------
 
-v1.0.0:
+v0.1.1:
 
  * Added logging
  * Interface redesign
