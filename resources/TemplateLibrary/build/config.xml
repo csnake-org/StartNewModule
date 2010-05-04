@@ -11,25 +11,25 @@ Cruise Control project configuration file.
 
 <cruisecontrol>
 
-   <!-- 
-   \name TemplateLibrary
-   \brief TemplateLibrary description.
-   -->
-   <project.default name="TemplateLibrary">
+    <!-- 
+    \name TemplateLibrary
+    \brief TemplateLibrary description.
+    -->
+    <project.default name="TemplateLibrary">
 
-      <!-- Properties -->
-      <property name="project.instance_name" value="${project.name}"/>
-      <property name="project.type_src_folder" value="Apps/Gimias"/>
-      <property name="project.type_bin_folder" value="library"/>
-      <property name="project.source_path" value="${main.toolkit_src_folder}/${project.type_src_folder}"/>
-      <property name="project.csn_file" value="${project.source_path}/csnTemplateLibrary.py"/>
+        <!-- Properties -->
+        <property name="project.instance_name" value="${project.name}"/>
+        <property name="project.type_src_folder" value="Apps/Gimias"/>
+        <property name="project.type_bin_folder" value="library"/>
+        <property name="project.source_path" value="${main.toolkit_src_folder}/${project.type_src_folder}"/>
+        <property name="project.csn_file" value="${project.source_path}/csnTemplateLibrary.py"/>
 
-      <!-- Modificationset: triggers for rebuild -->
-      <modificationset>
-         <svn/>
-         <buildstatus logdir="${main.log_folder}/ThirdParty"/>
-      </modificationset>
+        <!-- Modificationset: triggers for rebuild -->
+        <modificationset>
+            <svn/>
+            <buildstatus logdir="${main.log_folder}/ThirdParty"/>
+        </modificationset>
 
-   </project.default>
+    </project.default>
 
 </cruisecontrol>
