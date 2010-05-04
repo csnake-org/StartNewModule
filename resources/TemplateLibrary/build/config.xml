@@ -13,16 +13,14 @@ Cruise Control project configuration file.
 
     <!-- 
     \name TemplateLibrary
-    \brief TemplateLibrary description.
+    \brief Builds the TemplateLibrary library.
     -->
     <project.default name="TemplateLibrary">
 
         <!-- Properties -->
-        <property name="project.instance_name" value="${project.name}"/>
-        <property name="project.type_src_folder" value="Apps/Gimias"/>
+        <property name="project.instance_name" value="templateLibrary"/>
+        <property name="project.type_src_folder" value="cilabModules"/>
         <property name="project.type_bin_folder" value="library"/>
-        <property name="project.source_path" value="${main.toolkit_src_folder}/${project.type_src_folder}"/>
-        <property name="project.csn_file" value="${project.source_path}/csnTemplateLibrary.py"/>
 
         <!-- Modificationset: triggers for rebuild -->
         <modificationset>

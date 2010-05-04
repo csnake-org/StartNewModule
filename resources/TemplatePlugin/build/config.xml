@@ -11,17 +11,15 @@ Cruise Control project configuration file.
 <cruisecontrol>
 
     <!-- 
-    \name TemplateLibrary
-    \brief Builds the SandboxPlugin.
+    \name TemplatePlugin
+    \brief Builds the TemplatePlugin plugin.
     -->
-    <project.default name="SandboxPlugin">
+    <project.default name="TemplatePlugin">
 
         <!-- Properties -->
-        <property name="project.instance_name" value="${project.name}"/>
-        <property name="project.type_src_folder" value="Apps/Gimias"/>
+        <property name="project.instance_name" value="templatePlugin"/>
+        <property name="project.type_src_folder" value="Apps/Plugins"/>
         <property name="project.type_bin_folder" value="library"/>
-        <property name="project.source_path" value="${main.toolkit_src_folder}/${project.type_src_folder}"/>
-        <property name="project.csn_file" value="${project.source_path}/csnSandboxPlugin.py"/>
 
         <!-- Modificationset: triggers for rebuild -->
         <modificationset>
