@@ -160,12 +160,16 @@ class MainFrame(wx.Frame):
 
     def OnSelectToolkitFile(self, event): # wxGlade: MainFrame.<event_handler>
         dlg = wx.FileDialog(None, "Select the Toolkit csn file.")
+        if self.txtRootPath.GetValue() is not None:
+            dlg.SetPath(self.txtRootPath.GetValue()) 
         if dlg.ShowModal() == wx.ID_OK:
             self.txtToolkitFile.SetValue(dlg.GetPath())
         dlg.Destroy()
 
     def OnSelectGimiasFile(self, event): # wxGlade: MainFrame.<event_handler>
         dlg = wx.FileDialog(None, "Select the Gimias csn file.")
+        if self.txtRootPath.GetValue() is not None:
+            dlg.SetPath(self.txtRootPath.GetValue()) 
         if dlg.ShowModal() == wx.ID_OK:
             self.txtGimiasFile.SetValue(dlg.GetPath())
         dlg.Destroy()
@@ -274,6 +278,15 @@ if __name__ == "__main__":
             break
     assert os.path.exists("%s/TemplatePlugin" % pathToResources), "Template plugin folder not found in: %s" % pathToResources
     assert os.path.exists("%s/TemplateLibrary" % pathToResources), "Template library folder not found in: %s" % pathToResources
+    
+    # create log file (mainly for running from source)
+    logfilepath = os.environ["USERPROFILE"] + "/Application Data/StartNewModule"
+    if not os.path.exists(logfilepath):
+        os.mkdir(logfilepath)
+    logfilename = logfilepath + "/log.txt"
+    if not os.path.exists(logfilename):
+        logfile = open(logfilename,"w")
+        logfile.close()
     
     # logging init
     logging.config.fileConfig(pathToResources + "/logging.conf")
