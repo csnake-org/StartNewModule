@@ -6,21 +6,25 @@
 */
 #include "tlTemplate.h"
 
-tl::Template::Template()
+namespace tl
 {
-    m_width = 10;
-}
 
-tl::Template::~Template()
+Template::Template() : m_width( 10 )
 {
 }
 
-int tl::Template::GetWidth() const
+Template::~Template()
+{
+}
+
+int Template::GetWidth() const
 {
     return m_width;
 }
 
-void tl::Template::SetWidth( int val )
+void Template::SetWidth( int val )
 {
     m_width = val;
 }
+
+} //  namespace tl
