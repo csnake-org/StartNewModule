@@ -9,7 +9,4 @@ from csnCISTIBToolkit import *
 templateLibraryApps = csnCilab.CilabModuleProject("TemplateLibraryApps", "library")
 templateLibraryApps.AddSources( [csnUtility.GetDummyCppFilename()] )
 templateLibraryApps.AddProjects( [csnTemplateLibrary.templateLibrary] )
-templateLibraryApps.AddApplications([
-    "tlAppFirst"
-    ])
-
+templateLibraryApps.AddApplications([ "tlAppFirst" ], _holderName="TemplateLibraryApplications")
