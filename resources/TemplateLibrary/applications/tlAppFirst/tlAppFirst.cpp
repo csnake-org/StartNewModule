@@ -11,8 +11,9 @@
 \brief Your first application
 \ingroup TemplateLibrary
 */
-void main( int argc, char* argv[] )
+int main( int argc, char* argv[] )
 {
     tl::Template::Pointer tem = tl::Template::New();
     std::cout << "Width: " << tem->GetWidth() << std::endl;
+    return EXIT_SUCCESS;
 }
