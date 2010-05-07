@@ -4,7 +4,6 @@
 * Universitat Pompeu Fabra (UPF), Barcelona, Spain. All rights reserved.
 * See license.txt file for details.
 */
-
 #include <iostream>
 #include "tlTemplate.h"
 
@@ -14,6 +13,6 @@
 */
 void main( int argc, char* argv[] )
 {
-    tl::Template::Pointer tem = tl::Template::New( );
-    std::cout << "Width: " << tem->GetWidth( ) << std::endl;
+    tl::Template::Pointer tem = tl::Template::New();
+    std::cout << "Width: " << tem->GetWidth() << std::endl;
 }

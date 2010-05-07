@@ -4,29 +4,21 @@
 * Universitat Pompeu Fabra (UPF), Barcelona, Spain. All rights reserved.
 * See license.txt file for details.
 */
+#ifndef TLFIRSTTEST_H
+#define TLFIRSTTEST_H
 
-#ifndef _tlFirstTest_H
-#define _tlFirstTest_H
-
-#include "cxxtest/TestSuite.h"
+#include <cxxtest/TestSuite.h>
 
 /**
-\brief Your first test
-
-\ingroup TemplateLibrary
-\author Your name
-\date 24 July 2009
+\brief Your first test.
 */
 class tlFirstTest : public CxxTest::TestSuite
 {
 public:
-	//! 
-	void TestFirst();
 
-private:
+    // \test Test the X method.
+    void TestFirst();
 
+}; // class tlFirstTest
 
-private:
-};
-
-#endif //_tlFirstTest_H
+#endif //  TLFIRSTTEST_H

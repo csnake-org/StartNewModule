@@ -4,24 +4,23 @@
 * Universitat Pompeu Fabra (UPF), Barcelona, Spain. All rights reserved.
 * See license.txt file for details.
 */
-
 #include "tlTemplate.h"
 
-tl::Template::Template( )
+tl::Template::Template()
 {
-	m_lWidth = 10;
+    m_width = 10;
 }
 
-tl::Template::~Template( )
+tl::Template::~Template()
 {
 }
 
 int tl::Template::GetWidth() const
 {
-	return m_lWidth;
+    return m_width;
 }
 
 void tl::Template::SetWidth( int val )
 {
-	m_lWidth = val;
+    m_width = val;
 }
