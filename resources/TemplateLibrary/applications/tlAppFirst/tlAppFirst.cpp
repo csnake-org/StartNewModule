@@ -9,15 +9,11 @@
 #include "tlTemplate.h"
 
 /**
- \brief Your first application
-
+\brief Your first application
 \ingroup TemplateLibrary
-\author Your name
-\date 24 July 2009
 */
-void main( int argc, char argv[] )
+void main( int argc, char* argv[] )
 {
-	tl::Template::Pointer tem = tl::Template::New( );
-	std::cout << "Width: " << tem->GetWidth( ) << std::endl;
+    tl::Template::Pointer tem = tl::Template::New( );
+    std::cout << "Width: " << tem->GetWidth( ) << std::endl;
 }
-
