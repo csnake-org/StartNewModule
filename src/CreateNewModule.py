@@ -26,9 +26,15 @@ def EditFile(source, line, type):
         raise IOError("File not found: %s" % source)
     # type 1: main csn file
     if( type == 1 ):
-        f = open(source, 'a')
-        f.write("\n%s" % line); 
+        # read file
+        f = open(source, 'r')
+        content = f.read() 
         f.close()
+        # check if line is not already there
+        if content.find( line ) == -1:
+            f = open(source, 'a')
+            f.write("\n%s\n" % line); 
+            f.close()
     # type 2: gimias csn file
     if( type == 2 ):
         f = open(source, 'r')
