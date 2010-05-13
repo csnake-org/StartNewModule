@@ -16,7 +16,7 @@ class tlFirstTest : public CxxTest::TestSuite
 {
 public:
 
-    // \test Test the X method.
+    /** \test Test the tl::Template::GetWidth() method. */
     void TestFirst();
 
 }; // class tlFirstTest
