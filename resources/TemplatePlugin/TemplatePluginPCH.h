@@ -8,62 +8,47 @@
 #ifndef _TemplatePluginPCH_H
 #define _TemplatePluginPCH_H
 
-// CoreLib
-#include "coreDataEntity.h"
-#include "coreDataEntityHelper.h"
-#include "coreDataEntityHelper.txx"
-#include "coreFrontEndPlugin.h"
-#include "coreKernel.h"
-#include "coreReportExceptionMacros.h"
-#include "coreWorkingDataContainer.h"
-#include "coreSmartPointerMacros.h"
-#include "coreObject.h"
-
 // GUIBridgeLib
 #include "gblBridge.h"
 #include "gblWxBridgeLib.h"
 #include "gblWxButtonEventProxy.h"
 #include "gblWxConnectorOfWidgetChangesToSlotFunction.h"
 
-// VTK
-#include "vtkPolyData.h"
 
-// STD
-#include <limits>
-#include <string>
-
-// wxWidgets
+// WxWidgets
+#include "wxID.h"
 #include <wx/image.h>
 #include <wx/wx.h>
 #include <wx/wxprec.h>
+#include <wx/spinbutt.h>
 
 // BaseLib
 #include "blVTKHelperTools.h"
 
 // CoreLib
-#include "coreAcquireDataEntityInputControl.h"
+#include "coreDataEntity.h"
+#include "coreDataEntityHelper.h"
+#include "coreDataEntityHelper.txx"
+#include "coreFrontEndPlugin.h"
+#include "coreKernel.h"
+#include "coreReportExceptionMacros.h"
+#include "coreSmartPointerMacros.h"
+#include "coreObject.h"
 #include "coreDataEntity.h"
 #include "coreDataEntityHelper.h"
 #include "coreDataEntityHelper.txx"
 #include "coreDataTreeHelper.h"
 #include "coreFrontEndPlugin.h"
-#include "coreKernel.h"
 #include "coreMultiRenderWindow.h"
 #include "coreObject.h"
 #include "corePluginTab.h"
-#include "coreProcessorWorkingData.h"
 #include "coreRenderingTree.h"
 #include "coreReportExceptionMacros.h"
 #include "coreSmartPointerMacros.h"
 #include "coreUserHelperWidget.h"
 #include "coreVTKPolyDataHolder.h"
-#include "coreToolBar.h"
 #include "coreWxMitkCoreMainWindow.h"
-
-// GUIBridgeLib
-#include "gblWxBridgeLib.h"
-#include "gblWxButtonEventProxy.h"
-#include "gblWxConnectorOfWidgetChangesToSlotFunction.h"
+#include "coreWxMitkGraphicalInterface.h"
 
 // ITK
 #include "itkImage.h"
@@ -74,19 +59,11 @@
 // VTK
 #include "vtkPolyData.h"
 
-// BaseLib
-#include "wxID.h"
-
 // STD
 #include <iostream>
 #include <limits>
 #include <string>
 
-// WxWidgets
-#include <wx/image.h>
-#include <wx/spinbutt.h>
-#include <wx/wx.h>
-#include <wx/wxprec.h>
 
 
 #endif //_TemplatePluginPCH_H

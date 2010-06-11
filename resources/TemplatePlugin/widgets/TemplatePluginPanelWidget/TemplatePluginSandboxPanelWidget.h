@@ -14,9 +14,9 @@
 // CoreLib
 #include "coreRenderingTree.h"
 #include "corePointInteractorPointSelect.h"
+#include "coreProcessingWidget.h"
 
 namespace Core{ namespace Widgets {
-	class AcquireDataEntityInputControl;
 	class UserHelper;
 	class DataEntityListBrowser;
 }}
@@ -47,26 +47,33 @@ this widget because the behavior will be unpredicted.
 \author Chiara Riccobene
 \date 13 Dec 2009
 */
-class SandboxPanelWidget : public TemplatePluginSandboxPanelWidgetUI
+class SandboxPanelWidget : 
+public TemplatePluginSandboxPanelWidgetUI,
+public Core::Widgets::ProcessingWidget 
 {
 
 // OPERATIONS
 public:
 	//!
-	SandboxPanelWidget(wxWindow* parent, int id);
+	coreDefineBaseWindowFactory( SandboxPanelWidget );
+	
+	//!
+	SandboxPanelWidget(wxWindow* parent, int id= wxID_ANY,
+		const wxPoint&  pos = wxDefaultPosition, 
+		const wxSize&  size = wxDefaultSize, 
+		long style = 0);
 
 	//!
 	~SandboxPanelWidget( );
 
 	//! Add button events to the bridge and call UpdateWidget()
-	void Init(	
-		SandboxProcessor::Pointer processor,
-		Core::RenderingTree::Pointer tree,
-		Core::Widgets::DataEntityListBrowser* listBrowser,
-		Core::Widgets::UserHelper *helperWidget );
+	void OnInit(  );
 	
 	//!
 	bool Enable( bool enable /*= true */ );
+	
+	//!
+	Core::BaseProcessor::Pointer GetProcessor( );
 
 private:
 	//! Update GUI from working data
@@ -74,9 +81,6 @@ private:
 
 	//! Update working data from GUI
 	void UpdateData();
-
-	//! Validate GUI data
-	bool Validate();
 
 	//! Button has been pressed
 	void OnBtnApply(wxCommandEvent& event);
@@ -94,15 +98,6 @@ private:
 private:
 	//! Working data of the processor
 	SandboxProcessor::Pointer m_Processor;
-
-	//! Rendering tree
-	Core::RenderingTree::Pointer m_RenderingTree;
-
-	//! Selected data entity from the list
-	Core::DataEntityHolder::Pointer m_selectedDataEntityHolder;
-
-	//! User helper
-	Core::Widgets::UserHelper *m_helperWidget;
 };
 
 } //namespace TemplatePlugin{

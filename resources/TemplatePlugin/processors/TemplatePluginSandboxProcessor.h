@@ -8,7 +8,8 @@
 #ifndef _TemplatePluginSandboxProcessor_H
 #define _TemplatePluginSandboxProcessor_H
 
-#include "coreProcessorWorkingData.h"
+#include "coreBaseProcessor.h"
+#include "coreProcessorFactory.h"
 
 namespace TemplatePlugin{
 
@@ -19,7 +20,7 @@ Processor for
 \author Xavi Planes
 \date 16 feb 2009
 */
-class SandboxProcessor : public Core::FrontEndPlugin::ProcessorWorkingData
+class SandboxProcessor : public Core::BaseProcessor
 {
 public:
 
@@ -40,8 +41,8 @@ public:
 	}OUTPUT_TYPE;
 public:
 	//!
-	coreDeclareSmartPointerClassMacro(SandboxProcessor, Core::SmartPointerObject);
-
+	coreProcessor(SandboxProcessor, Core::BaseProcessor);
+	
 	//! Call library to perform operation
 	void Update( );
 

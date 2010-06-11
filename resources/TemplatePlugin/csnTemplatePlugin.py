@@ -20,8 +20,10 @@ templatePlugin.AddSources(["processors/*.cxx", "processors/*.h"])
 templatePlugin.AddIncludeFolders(["processors"])
 
 widgetModules = [
-  "TemplatePluginSandboxPanelWidget"
+#  "TemplatePluginSandboxPanelWidget"
   ]
 templatePlugin.AddWidgetModules(widgetModules, _useQt = 0)
 
 templatePlugin.SetPrecompiledHeader("TemplatePluginPCH.h")
+
+templatePlugin.AddTests(["tests/*.*"], cxxTest)

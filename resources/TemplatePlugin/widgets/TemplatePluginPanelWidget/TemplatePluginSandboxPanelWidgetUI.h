@@ -3,8 +3,8 @@
 #include <wx/wx.h>
 #include <wx/image.h>
 
-#ifndef TEMPLATEPLUGINSANDBOXPANELWIDGETUI_H
-#define TEMPLATEPLUGINSANDBOXPANELWIDGETUI_H
+#ifndef TemplatePluginSandboxPanelWidgetUI_H
+#define TemplatePluginSandboxPanelWidgetUI_H
 
 // begin wxGlade: ::dependencies
 // end wxGlade
@@ -39,4 +39,4 @@ public:
 }; // wxGlade: end class
 
 
-#endif // TEMPLATEPLUGINSANDBOXPANELWIDGETUI_H
+#endif // TemplatePluginSandboxPanelWidgetUI_H

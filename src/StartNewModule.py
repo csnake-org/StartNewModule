@@ -38,7 +38,7 @@ class MainFrame(wx.Frame):
         self.btnSelectRootPath = wx.Button(self, -1, "...")
         self.static_line_1 = wx.StaticLine(self, -1)
         self.lblType = wx.StaticText(self, -1, "Type")
-        self.cmbType = wx.ComboBox(self, -1, choices=["Library", "GIMIAS Plugin", "GIMIAS Plugin Widget"], style=wx.CB_DROPDOWN)
+        self.cmbType = wx.ComboBox(self, -1, choices=["Library", "GIMIAS Plugin", "GIMIAS Plugin Widget", "ThirdParty"], style=wx.CB_DROPDOWN)
         self.lblToolkitFile = wx.StaticText(self, -1, "Toolkit csn file")
         self.txtToolkitFile = wx.TextCtrl(self, -1, "")
         self.btnSelectToolkitFile = wx.Button(self, -1, "...")
@@ -147,8 +147,9 @@ class MainFrame(wx.Frame):
 
     def OnMenuContent(self, event): # wxGlade: MainFrame.<event_handler>
         dlg = HelpDialog(None, -1, "Help")
-        dlg.ShowModal()
-        dlg.Destroy()
+        dlg.Show()
+        #dlg.ShowModal()
+        #dlg.Destroy()
 
     def OnSelectRootPath(self, event): # wxGlade: MainFrame.<event_handler>
         dlg = wx.DirDialog(None, "Select Project Root Folder")
@@ -188,6 +189,11 @@ class MainFrame(wx.Frame):
         elif( self.cmbType.GetValue() == "GIMIAS Plugin Widget" ):
             self.txtToolkitFile.Disable()
             self.btnSelectToolkitFile.Disable()
+            self.txtGimiasFile.Disable()
+            self.btnSelectGimiasFile.Disable()
+        elif( self.cmbType.GetValue() == "ThirdParty" ):
+            self.txtToolkitFile.Enable()
+            self.btnSelectToolkitFile.Enable()
             self.txtGimiasFile.Disable()
             self.btnSelectGimiasFile.Disable()
         else:
@@ -244,6 +250,20 @@ class MainFrame(wx.Frame):
             except IOError, error:
                 self._handleError("Error creating widget", error)
                 withError = True
+        # create thirdParty
+        elif( self.cmbType.GetValue() == "ThirdParty" ):
+            try:
+                CreateNewModule.CreateThirdParty(
+                        self.txtRootPath.GetValue(),
+                        self.txtName.GetValue(),
+                        pathToResources,
+                        self.txtToolkitFile.GetValue())
+            except ValueError, error:
+                withError = True
+                self._handleError("Error creating Third Party", error)
+            except IOError, error:
+                self._handleError("Error creating Third Party", error)
+                withError = True
         # default
         else:
             self._handleError("Unsupported module type", ValueError())
@@ -278,6 +298,7 @@ if __name__ == "__main__":
             break
     assert os.path.exists("%s/TemplatePlugin" % pathToResources), "Template plugin folder not found in: %s" % pathToResources
     assert os.path.exists("%s/TemplateLibrary" % pathToResources), "Template library folder not found in: %s" % pathToResources
+    assert os.path.exists("%s/TemplateThirdParty" % pathToResources), "Template thirdParty folder not found in: %s" % pathToResources
     
     # create log file (mainly for running from source)
     logfilepath = os.environ["USERPROFILE"] + "/Application Data/StartNewModule"

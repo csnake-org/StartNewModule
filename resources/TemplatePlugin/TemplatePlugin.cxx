@@ -24,15 +24,12 @@ coreBeginDefinePluginMacro(TemplatePlugin::TemplatePlugin)
 	coreDefinePluginAddProfileMacro("TemplatePlugin")
 coreEndDefinePluginMacro()
 
-TemplatePlugin::TemplatePlugin::TemplatePlugin(void) : FrontEndPlugin("TemplatePlugin")
+TemplatePlugin::TemplatePlugin::TemplatePlugin(void) : FrontEndPlugin()
 {
 	try
 	{
-		corePluginMacroCreatePluginTab( this );
-
 		m_Processors = ProcessorCollective::New();
 		m_Widgets = WidgetCollective::New();
-		m_Widgets->Init( m_Processors, this );
 	}
 	coreCatchExceptionsReportAndNoThrowMacro(TemplatePlugin::TemplatePlugin)
 }

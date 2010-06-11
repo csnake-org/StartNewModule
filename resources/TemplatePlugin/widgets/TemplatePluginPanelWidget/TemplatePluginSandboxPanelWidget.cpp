@@ -15,17 +15,19 @@
 #include "coreUserHelperWidget.h"
 
 // Core
-#include "coreAcquireDataEntityInputControl.h"
 #include "coreDataTreeHelper.h"
-#include "coreDataEntityListBrowser.h"
 #include "coreReportExceptionMacros.h"
-#include "coreProcessorWidgetsBuilder.h"
 
 
-TemplatePlugin::SandboxPanelWidget::SandboxPanelWidget( wxWindow* parent, int id )
-: TemplatePluginSandboxPanelWidgetUI(parent, id)
+TemplatePlugin::SandboxPanelWidget::SandboxPanelWidget(  wxWindow* parent, int id/*= wxID_ANY*/,
+													   const wxPoint&  pos /*= wxDefaultPosition*/, 
+													   const wxSize&  size /*= wxDefaultSize*/, 
+													   long style/* = 0*/ )
+: TemplatePluginSandboxPanelWidgetUI(parent, id,pos,size,style)
 {
-	SetLabel( "SandboxPanelWidget" );
+	m_Processor = TemplatePlugin::SandboxProcessor::New();
+
+	SetName( "Sandbox Panel Widget" );
 }
 
 TemplatePlugin::SandboxPanelWidget::~SandboxPanelWidget( )
@@ -34,21 +36,8 @@ TemplatePlugin::SandboxPanelWidget::~SandboxPanelWidget( )
 	// of this wxWindow are destroyed automatically
 }
 
-void TemplatePlugin::SandboxPanelWidget::Init( 
-	TemplatePlugin::SandboxProcessor::Pointer processor,
-	Core::RenderingTree::Pointer tree,
-	Core::Widgets::DataEntityListBrowser* listBrowser,
-	Core::Widgets::UserHelper *helperWidget )
+void TemplatePlugin::SandboxPanelWidget::OnInit( )
 {
-	//------------------------------------------------------
-	m_Processor = processor;
-	m_RenderingTree = tree;
-	m_helperWidget = helperWidget;
-	m_selectedDataEntityHolder = listBrowser->GetSelectedDataEntityHolder();
-
-
-	Core::ProcessorWidgetsBuilder::Init( m_Processor.GetPointer(), this, listBrowser, true );
-
 	//------------------------------------------------------
 	// Observers to data
 	m_Processor->GetOutputDataEntityHolder( 0 )->AddObserver( 
@@ -68,24 +57,12 @@ void TemplatePlugin::SandboxPanelWidget::UpdateWidget()
 	
 	UpdateHelperWidget( );
 
-	Validate();
 }
 
 void TemplatePlugin::SandboxPanelWidget::UpdateData()
 {
-	if( !Validate() )
-		return;
 	// Set parameters to processor. Pending
 }
-
-bool TemplatePlugin::SandboxPanelWidget::Validate()
-{
-	bool okay = true;
-
-	// Validate each text control. Pending
-	return okay;
-}
-
 
 void TemplatePlugin::SandboxPanelWidget::OnBtnApply(wxCommandEvent& event)
 {
@@ -112,16 +89,16 @@ void TemplatePlugin::SandboxPanelWidget::OnModifiedOutputDataEntity()
 		if ( m_Processor->GetOutputDataEntity( 0 ).IsNotNull() && 
 			 m_Processor->GetOutputDataEntity( 0 ) != inputDataEntity )
 		{
-			m_RenderingTree->Show( inputDataEntity, false );
+			GetRenderingTree( )->Show( inputDataEntity, false );
 		}
 
 		// Add output to the data list and render it
 		// After adding the output, the input will automatically be changed to
 		// this one
-		Core::DataTreeHelper::PublishOutput( 
+	/*	Core::DataTreeHelper::PublishOutput( 
 			m_Processor->GetOutputDataEntityHolder( 0 ), 
-			m_RenderingTree,
-			m_selectedDataEntityHolder );
+			GetRenderingTree( ),
+			m_selectedDataEntityHolder );*/
 	
 	}
 	coreCatchExceptionsLogAndNoThrowMacro( 
@@ -131,7 +108,11 @@ void TemplatePlugin::SandboxPanelWidget::OnModifiedOutputDataEntity()
 
 void TemplatePlugin::SandboxPanelWidget::UpdateHelperWidget()
 {
-		m_helperWidget->SetInfo( 
+	if ( GetHelperWidget( ) == NULL )
+	{
+		return;
+	}
+		GetHelperWidget( )->SetInfo( 
 			Core::Widgets::HELPER_INFO_LEFT_BUTTON, 
 			" info that is useful in order to use the processor" );
 
@@ -153,4 +134,9 @@ bool TemplatePlugin::SandboxPanelWidget::Enable( bool enable /*= true */ )
 void TemplatePlugin::SandboxPanelWidget::OnModifiedInputDataEntity()
 {
 	UpdateWidget();
+}
+
+Core::BaseProcessor::Pointer TemplatePlugin::SandboxPanelWidget::GetProcessor()
+{
+	return m_Processor.GetPointer( );
 }

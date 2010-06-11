@@ -20,12 +20,14 @@
 
 TemplatePlugin::SandboxProcessor::SandboxProcessor( )
 {
-	ProcessorWorkingData::SetNumberOfInputs( INPUTS_NUMBER );
+	SetName( "SandboxProcessor" );
+	
+	BaseProcessor::SetNumberOfInputs( INPUTS_NUMBER );
 	GetInputPort(INPUT_0)->SetName(  "Input Image" );
 	GetInputPort(INPUT_0)->SetDataEntityType( Core::ImageTypeId);
 	GetInputPort(INPUT_1)->SetName(  "Input Surface" );
 	GetInputPort(INPUT_1)->SetDataEntityType( Core::SurfaceMeshTypeId);
-	ProcessorWorkingData::SetNumberOfOutputs( OUTPUTS_NUMBER );
+	BaseProcessor::SetNumberOfOutputs( OUTPUTS_NUMBER );
 	
 }
 
@@ -49,15 +51,11 @@ void TemplatePlugin::SandboxProcessor::Update()
 			vtkInput );
 
 		// Set state to processing (dialog box)
-		Core::Runtime::Kernel::GetApplicationRuntime( )->SetAppState( 
-			Core::Runtime::APP_STATE_PROCESSING );
+		SetState( Core::Runtime::APP_STATE_PROCESSING );
 
 		// here goes the filter or the functions that determine the processor
 		// the output should go in the update functions
 		
-		// Show message
-		OnOperationFinished( "SandboxProcessor" );
-
 		// Set the output to the output of this processor
 		UpdateOutputImageAsVtk<ImageType>( 0 ,itkInputImage, "SandboxProcessorImage");	
 		UpdateOutput(1, vtkInput, "SandboxProcessorSurface");
@@ -66,13 +64,11 @@ void TemplatePlugin::SandboxProcessor::Update()
 	{
 		// Throw the exception again to be catched by the Widget and
 		// show a message box with the error message
-		Core::Runtime::Kernel::GetApplicationRuntime( )->SetAppState( 
-			Core::Runtime::APP_STATE_IDLE );
+		SetState( Core::Runtime::APP_STATE_IDLE );
 
 		throw;
 	}
 
-	Core::Runtime::Kernel::GetApplicationRuntime( )->SetAppState( 
-		Core::Runtime::APP_STATE_IDLE );
+	SetState( Core::Runtime::APP_STATE_IDLE );
 
 }

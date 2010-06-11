@@ -1,0 +1,16 @@
+# The TemplateThirdParty include file directories.
+SET(TemplateThirdParty_INCLUDE_DIRS "@TemplateThirdParty_INCLUDE_DIRS@")
+
+# The PTemplateThirdParty library directories.
+# Includes TemplateThirdParty libs directory and OTHER libs directories
+SET(TemplateThirdParty_LIBRARY_DIRS "@TemplateThirdParty_LIBRARY_DIRS@")
+
+# This includes all libraries (.lib,.so,a) that TemplateThirdParty generates.
+SET(TemplateThirdParty_LIBRARIES "@TemplateThirdParty_LIBRARIES@")
+
+# This includes all libraries (.lib,.so,a) that TemplateThirdParty generates.
+SET(TemplateThirdParty_DEBUG_LIBRARIES "@TemplateThirdParty_DEBUG_LIBRARIES@")
+
+# Location of the TemplateThirdParty use file.
+SET(TemplateThirdParty_USE_FILE "@TemplateThirdParty_USE_FILE@")
+

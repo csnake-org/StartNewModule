@@ -97,8 +97,8 @@ class CreateNewModuleTests(unittest.TestCase):
         assert os.path.exists(projectFolder)
         assert os.path.exists(projectFolder + "/build" )
         assert os.path.exists(projectFolder + "/doc" )
-        assert os.path.exists(projectFolder + "/processors" )
-        assert os.path.exists(projectFolder + "/widgets" )
+        #assert os.path.exists(projectFolder + "/processors" )
+        #assert os.path.exists(projectFolder + "/widgets" )
         assert os.path.exists(projectFolder + "/__init__.py" )
         # check project csn file content
         assert os.path.exists(projectFolder + '/' + csnFileName )
@@ -118,7 +118,7 @@ class CreateNewModuleTests(unittest.TestCase):
         csnGimiasFile.close()
 
         # delete created hierarchy
-        shutil.rmtree(toolkitRoot)
+        #shutil.rmtree(toolkitRoot)
         
     def testCreatePluginWidget(self):
         """ CreateNewModuleTests: test CreatePluginWidget. """
@@ -131,16 +131,12 @@ class CreateNewModuleTests(unittest.TestCase):
         projectRoot = pluginsRoot + '/' + projectName
         csnFileName = "/csn%s.py" % projectName
         # create hierarchy 
-        os.mkdir(toolkitRoot)
-        #csnToolkitFile = open(toolkitRoot + '/' + csnToolkitFileName, 'w')
-        #csnToolkitFile.close()
-        os.mkdir(appsRoot)
-        os.mkdir(pluginsRoot)
-        os.mkdir(projectRoot)
+        assert os.path.exists(toolkitRoot)
+        assert os.path.exists(appsRoot)
+        assert os.path.exists(pluginsRoot)
+        assert os.path.exists(projectRoot)
         csnPluginFilePath = projectRoot + '/' + csnFileName
-        csnPluginFile = open(csnPluginFilePath, 'w')
-        csnPluginFile.write("widgetModules = [DefaultWidget]")
-        csnPluginFile.close()
+        assert os.path.exists(csnPluginFilePath)
         
         # vars
         widgetName = "TestWidget"

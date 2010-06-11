@@ -17,8 +17,6 @@
 
 namespace TemplatePlugin{
 
-class SandboxPanelWidget;
-
 /**
 This class instantiates all widgets used in the plugin. The widgets are used to operate the plugin processors
 (see ProcessorCollective).
@@ -38,31 +36,9 @@ public:
 		WidgetCollective, 
 		Core::WidgetCollective );
 
-	/** The constructor instantiates all the widgets and connects them to 
-	the processors.
-	It is private because clients must use the New function, which returns 
-	a smart pointer, to instantiate this class.
-	*/
-	void Init(
-		TemplatePlugin::ProcessorCollective::Pointer processors, 
-		Core::FrontEndPlugin::FrontEndPlugin::Pointer frontEndPlugin);
-
 private:
+    //! The constructor instantiates all the widgets and registers them.
 	WidgetCollective( );
-
-	//! 
-	void EnablePluginTabWidgets();
-
-	//! See m_ShapeScalePanelWidget.
-	void CreateSandboxPanelWidget();
-
-private:
-
-	//! 
-	ProcessorCollective::Pointer m_Processors;
-
-	//! Holds the widget for mesh editing
-	SandboxPanelWidget* m_SandboxPanelWidget;
 
 };
 
