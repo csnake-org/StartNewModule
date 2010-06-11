@@ -3,7 +3,7 @@ import csnBuild
 import csnCilab
 import csnUtility
 
-from csnCISTIBToolkit import *
+from csnGIMIASDef import *
 
 templatePlugin = csnCilab.GimiasPluginProject("TemplatePlugin")
 

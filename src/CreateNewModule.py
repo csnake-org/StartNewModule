@@ -194,8 +194,8 @@ def CreatePlugin(rootPath, pluginName, rootForTemplateFiles, tkFilename, gimiasF
     # append csnToolkit to csnPlugin
     plugincsnFile = "%s/%s/csn%s.py" % (rootPath,pluginName,pluginName) 
     ( tkFilenameBase , ext ) = os.path.splitext(os.path.basename(tkFilename))
-    if not os.path.basename(tkFilename) == "csnCISTIBToolkit.py" :
-        AddHeaderFile(plugincsnFile,"from csnCISTIBToolkit import *", "from %s import * \n" % tkFilenameBase )
+    if not os.path.basename(tkFilename) == "csnGIMIASDef.py" :
+        AddHeaderFile(plugincsnFile,"from csnGIMIASDef import *", "from %s import * \n" % tkFilenameBase )
 
 def CreatePluginWidget(rootPath, pluginWidgetName, rootForTemplateFiles):
     """ Create a new Widget from template. """

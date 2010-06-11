@@ -18,7 +18,7 @@ class CreateNewModuleTests(unittest.TestCase):
         testRoot = "./"
         toolkitRoot = testRoot + "/generated"
         modulesRoot = toolkitRoot + "/modules"
-        csnToolkitFileName = "csnCISTIBToolkit.py"
+        csnToolkitFileName = "csnToolkitOpen.py"
         # create hierarchy 
         os.mkdir(toolkitRoot)
         csnToolkitFilePath = toolkitRoot + "/" + csnToolkitFileName
@@ -67,7 +67,7 @@ class CreateNewModuleTests(unittest.TestCase):
         appsRoot = toolkitRoot + "/apps"
         gimiasRoot = appsRoot + "/Gimias"
         pluginsRoot = appsRoot + "/plugins"
-        csnToolkitFileName = "csnCISTIBToolkit.py"
+        csnToolkitFileName = "csnToolkitOpen.py"
         csnGimiasFileName = "csnGIMIAS.py"
         # create hierarchy 
         os.mkdir(toolkitRoot)

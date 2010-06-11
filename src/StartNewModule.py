@@ -77,7 +77,7 @@ class MainFrame(wx.Frame):
         self.btnSelectRootPath.SetToolTipString("Browse disk...")
         self.lblType.SetToolTipString("The type of the module.")
         self.cmbType.SetSelection(0)
-        self.lblToolkitFile.SetToolTipString("The location of the Toolkit csn file (csnCISTIBToolkit.py).")
+        self.lblToolkitFile.SetToolTipString("The location of the Toolkit csn file (csnMyToolkit.py).")
         self.btnSelectToolkitFile.SetToolTipString("Browse disk...")
         self.lblGimiasFile.SetToolTipString("The location of theGimias csn file (csnGIMIAS.py).")
         self.txtGimiasFile.Enable(False)

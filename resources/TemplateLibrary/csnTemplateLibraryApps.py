@@ -1,7 +1,7 @@
 # Used to configure TemplateLibraryApps
 import csnCilab
 import csnUtility
-from csnCISTIBToolkit import *
+from csnToolkitOpen import *
 
 templateLibraryApps = csnCilab.CilabModuleProject("TemplateLibraryApps", "library")
 templateLibraryApps.AddSources( [csnUtility.GetDummyCppFilename()] )

@@ -1,6 +1,6 @@
 # Used to configure TemplateLibrary
 import csnCilab
-from csnCISTIBToolkit import *
+from csnToolkitOpen import *
 
 templateLibrary = csnCilab.CilabModuleProject("TemplateLibrary", "library")
 templateLibrary.AddLibraryModules(["tlFirst"])
