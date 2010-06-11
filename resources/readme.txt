@@ -2,13 +2,17 @@
 Start New Module readme
 ------------------------
 
-Version: 0.1.1
+Version: 0.1.3
 
 Change log
 ----------
 
+v0.1.3:
+ * Adapted to new csn file structure
+ * Adapted to new Gimias/Suites folder structure
+v0.1.2:
+ * Updated templates
 v0.1.1:
-
  * Added logging
  * Interface redesign
 
