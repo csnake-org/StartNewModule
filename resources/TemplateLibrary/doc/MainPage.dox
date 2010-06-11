@@ -3,17 +3,17 @@
 
 \mainpage TemplateLibrary
 
-\section introduction_sec Introduction
+\section intro_sec Introduction
 <em>Description of the library.</em>
 
-\section details_sec Details
+\section det_sec Details
 \li Library maintainer: <name> (mail@cistib.upf.edu)
 \li Library license: <Proprietary/Open Source>
 
-\section depends_sec Dependencies
+\section dep_sec Dependencies
 <em>The dependencies of the library.</em>
 
-\section changelog_sec Change Log
+\section chg_sec Change Log
 <em>The main changes that happend to the library.</em>
 
 */
