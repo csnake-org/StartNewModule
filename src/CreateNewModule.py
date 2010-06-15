@@ -64,7 +64,7 @@ def EditFile(source, line, type):
         f = open(source, 'r')
         template = f.read()
         f.close()
-        template = template.replace(".CommandPanel();", ".CommandPanel();\n   Core::Runtime::Kernel::GetGraphicalInterface()->RegisterFactory(\n    %s::Factory::NewBase(), \nconfig.Caption(\"%s\").\nId(wxID_%s );\n" % (line,line,line))
+        template = template.replace(".CommandPanel();", ".CommandPanel();\n   Core::Runtime::Kernel::GetGraphicalInterface()->RegisterFactory(\n    %s::Factory::NewBase(), \nconfig.Caption(\"%s\").\nId(wxID_%s) );\n" % (line,line,line))
         f = open(source, 'w')
         f.write(template)
         f.close()
@@ -236,7 +236,7 @@ def CreatePluginWidget(rootPath, pluginWidgetName, rootForTemplateFiles):
     EditFile(csnFilename, "%s%sPanelWidget" % (pluginName, pluginWidgetName ), 3)
     # append to WidgetCollective 
     EditFile(widgetCollname,"%sPanelWidget" % pluginWidgetName ,4)
-    AddHeaderFile(widgetCollname,"#include \"%sWidgetCollective.h\"" % pluginName , "#include \"%s%sPanelWidget.h\"\nconst long wxID_%s = wxNewId();\n" % (pluginName,pluginWidgetName,pluginWidgetName) )
+    AddHeaderFile(widgetCollname,"#include \"%sWidgetCollective.h\"" % pluginName , "#include \"%s%sPanelWidget.h\"\nconst long wxID_%sPanelWidget = wxNewId();\n" % (pluginName,pluginWidgetName,pluginWidgetName) )
     # append to ProcessorCollective
     #EditFile(procCollname, "%s::%sProcessor" % (pluginName, pluginWidgetName ),5)
     #AddHeaderFile(procCollname,"#include \"%sProcessorCollective.h\"" % pluginName , "#include \"%s%sProcessor.h\"\n" % (pluginName,pluginWidgetName) )
