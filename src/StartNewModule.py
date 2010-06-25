@@ -272,6 +272,7 @@ class MainFrame(wx.Frame):
         if not withError:
             dialog.Update(100)
             self.mainFrame_statusbar.SetStatusText("Module created.")
+            self._handleInfo("Module created successfully")
         else:
             self.mainFrame_statusbar.SetStatusText("Error creating module.")
         # clean up   
@@ -282,6 +283,10 @@ class MainFrame(wx.Frame):
         """ Handle errors. """
         wx.MessageBox("%s: %s\nSee log file for details." % (message, str(error)), 'Error', wx.ICON_ERROR)
         logger.exception("%s." % message)
+    
+    def _handleInfo( self, message):
+        """ Handle infos. """
+        wx.MessageBox("%s:\nSee log file for details." % message, 'Info')
         
 
 # end of class MainFrame

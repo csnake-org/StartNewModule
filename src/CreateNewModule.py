@@ -46,7 +46,7 @@ def EditFile(source, line, type):
         f.close()
         # check if line is not already there
         if template.find( line ) == -1:
-            template = template.replace( "])", ",%s\n])" % line)
+            template = template.replace( "AddProjects([", "AddProjects([\n    %s," % line)
             f = open(source, 'w')
             f.write(template)
             f.close()
@@ -64,7 +64,7 @@ def EditFile(source, line, type):
         f = open(source, 'r')
         template = f.read()
         f.close()
-        template = template.replace(".CommandPanel();", ".CommandPanel();\n   Core::Runtime::Kernel::GetGraphicalInterface()->RegisterFactory(\n    %s::Factory::NewBase(), \nconfig.Caption(\"%s\").\nId(wxID_%s) );\n" % (line,line,line))
+        template = template.replace(".CommandPanel();", ".CommandPanel();\n   Core::Runtime::Kernel::GetGraphicalInterface()->RegisterFactory(\n    %s::Factory::NewBase(), \n    config.Caption(\"%s\").\n    Id(wxID_%s) );\n" % (line,line,line))
         f = open(source, 'w')
         f.write(template)
         f.close()
@@ -73,7 +73,7 @@ def EditFile(source, line, type):
         f = open(source, 'r')
         template = f.read()
         f.close()
-        template = template.replace("Core::Runtime::Kernel::GetProcessorFactories();", "Core::Runtime::Kernel::GetProcessorFactories();\n   factories->RegisterFactory( %s::Factory::NewBase( ) );\n" % line)
+        template = template.replace("Core::Runtime::Kernel::GetProcessorFactories();", "Core::Runtime::Kernel::GetProcessorFactories();\n    factories->RegisterFactory( %s::Factory::NewBase( ) );\n" % line)
         f = open(source, 'w')
         f.write(template)
         f.close()
