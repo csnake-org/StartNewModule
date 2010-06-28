@@ -5,7 +5,7 @@ def ConfigureFile(source, dest, dict):
     """ Replace string in source file according to a dictionary. """
     # log
     logger = logging.getLogger("CreateNewModule")
-    logger.info("ConfigureFile:%s" % dest)
+    logger.info("ConfigureFile: %s" % dest)
     # check source file
     if not os.path.exists(source):
         raise IOError("File not found: %s" % source)
@@ -31,7 +31,7 @@ def EditFile(source, line, type):
     """ Append line to a file according to type."""
     # log
     logger = logging.getLogger("CreateNewModule")
-    logger.info("EditFile:%s" % source)
+    logger.info("EditFile: %s" % source)
     # check source file
     if not os.path.exists(source):
         raise IOError("File not found: %s" % source)
@@ -88,7 +88,7 @@ def EditFile(source, line, type):
 def AddHeaderFile(source, line1, line2):
     # log
     logger = logging.getLogger("CreateNewModule")
-    logger.info("AddHeaderFile:%s" % source)
+    logger.info("AddHeaderFile: %s" % source)
     # replace line1 with line1 \n line2
     f = open(source, 'r')
     template = f.read()
