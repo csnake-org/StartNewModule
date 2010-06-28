@@ -217,10 +217,10 @@ class MainFrame(wx.Frame):
                     pathToResources,
                     self.txtToolkitFile.GetValue())
             except ValueError, error:
-                self._handleError("Error creating library", error)
+                self._handleError("Error creating library.", error)
                 withError = True
             except IOError, error:
-                self._handleError("Error creating library", error)
+                self._handleError("Error creating library.", error)
                 withError = True
         # create plugin
         elif( self.cmbType.GetValue() == "GIMIAS Plugin" ):
@@ -232,10 +232,10 @@ class MainFrame(wx.Frame):
                      self.txtToolkitFile.GetValue(),
                      self.txtGimiasFile.GetValue())
             except ValueError, error:
-                self._handleError("Error creating plugin", error)
+                self._handleError("Error creating plugin.", error)
                 withError = True
             except IOError, error:
-                self._handleError("Error creating plugin", error)
+                self._handleError("Error creating plugin.", error)
                 withError = True
         # create widget
         elif( self.cmbType.GetValue() == "GIMIAS Plugin Widget" ):
@@ -246,9 +246,9 @@ class MainFrame(wx.Frame):
                        pathToResources)
             except ValueError, error:
                 withError = True
-                self._handleError("Error creating widget", error)
+                self._handleError("Error creating widget.", error)
             except IOError, error:
-                self._handleError("Error creating widget", error)
+                self._handleError("Error creating widget.", error)
                 withError = True
         # create thirdParty
         elif( self.cmbType.GetValue() == "ThirdParty" ):
@@ -260,19 +260,19 @@ class MainFrame(wx.Frame):
                         self.txtToolkitFile.GetValue())
             except ValueError, error:
                 withError = True
-                self._handleError("Error creating Third Party", error)
+                self._handleError("Error creating Third Party.", error)
             except IOError, error:
-                self._handleError("Error creating Third Party", error)
+                self._handleError("Error creating Third Party.", error)
                 withError = True
         # default
         else:
-            self._handleError("Unsupported module type", ValueError())
+            self._handleError("Unsupported module type.", ValueError())
             withError = True
         # set up frame for creation end 
         if not withError:
             dialog.Update(100)
             self.mainFrame_statusbar.SetStatusText("Module created.")
-            self._handleInfo("Module created successfully")
+            self._handleInfo("Module created successfully.")
         else:
             self.mainFrame_statusbar.SetStatusText("Error creating module.")
         # clean up   
@@ -281,12 +281,12 @@ class MainFrame(wx.Frame):
         
     def _handleError(self, message, error):
         """ Handle errors. """
-        wx.MessageBox("%s: %s\nSee log file for details." % (message, str(error)), 'Error', wx.ICON_ERROR)
-        logger.exception("%s." % message)
+        wx.MessageBox("%s\nError: %s\nSee log file for details." % (message, str(error)), 'Error', wx.ICON_ERROR)
+        logger.exception("%s" % message)
     
     def _handleInfo( self, message):
         """ Handle infos. """
-        wx.MessageBox("%s:\nSee log file for details." % message, 'Info')
+        wx.MessageBox("%s\nSee log file for details." % message, 'Info')
         
 
 # end of class MainFrame
