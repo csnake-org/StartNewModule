@@ -1,7 +1,11 @@
 import os.path
+import logging
 
 def ConfigureFile(source, dest, dict):
     """ Replace string in source file according to a dictionary. """
+    # log
+    logger = logging.getLogger("CreateNewModule")
+    logger.info("ConfigureFile:%s" % dest)
     # check source file
     if not os.path.exists(source):
         raise IOError("File not found: %s" % source)
@@ -25,6 +29,9 @@ def CreateDirectory(dest):
 
 def EditFile(source, line, type):
     """ Append line to a file according to type."""
+    # log
+    logger = logging.getLogger("CreateNewModule")
+    logger.info("EditFile:%s" % source)
     # check source file
     if not os.path.exists(source):
         raise IOError("File not found: %s" % source)
@@ -79,6 +86,9 @@ def EditFile(source, line, type):
         f.close()
 
 def AddHeaderFile(source, line1, line2):
+    # log
+    logger = logging.getLogger("CreateNewModule")
+    logger.info("AddHeaderFile:%s" % source)
     # replace line1 with line1 \n line2
     f = open(source, 'r')
     template = f.read()
@@ -90,6 +100,9 @@ def AddHeaderFile(source, line1, line2):
 
 def CreateLibrary(rootPath, libraryName, rootForTemplateFiles, tkFilename):
     """ Create a new Library from template. """
+    # log
+    logger = logging.getLogger("CreateNewModule")
+    logger.info("Create Library.")
     # check inputs
     if len(rootPath) == 0:
         raise ValueError("No root path provided.")
@@ -137,6 +150,9 @@ def CreateLibrary(rootPath, libraryName, rootForTemplateFiles, tkFilename):
 
 def CreatePlugin(rootPath, pluginName, rootForTemplateFiles, tkFilename, gimiasFilename):
     """ Create a new Plugin from template. """
+    # log
+    logger = logging.getLogger("CreateNewModule")
+    logger.info("Create Plugin.")
     # check inputs
     if len(rootPath) == 0:
         raise ValueError("No root path provided.")
@@ -199,6 +215,9 @@ def CreatePlugin(rootPath, pluginName, rootForTemplateFiles, tkFilename, gimiasF
 
 def CreatePluginWidget(rootPath, pluginWidgetName, rootForTemplateFiles):
     """ Create a new Widget from template. """
+    # log
+    logger = logging.getLogger("CreateNewModule")
+    logger.info("Create Plugin Widget.")
     # check inputs
     if len(rootPath) == 0:
         raise ValueError("No root path provided.")
@@ -243,6 +262,9 @@ def CreatePluginWidget(rootPath, pluginWidgetName, rootForTemplateFiles):
 
 def CreateThirdParty(rootPath, thirdPartyName, rootForTemplateFiles, tkFilename):
     """ Create a new ThirdParty from template. """
+    # log
+    logger = logging.getLogger("CreateNewModule")
+    logger.info("Create ThirdParty.")
     # check inputs
     if len(rootPath) == 0:
         raise ValueError("No root path provided.")
