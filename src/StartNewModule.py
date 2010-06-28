@@ -306,13 +306,18 @@ if __name__ == "__main__":
     assert os.path.exists("%s/TemplateThirdParty" % pathToResources), "Template thirdParty folder not found in: %s" % pathToResources
     
     # create log file (mainly for running from source)
-    logfilepath = os.environ["USERPROFILE"] + "/Application Data/StartNewModule"
+    if sys.platform == 'win32':
+        logfilepath = os.environ["USERPROFILE"] + "/Application Data/StartNewModule"
+    else:
+        logfilepath = os.path.expanduser("~") + "/.startnewmodule"
     if not os.path.exists(logfilepath):
         os.mkdir(logfilepath)
     logfilename = logfilepath + "/log.txt"
     if not os.path.exists(logfilename):
         logfile = open(logfilename,"w")
         logfile.close()
+    # set as environment variable to retrieve it in the log configuration
+    os.environ["CSNLOGFILE"] = logfilename
     
     # logging init
     logging.config.fileConfig(pathToResources + "/logging.conf")
