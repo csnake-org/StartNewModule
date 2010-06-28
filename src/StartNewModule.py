@@ -206,8 +206,8 @@ class MainFrame(wx.Frame):
         # set up frame for creation begin 
         self.mainFrame_statusbar.SetStatusText("Creating module...")
         self.btnCreate.Disable()
-        dialog = wx.ProgressDialog( "Progress", "Creating module...", maximum = 100, style = wx.PD_AUTO_HIDE )
-        dialog.Update(0)
+        progressDialog = wx.ProgressDialog( "Progress", "Creating module...", maximum = 100, style = wx.PD_CAN_ABORT|wx.PD_APP_MODAL )
+        progressDialog.Update(0)
         # create library
         if( self.cmbType.GetValue() == "Library" ):
             try:
@@ -270,13 +270,12 @@ class MainFrame(wx.Frame):
             withError = True
         # set up frame for creation end 
         if not withError:
-            dialog.Update(100)
+            progressDialog.Update(100)
             self.mainFrame_statusbar.SetStatusText("Module created.")
-            self._handleInfo("Module created successfully.")
         else:
             self.mainFrame_statusbar.SetStatusText("Error creating module.")
         # clean up   
-        dialog.Destroy()
+        progressDialog.Destroy()
         self.btnCreate.Enable()
         
     def _handleError(self, message, error):
@@ -284,11 +283,6 @@ class MainFrame(wx.Frame):
         wx.MessageBox("%s\nError: %s\nSee log file for details." % (message, str(error)), 'Error', wx.ICON_ERROR)
         logger.exception("%s" % message)
     
-    def _handleInfo( self, message):
-        """ Handle infos. """
-        wx.MessageBox("%s\nSee log file for details." % message, 'Info')
-        
-
 # end of class MainFrame
 
 if __name__ == "__main__":
