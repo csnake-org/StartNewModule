@@ -14,9 +14,9 @@ IF(WIN32)
     )
     SET(TemplateThirdParty_LIBRARIES
       # here goes the name of your lib files
-    )
-    SET(TemplateThirdParty_DEBUG_LIBRARIES
+	  optimized "myLibName"
       # here goes the name of your debug lib files
+	  debug "myLibName"
     )
 
 ELSE(WIN32)
