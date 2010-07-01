@@ -311,7 +311,7 @@ if __name__ == "__main__":
         logfile = open(logfilename,"w")
         logfile.close()
     # set as environment variable to retrieve it in the log configuration
-    os.environ["CSNLOGFILE"] = logfilename
+    os.environ["SNMLOGFILE"] = logfilename
     
     # logging init
     logging.config.fileConfig(pathToResources + "/logging.conf")
