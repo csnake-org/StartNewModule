@@ -38,7 +38,7 @@ class MainFrame(wx.Frame):
         self.btnSelectRootPath = wx.Button(self, -1, "...")
         self.static_line_1 = wx.StaticLine(self, -1)
         self.lblType = wx.StaticText(self, -1, "Type")
-        self.cmbType = wx.ComboBox(self, -1, choices=["Library", "GIMIAS Plugin", "GIMIAS Plugin Widget", "ThirdParty"], style=wx.CB_DROPDOWN)
+        self.cmbType = wx.ComboBox(self, -1, choices=["Project","Library", "GIMIAS Plugin", "GIMIAS Plugin Widget", "ThirdParty"], style=wx.CB_DROPDOWN)
         self.lblToolkitFile = wx.StaticText(self, -1, "Toolkit csn file")
         self.txtToolkitFile = wx.TextCtrl(self, -1, "")
         self.btnSelectToolkitFile = wx.Button(self, -1, "...")
@@ -81,6 +81,8 @@ class MainFrame(wx.Frame):
         self.btnSelectToolkitFile.SetToolTipString("Browse disk...")
         self.lblGimiasFile.SetToolTipString("The location of theGimias csn file (csnGIMIAS.py).")
         self.txtGimiasFile.Enable(False)
+        self.btnSelectToolkitFile.Enable(False)
+        self.txtToolkitFile.Enable(False)
         self.btnSelectGimiasFile.SetToolTipString("Browse disk...")
         self.btnSelectGimiasFile.Enable(False)
         self.btnCreate.SetToolTipString("Start a new project in the Project Folder based on a template.")
@@ -196,6 +198,11 @@ class MainFrame(wx.Frame):
             self.btnSelectToolkitFile.Enable()
             self.txtGimiasFile.Disable()
             self.btnSelectGimiasFile.Disable()
+        elif(self.cmbType.GetValue() == "Project"):
+            self.txtToolkitFile.Disable()
+            self.btnSelectToolkitFile.Disable()
+            self.txtGimiasFile.Disable()
+            self.btnSelectGimiasFile.Disable()
         else:
             self._handleError("Unsupported module type", ValueError())
 
@@ -263,6 +270,19 @@ class MainFrame(wx.Frame):
                 self._handleError("Error creating Third Party.", error)
             except IOError, error:
                 self._handleError("Error creating Third Party.", error)
+                withError = True
+        # create Project
+        elif( self.cmbType.GetValue() == "Project"):
+            try:
+                CreateNewModule.CreateProject(
+                        self.txtRootPath.GetValue(),
+                        self.txtName.GetValue(),
+                        pathToResources)
+            except ValueError, error:
+                withError = True
+                self._handleError("Error creating Project.", error)
+            except IOError, error:
+                self._handleError("Error creating Project.", error)
                 withError = True
         # default
         else:

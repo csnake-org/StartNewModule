@@ -146,7 +146,11 @@ def CreateLibrary(rootPath, libraryName, rootForTemplateFiles, tkFilename):
     if os.path.exists(os.path.join(head,os.path.basename(tkFilename))):
         pathToLib = tail + "." + pathToLib
     # append to toolkit file
-    EditFile(tkFilename, "def %s():\n    import %s%s.csn%s\n    return %s%s.csn%s.%s" %(libraryName[0].lower()+libraryName[1:], pathToLib, libraryName, libraryName, pathToLib, libraryName, libraryName, libraryName[0].lower()+libraryName[1:]), 1)    
+    EditFile(tkFilename, "def %s():\n    import %s%s.csn%s\n    return %s%s.csn%s.%s" %(libraryName[0].lower()+libraryName[1:], pathToLib, libraryName, libraryName, pathToLib, libraryName, libraryName, libraryName[0].lower()+libraryName[1:]), 1)
+    tkFilenameBase = os.path.basename(tkFilename)
+    libraryAppsCsnFile = "%s/%s/csn%sApps.py" % (rootPath, libraryName, libraryName)
+    if not os.path.basename(tkFilename) == "csnToolkitOpen.py" :
+        AddHeaderFile(libraryAppsCsnFile,"from csnToolkitOpen import *", "from %s import * \n" % tkFilenameBase )
 
 def CreatePlugin(rootPath, pluginName, rootForTemplateFiles, tkFilename, gimiasFilename):
     """ Create a new Plugin from template. """
@@ -295,4 +299,34 @@ def CreateThirdParty(rootPath, thirdPartyName, rootForTemplateFiles, tkFilename)
     
     # append to CMakeLists.txt de thirdParty folder
     AddHeaderFile(cmakeFileName,"# Set the folder of the thirdparty project", "LIST( APPEND AVAILABLE_THIRDPARTY \"%s\" )\n" % thirdPartyName)
-    
+
+def CreateProject(rootPath, projectName, rootForTemplateFiles):
+    """ Create a new Project from Template. """
+    # log
+    logger = logging.getLogger("CreateNewModule")
+    logger.info("CreateProject")
+    # check inputs
+    if len(rootPath) == 0:
+        raise ValueError("No root path provided.")
+    if len(projectName) == 0:
+        raise ValueError("No project name provided")
+
+    # create dictionary
+    dictionary = dict()
+    dictionary["TemplateProject"] = projectName;
+    dictionary["templateproject"] = projectName.lower();
+
+    #copy template files
+    ConfigureFile("%s/TemplateProject/data/__init__.py" % rootForTemplateFiles, "%s/%s/data/__init__.py" % (rootPath, projectName),dictionary)
+    ConfigureFile("%s/TemplateProject/TemplateProject_src/__init__.py" % rootForTemplateFiles ,"%s/%s/%s_src/__init__.py" % (rootPath, projectName, projectName),dictionary)
+    ConfigureFile("%s/TemplateProject/TemplateProject_src/rootFolder.csnake" % rootForTemplateFiles ,"%s/%s/%s_src/rootFolder.csnake" % (rootPath, projectName, projectName),dictionary)
+    ConfigureFile("%s/TemplateProject/TemplateProject_src/modules/__init__.py" % rootForTemplateFiles ,"%s/%s/%s_src/modules/__init__.py" % (rootPath, projectName, projectName),dictionary)
+    ConfigureFile("%s/TemplateProject/TemplateProject_src/plugins/__init__.py" % rootForTemplateFiles ,"%s/%s/%s_src/plugins/__init__.py" % (rootPath, projectName, projectName),dictionary)
+    ConfigureFile("%s/TemplateProject/TemplateProject_src/thirdparties/__init__.py" % rootForTemplateFiles ,"%s/%s/%s_src/thirdparties/__init__.py" % (rootPath, projectName, projectName),dictionary)
+    ConfigureFile("%s/TemplateProject/TemplateProject_src/thirdparties/CMakeLists.txt" % rootForTemplateFiles ,"%s/%s/%s_src/thirdparties/CMakeLists.txt" % (rootPath, projectName, projectName),dictionary)
+    ConfigureFile("%s/TemplateProject/TemplateProject_src/thirdparties/cmakeMacros/PCHSupport_26.cmake" % rootForTemplateFiles ,"%s/%s/%s_src/thirdparties/cmakeMacros/PCHSupport_26.cmake" % (rootPath, projectName, projectName),dictionary)
+    ConfigureFile("%s/TemplateProject/TemplateProject_src/thirdparties/cmakeMacros/PlatformDependent.cmake" % rootForTemplateFiles ,"%s/%s/%s_src/thirdparties/cmakeMacros/PlatformDependent.cmake" % (rootPath, projectName, projectName),dictionary)
+    ConfigureFile("%s/TemplateProject/TemplateProject_src/thirdparties/cmakeMacros/ResetCachedValues.cmake" % rootForTemplateFiles ,"%s/%s/%s_src/thirdparties/cmakeMacros/ResetCachedValues.cmake" % (rootPath, projectName, projectName),dictionary)
+    ConfigureFile("%s/TemplateProject/TemplateProject_src/thirdparties/cmakeMacros/ThirdPartyLibMacros.cmake" % rootForTemplateFiles ,"%s/%s/%s_src/thirdparties/cmakeMacros/ThirdPartyLibMacros.cmake" % (rootPath, projectName, projectName),dictionary)
+    ConfigureFile("%s/TemplateProject/TemplateProject_src/csnTemplateProject.py" % rootForTemplateFiles ,"%s/%s/%s_src/csn%s.py" % (rootPath, projectName, projectName,projectName),dictionary)
+    ConfigureFile("%s/TemplateProject/TemplateProject_src/csnTemplateProjectToolkit.py" % rootForTemplateFiles ,"%s/%s/%s_src/csn%sToolkit.py" % (rootPath, projectName, projectName,projectName),dictionary)
