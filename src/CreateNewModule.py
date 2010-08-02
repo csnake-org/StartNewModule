@@ -175,6 +175,7 @@ def CreatePlugin(rootPath, pluginName, rootForTemplateFiles, tkFilename, gimiasF
     # copy template files
     ConfigureFile("%s/TemplatePlugin/build/config.xml" % rootForTemplateFiles, "%s/%s/build/config.xml" % (rootPath, pluginName), dictionary)        
 
+    ConfigureFile("%s/TemplatePlugin/tests/templateTest.h" % rootForTemplateFiles, "%s/%s/tests/templateTest.h" % (rootPath, pluginName), dictionary)
     ConfigureFile("%s/TemplatePlugin/doc/Doxyfile.doxy" % rootForTemplateFiles, "%s/%s/doc/Doxyfile.doxy" % (rootPath, pluginName), dictionary)        
     ConfigureFile("%s/TemplatePlugin/doc/MainPage.dox" % rootForTemplateFiles, "%s/%s/doc/MainPage.dox" % (rootPath, pluginName), dictionary)        
     ConfigureFile("%s/TemplatePlugin/doc/Modules.dox" % rootForTemplateFiles, "%s/%s/doc/Modules.dox" % (rootPath, pluginName), dictionary)        
