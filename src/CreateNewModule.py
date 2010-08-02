@@ -147,9 +147,9 @@ def CreateLibrary(rootPath, libraryName, rootForTemplateFiles, tkFilename):
         pathToLib = tail + "." + pathToLib
     # append to toolkit file
     EditFile(tkFilename, "def %s():\n    import %s%s.csn%s\n    return %s%s.csn%s.%s" %(libraryName[0].lower()+libraryName[1:], pathToLib, libraryName, libraryName, pathToLib, libraryName, libraryName, libraryName[0].lower()+libraryName[1:]), 1)
-    tkFilenameBase = os.path.basename(tkFilename)
+    ( tkFilenameBase, tail) = os.path.splitext(os.path.basename(tkFilename))
     libraryAppsCsnFile = "%s/%s/csn%sApps.py" % (rootPath, libraryName, libraryName)
-    if not os.path.basename(tkFilename) == "csnToolkitOpen.py" :
+    if not tkFilenameBase == "csnToolkitOpen" :
         AddHeaderFile(libraryAppsCsnFile,"from csnToolkitOpen import *", "from %s import * \n" % tkFilenameBase )
 
 def CreatePlugin(rootPath, pluginName, rootForTemplateFiles, tkFilename, gimiasFilename):
