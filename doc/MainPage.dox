@@ -15,14 +15,14 @@ Helper tool for new module/plugin configuration.
 <li>for type "Gimias Plugin" put something like MyNewNamePlugin</li>
 <li>for type "Gimias Plugin widget" put only MyNewFunctionality it will add
  automatically PanelWidget and Processor</li>
-<li>for type "ThirdParty" put something likt MyNewThirdParty</li>
+<li>for type "ThirdParty" put something like MyNewThirdParty</li>
 </ul>
 <li>Set the root path to your module:</li>
 <ul>
 <li>for type "Library" for example MyProject/MyProject_src/modules</li>
-<li>for type "Gimias Plugin" MyProject/MyProject_src/plugins</li>
-<li>for type "Gimias Plugin widget" MyProject/MyProject_src/plugins/MyNewNamePlugin</li>
-<li>for type "ThirdParty" MyProject/MyProject_src/thirdparties</li>
+<li>for type "Gimias Plugin" for example MyProject/MyProject_src/plugins</li>
+<li>for type "Gimias Plugin widget" for example MyProject/MyProject_src/plugins/MyNewNamePlugin</li>
+<li>for type "ThirdParty" for example MyProject/MyProject_src/thirdparties</li>
 </ul>
 <li>Select Type "Project" or "Library" or "Gimias Plugin" or "Gimias Plugin widget"
  or "ThirdParty"</li>
