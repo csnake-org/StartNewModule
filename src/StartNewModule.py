@@ -11,6 +11,7 @@ import CreateNewModule
 import logging.config
 from about import About
 import webbrowser
+import utils
 
 pathToResources = ""
 
@@ -149,10 +150,8 @@ class MainFrame(wx.Frame):
 
     def OnMenuContent(self, event): # wxGlade: MainFrame.<event_handler>
         ''' Text displayed for help.'''
-        root = os.path.dirname(__file__) + "/../"
-        root = os.path.normpath(root).replace("\\", "/")
+        root = utils.getRootFolder()
         indexFilename = root + "/doc/html/index.html"
-        print indexFilename
         if os.path.exists(indexFilename):
             webbrowser.open(indexFilename)
         else:
