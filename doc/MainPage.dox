@@ -35,7 +35,7 @@ Helper tool for new module/plugin configuration.
 
 \section det_sec Details
 \li Library maintainer: Yves Martelli (ymartelli@cistib.upf.edu)
-\li Library license: Open Source
+\li Library license: Open Source (see \ref license information)
 
 \section dep_sec Dependencies
 \li Python: version 2.6 (http://www.python.org)
