@@ -10,7 +10,7 @@ import sys
 import CreateNewModule
 import logging.config
 from about import About
-from helpDialog import HelpDialog
+import webbrowser
 
 pathToResources = ""
 
@@ -148,10 +148,16 @@ class MainFrame(wx.Frame):
         wx.AboutBox(info)
 
     def OnMenuContent(self, event): # wxGlade: MainFrame.<event_handler>
-        dlg = HelpDialog(None, -1, "Help")
-        dlg.Show()
-        #dlg.ShowModal()
-        #dlg.Destroy()
+        ''' Text displayed for help.'''
+        root = os.path.dirname(__file__) + "/../"
+        root = os.path.normpath(root).replace("\\", "/")
+        indexFilename = root + "/doc/html/index.html"
+        print indexFilename
+        if os.path.exists(indexFilename):
+            webbrowser.open(indexFilename)
+        else:
+            dialog = wx.MessageDialog(self, "Missing documentation.", 'Error', style = wx.OK | wx.ICON_ERROR)
+            dialog.ShowModal()
 
     def OnSelectRootPath(self, event): # wxGlade: MainFrame.<event_handler>
         dlg = wx.DirDialog(None, "Select Project Root Folder")
