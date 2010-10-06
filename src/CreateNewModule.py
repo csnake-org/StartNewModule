@@ -243,8 +243,8 @@ def CreatePluginWidget(rootPath, pluginWidgetName, rootForTemplateFiles):
     
     # create dictionary
     dictionary = dict()
-    dictionary["Sandbox"] = pluginWidgetName;
-    dictionary["sandbox"] = pluginWidgetName[ 0 ].lower( ) + pluginWidgetName[ 1: ];
+    dictionary["Templ"] = pluginWidgetName;
+    dictionary["templ"] = pluginWidgetName[ 0 ].lower( ) + pluginWidgetName[ 1: ];
     dictionary["TemplatePlugin"] = pluginName;
     
     # copy template files
