@@ -248,13 +248,13 @@ def CreatePluginWidget(rootPath, pluginWidgetName, rootForTemplateFiles):
     dictionary["TemplatePlugin"] = pluginName;
     
     # copy template files
-    ConfigureFile("%s/TemplatePlugin/processors/TemplatePluginSandboxProcessor.cxx" % rootForTemplateFiles, "%s/processors/%s%sProcessor.cxx" % (rootPath, pluginName, pluginWidgetName), dictionary)
-    ConfigureFile("%s/TemplatePlugin/processors/TemplatePluginSandboxProcessor.h" % rootForTemplateFiles, "%s/processors/%s%sProcessor.h" % (rootPath, pluginName, pluginWidgetName), dictionary)
-    ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidget.cpp" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidget.cpp" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
-    ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidget.h" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidget.h" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
-    ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidgetUI.cpp" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.cpp" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
-    ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidgetUI.h" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.h" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
-    ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidgetUI.wxg" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.wxg" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)
+    ConfigureFile("%s/TemplatePlugin/processors/TemplatePluginTemplProcessor.cxx" % rootForTemplateFiles, "%s/processors/%s%sProcessor.cxx" % (rootPath, pluginName, pluginWidgetName), dictionary)
+    ConfigureFile("%s/TemplatePlugin/processors/TemplatePluginTemplProcessor.h" % rootForTemplateFiles, "%s/processors/%s%sProcessor.h" % (rootPath, pluginName, pluginWidgetName), dictionary)
+    ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidget.cpp" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidget.cpp" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
+    ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidget.h" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidget.h" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
+    ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidgetUI.cpp" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.cpp" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
+    ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidgetUI.h" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.h" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
+    ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidgetUI.wxg" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.wxg" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)
     
     # append to toolkit files
     EditFile(csnFilename, "%s%sPanelWidget" % (pluginName, pluginWidgetName ), 3)
