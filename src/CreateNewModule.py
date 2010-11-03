@@ -331,3 +331,25 @@ def CreateProject(rootPath, projectName, rootForTemplateFiles):
     ConfigureFile("%s/TemplateProject/TemplateProject_src/thirdparties/cmakeMacros/ThirdPartyLibMacros.cmake" % rootForTemplateFiles ,"%s/%s/%s_src/thirdparties/cmakeMacros/ThirdPartyLibMacros.cmake" % (rootPath, projectName, projectName),dictionary)
     ConfigureFile("%s/TemplateProject/TemplateProject_src/csnTemplateProject.py" % rootForTemplateFiles ,"%s/%s/%s_src/csn%s.py" % (rootPath, projectName, projectName,projectName),dictionary)
     ConfigureFile("%s/TemplateProject/TemplateProject_src/csnTemplateProjectToolkit.py" % rootForTemplateFiles ,"%s/%s/%s_src/csn%sToolkit.py" % (rootPath, projectName, projectName,projectName),dictionary)
+
+def CreateCommandLine(rootPath, commandLineName, rootForTemplateFiles):
+    """ Create a new CommandLine Plugin from template. """
+    # log
+    logger = logging.getLogger("CreateCommandLine")
+    logger.info("Create CommandLine Plugin.")
+    # check inputs
+    if len(rootPath) == 0:
+        raise ValueError("No root path provided.")
+    if len(commandLineName) == 0:
+        raise ValueError("No commandline name provided.")
+
+    # create dictionary
+    dictionary = dict()
+    dictionary["TemplateFilter"] = commandLineName;
+    dictionary["templateFilter"] = commandLineName.lower();
+    
+    #copy template files
+    ConfigureFile("%s/TemplateCLP/TemplateFilter.cxx" % rootForTemplateFiles, "%s/applications/%s/%s.cxx" % (rootPath, commandLineName,commandLineName),dictionary)
+    ConfigureFile("%s/TemplateCLP/TemplateFilter.xml" % rootForTemplateFiles ,"%s/applications/%s/%s.xml" % (rootPath, commandLineName, commandLineName),dictionary)
+    ConfigureFile("%s/TemplateCLP/csnTemplateFilter.py" % rootForTemplateFiles ,"%s/csn%s.py" % (rootPath, commandLineName),dictionary)
+    

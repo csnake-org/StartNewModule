@@ -39,7 +39,7 @@ class MainFrame(wx.Frame):
         self.btnSelectRootPath = wx.Button(self, -1, "...")
         self.static_line_1 = wx.StaticLine(self, -1)
         self.lblType = wx.StaticText(self, -1, "Type")
-        self.cmbType = wx.ComboBox(self, -1, choices=["Project","Library", "GIMIAS Plugin", "GIMIAS Plugin Widget", "ThirdParty"], style=wx.CB_DROPDOWN)
+        self.cmbType = wx.ComboBox(self, -1, choices=["Project","Library", "GIMIAS Plugin", "GIMIAS Plugin Widget", "ThirdParty", "CommandLine Plugin"], style=wx.CB_DROPDOWN)
         self.lblToolkitFile = wx.StaticText(self, -1, "Toolkit csn file")
         self.txtToolkitFile = wx.TextCtrl(self, -1, "")
         self.btnSelectToolkitFile = wx.Button(self, -1, "...")
@@ -208,6 +208,11 @@ class MainFrame(wx.Frame):
             self.btnSelectToolkitFile.Disable()
             self.txtGimiasFile.Disable()
             self.btnSelectGimiasFile.Disable()
+        elif(self.cmbType.GetValue() == "CommandLine Plugin"):
+            self.txtToolkitFile.Disable()
+            self.btnSelectToolkitFile.Disable()
+            self.txtGimiasFile.Disable()
+            self.btnSelectGimiasFile.Disable()
         else:
             self._handleError("Unsupported module type", ValueError())
 
@@ -288,6 +293,19 @@ class MainFrame(wx.Frame):
                 self._handleError("Error creating Project.", error)
             except IOError, error:
                 self._handleError("Error creating Project.", error)
+                withError = True
+        # create commandline plugin
+        if( self.cmbType.GetValue() == "CommandLine Plugin" ):
+            try:
+                CreateNewModule.CreateCommandLine(
+                    self.txtRootPath.GetValue(), 
+                    self.txtName.GetValue(), 
+                    pathToResources)
+            except ValueError, error:
+                self._handleError("Error creating commandLine Plugin.", error)
+                withError = True
+            except IOError, error:
+                self._handleError("Error creating commandLine Plugin.", error)
                 withError = True
         # default
         else:
