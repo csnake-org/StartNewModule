@@ -41,14 +41,17 @@ void TemplatePlugin::TemplProcessor::Update()
 	{
 		// Get the first image
 		ImageType::Pointer itkInputImage;
-		Core::DataEntityHelper::GetProcessingITKData<ImageType>(
-			GetInputDataEntityHolder( INPUT_0 ),
+		GetProcessingData<ImageType::Pointer>(INPUT_0,
 			itkInputImage);
 
 		Core::vtkPolyDataPtr vtkInput;
-		Core::DataEntityHelper::GetProcessingData( 
-			GetInputDataEntityHolder( INPUT_1),
+		GetProcessingData(INPUT_1,
 			vtkInput );
+			
+		Core::vtkImageDataPtr vtkInputImage;
+		GetProcessingData(INPUT_0,
+			vtkInputImage );
+			
 
 		// Set state to processing (dialog box)
 		SetState( Core::Runtime::APP_STATE_PROCESSING );
@@ -57,8 +60,9 @@ void TemplatePlugin::TemplProcessor::Update()
 		// the output should go in the update functions
 		
 		// Set the output to the output of this processor
-		UpdateOutputImageAsVtk<ImageType>( 0 ,itkInputImage, "TemplProcessorImage");	
+		UpdateOutput<ImageType::Pointer>( 0 ,itkInputImage, "TemplProcessorImage");	
 		UpdateOutput(1, vtkInput, "TemplProcessorSurface");
+		UpdateOutput(2, vtkInputImage, "TemplProcessorImageVTK");
 	}
 	catch(...)
 	{

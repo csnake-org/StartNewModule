@@ -37,6 +37,7 @@ public:
 	{
 		OUTPUT_0,
 		OUTPUT_1,
+		OUTPUT_2,
 		OUTPUTS_NUMBER
 	}OUTPUT_TYPE;
 public:
