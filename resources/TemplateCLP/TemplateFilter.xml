@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<executable>
+  <category>Demonstration</category>
+  <index></index>
+  <title>TemplateFilter</title>
+  <description>Here goes the description</description>
+  <version></version>
+  <documentation-url></documentation-url>
+  <license></license>
+  <contributor></contributor>
+  <acknowledgements></acknowledgements>
+
+  <parameters>
+	<label>Parameters</label>
+	<description>Parameters Description</description>
+    <double>
+      <name>param</name>
+      <longflag>param</longflag>
+      <flag>p</flag>
+      <label>Parameter</label>
+      <description>Parameter Description</description>
+      <default>1.0</default>
+    </double>
+  </parameters>
+  
+  <parameters>
+    <label>IO</label>
+    <description>Input/output parameters</description>
+    <image>
+      <name>inputVolume</name>
+      <label>Input Volume</label>
+      <channel>input</channel>
+      <index>0</index>
+      <description>Input volume</description>
+    </image>
+	<geometry>
+	  <name>inputGeometry</name>
+      <label>Input Geometry</label>
+      <channel>input</channel>
+      <index>1</index>
+      <description>Input geometry</description>
+	</geometry>
+    <image>
+      <name>outputVolume</name>
+      <label>Output Volume</label>
+      <channel>output</channel>
+      <index>2</index>
+      <description>Output Volume</description>
+    </image>
+	<geometry fileExtensions = ".vtk">
+	  <name>outputGeometry</name>
+      <label>Output Geometry</label>
+      <channel>output</channel>
+      <index>3</index>
+      <description>Output geometry</description>
+	</geometry>
+  </parameters>
+
+</executable>
