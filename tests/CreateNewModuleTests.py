@@ -59,6 +59,40 @@ class CreateNewModuleTests(unittest.TestCase):
         # delete created hierarchy
         shutil.rmtree(toolkitRoot)
         
+    def testCreateCLP(self):
+        """ CreateNewModuleTests: test CreateCLP. """
+        # file names
+        testRoot = "./"
+        toolkitRoot = testRoot + "/generated"
+        modulesRoot = toolkitRoot + "/modules"
+        modulesRootTest = modulesRoot +"/TestLibrary"
+        modulesRootapp = modulesRootTest +"/applications"
+                 
+        # create hierarchy 
+        os.mkdir(toolkitRoot)
+        os.mkdir(modulesRoot)
+        os.mkdir(modulesRootTest)
+        os.mkdir(modulesRootapp)
+                    
+        # vars
+        commandLinePluginName = "TestCommandLine"
+        rootForTemplateFiles = "./../resources"
+        # call method
+        CreateNewModule.CreateCommandLine(modulesRootTest, commandLinePluginName, rootForTemplateFiles)
+        
+        # check results
+        clpFolder = modulesRootapp+ '/' + commandLinePluginName
+        csnFileName = "csn%s.py" % commandLinePluginName
+        # check folders and file
+        assert os.path.exists(clpFolder)
+        assert os.path.exists(clpFolder + "/%s.cxx" % commandLinePluginName)
+        assert os.path.exists(clpFolder + "/%s.xml" % commandLinePluginName)
+        # check project csn file content
+        assert os.path.exists(modulesRootTest + '/' + csnFileName )
+             
+        # delete created hierarchy
+        shutil.rmtree(toolkitRoot)    
+    
     def testCreatePlugin(self):
         """ CreateNewModuleTests: test CreatePlugin. """
         # file names
