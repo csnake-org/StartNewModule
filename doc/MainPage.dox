@@ -16,6 +16,7 @@ Helper tool for new module/plugin configuration.
 <li>for type "Gimias Plugin widget" put only MyNewFunctionality it will add
  automatically PanelWidget and Processor</li>
 <li>for type "ThirdParty" put something like MyNewThirdParty</li>
+<li>for type "CommandLinePlugin" put something like MyCommandLinePlugin</li>
 </ul>
 <li>Set the root path to your module:</li>
 <ul>
@@ -23,9 +24,10 @@ Helper tool for new module/plugin configuration.
 <li>for type "Gimias Plugin" for example MyProject/MyProject_src/plugins</li>
 <li>for type "Gimias Plugin widget" for example MyProject/MyProject_src/plugins/MyNewNamePlugin</li>
 <li>for type "ThirdParty" for example MyProject/MyProject_src/thirdparties</li>
+<li>for type "CommandLinePlugin" for example MyProject/MyProject_src/modules/MyModuleLib</li>
 </ul>
 <li>Select Type "Project" or "Library" or "Gimias Plugin" or "Gimias Plugin widget"
- or "ThirdParty"</li>
+ or "ThirdParty" or "CommandLinePlugin"</li>
 <li>(for type "Library", "Gimias Plugin" and "ThirdParty" only) Set Toolkit csn file
  to your MyProject/MyProject_src/csnMyProjectToolkit.py</li>
 <li>(for type "Gimias Plugin" only) Set your Application csn file to your
