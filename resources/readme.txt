@@ -2,12 +2,13 @@
 Start New Module readme
 ------------------------
 
-Version: 0.1.4beta
+Version: 0.1.4
 
 Change log
 ----------
 v0.1.4:
- * ...
+ * Adapted to new Gimias Release 1.2.0
+ * Added commandLinePlugin option (for Toolkit > 1.2.1)
 v0.1.3:
  * Adapted to new csn file structure
  * Adapted to new Gimias/Suites folder structure
