@@ -236,9 +236,9 @@ def CreatePluginWidget(rootPath, pluginWidgetName, rootForTemplateFiles):
     widgetCollname = "%s/%sWidgetCollective.cxx" % (rootPath, pluginName)
     if not os.path.exists(widgetCollname):
         raise IOError("The plugin widget collective file does not exist.")
-    procCollname = "%s/%sProcessorCollective.cxx" % (rootPath, pluginName)
-    if not os.path.exists(procCollname):
-        raise IOError("The plugin processor collective file does not exist.")
+    #procCollname = "%s/%sProcessorCollective.cxx" % (rootPath, pluginName)
+    #if not os.path.exists(procCollname):
+    #    raise IOError("The plugin processor collective file does not exist.")
 
     
     # create dictionary

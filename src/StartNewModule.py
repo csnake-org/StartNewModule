@@ -295,7 +295,7 @@ class MainFrame(wx.Frame):
                 self._handleError("Error creating Project.", error)
                 withError = True
         # create commandline plugin
-        if( self.cmbType.GetValue() == "CommandLine Plugin" ):
+        elif( self.cmbType.GetValue() == "CommandLine Plugin" ):
             try:
                 CreateNewModule.CreateCommandLine(
                     self.txtRootPath.GetValue(), 
