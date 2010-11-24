@@ -11,7 +11,7 @@ from csnToolkitOpen import *
 
 templateFilterCLP = csnCilab.CommandLinePlugin("TemplateFilterCLP")
 templateFilterCLP.AddSources([u'applications/TemplateFilter/TemplateFilter.cxx'])
-templateFilterCLP.AddProjects([itk, slicer,generateClp])
+templateFilterCLP.AddProjects([itk, baseCLP]) #slicer,generateClp])
 #templateFilterCLP.AddDefinitions(["/bigobj"], _private = 1, _WIN32 = 1) 
 	
 #EveryCLP = csnCilab.CilabModuleProject("templateFilterCLP", "container")
