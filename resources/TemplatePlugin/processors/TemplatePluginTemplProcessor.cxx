@@ -60,7 +60,7 @@ void TemplatePlugin::TemplProcessor::Update()
 		// the output should go in the update functions
 		
 		// Set the output to the output of this processor
-		UpdateOutput<ImageType::Pointer>( 0 ,itkInputImage, "TemplProcessorImage");	
+		UpdateOutput( 0 ,itkInputImage, "TemplProcessorImage");	
 		UpdateOutput(1, vtkInput, "TemplProcessorSurface");
 		UpdateOutput(2, vtkInputImage, "TemplProcessorImageVTK");
 	}
