@@ -6,8 +6,9 @@
 import csnBuild
 import csnCilab
 import csnUtility
-from csnToolkitOpen import *
+#from csnToolkitOpen import *
 #from csnToolkitPrivate import *
+from csnGIMIASDef import *
 
 templateFilterCLP = csnCilab.CommandLinePlugin("TemplateFilterCLP")
 templateFilterCLP.AddSources([u'applications/TemplateFilter/TemplateFilter.cxx'])
