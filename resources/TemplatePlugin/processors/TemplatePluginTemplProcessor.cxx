@@ -15,6 +15,8 @@
 #include "coreDataEntityHelper.h"
 #include "coreDataEntityHelper.txx"
 #include "coreKernel.h"
+#include "coreVTKPolyDataHolder.h"
+#include "coreVTKImageDataHolder.h"
 
 #include "vtkSmartPointer.h"
 
@@ -41,7 +43,7 @@ void TemplatePlugin::TemplProcessor::Update()
 	{
 		// Get the first image
 		ImageType::Pointer itkInputImage;
-		GetProcessingData<ImageType::Pointer>(INPUT_0,
+		GetProcessingData(INPUT_0,
 			itkInputImage);
 
 		Core::vtkPolyDataPtr vtkInput;
