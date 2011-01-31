@@ -2,12 +2,12 @@
 Start New Module readme
 ------------------------
 
-Version: 0.1.5beta
+Version: 0.1.5
 
 Change log
 ----------
 v0.1.5:
- * ...
+ * Adapted to new Gimias Release 1.3.0
 v0.1.4:
  * Adapted to new Gimias Release 1.2.0
  * Added commandLinePlugin option (for Toolkit > 1.2.1)
