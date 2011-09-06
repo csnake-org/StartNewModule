@@ -145,7 +145,11 @@ class MainFrame(wx.Frame):
     def OnMenuAbout(self, event): # wxGlade: MainFrame.<event_handler>
         about = About()
         about.read(pathToResources + "/about.txt")
-        info = about.getWxAboutDialogInfo()
+        info = wx.AboutDialogInfo()
+        info.SetName(about.getName())
+        info.SetVersion(about.getVersion())
+        info.SetDescription(about.getDescription())
+        info.SetCopyright(about.getAuthor())
         wx.AboutBox(info)
 
     def OnMenuContent(self, event): # wxGlade: MainFrame.<event_handler>
