@@ -57,15 +57,6 @@ def EditFile(source, line, type):
             f = open(source, 'w')
             f.write(template)
             f.close()
-    # type 3: widget file
-    if( type == 3 ):
-        f = open(source, 'r')
-        template = f.read() 
-        f.close()
-        template = template.replace( "widgetModules = [", "widgetModules = [\n  '%s'," % line)
-        f = open(source, 'w')
-        f.write(template)
-        f.close()
     # type 4: widget collective
     if( type == 4 ):
         f = open(source, 'r')
@@ -84,6 +75,52 @@ def EditFile(source, line, type):
         f = open(source, 'w')
         f.write(template)
         f.close()
+
+def AddWidgetToConfig(fileName, pluginName, widgetName):
+    """ Add a widget to a configuration file."""
+    # log
+    logger = logging.getLogger("CreateNewModule")
+    logger.info("AddWidgetToConfig: %s" % fileName)
+    # check source file
+    if not os.path.exists(fileName):
+        raise IOError("File not found: %s" % fileName)
+    # open and read file
+    f = open(fileName, 'r')
+    template = f.read()
+    f.close()
+    # check if the section is present
+    if template.find("widgetModules = [") == -1:
+        template = "%s\n%s" % ( template, "# plugin widgets\nwidgetModules = [\n]\n%s.AddWidgetModules(widgetModules, _useQt = 0)" % pluginName)
+    # add widget
+    if template.find(widgetName) == -1:
+        template = template.replace( "widgetModules = [", "widgetModules = [\n  \"%s\"," % widgetName)
+    # save file
+    f = open(fileName, 'w')
+    f.write(template)
+    f.close()
+
+def AddProcessorToConfig(fileName, pluginName):
+    """ Add a processor to a configuration file."""
+    # log
+    logger = logging.getLogger("CreateNewModule")
+    logger.info("AddProcessorToConfig: %s" % fileName)
+    # check source file
+    if not os.path.exists(fileName):
+        raise IOError("File not found: %s" % fileName)
+    # open and read file
+    f = open(fileName, 'r')
+    template = f.read()
+    f.close()
+    # check if the section is present
+    if template.find("AddIncludeFolders") == -1:
+        template = "%s\n%s" % ( template, "%s.AddIncludeFolders([])" % pluginName)
+    # update file
+    template = template.replace("%s.AddIncludeFolders" % pluginName, "%s.AddSources([\"processors/*.cxx\", \"processors/*.h\"])\n%s.AddIncludeFolders" % (pluginName, pluginName))
+    template = template.replace("AddIncludeFolders([", "AddIncludeFolders([\"processors\",")
+    # save file
+    f = open(fileName, 'w')
+    f.write(template)
+    f.close()
 
 def AddHeaderFile(source, line1, line2):
     # log
@@ -248,7 +285,9 @@ def CreatePluginWidget(rootPath, pluginWidgetName, rootForTemplateFiles):
     ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidgetUI.wxg" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.wxg" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)
     
     # append to toolkit files
-    EditFile(csnFilename, "%s%sPanelWidget" % (pluginName, pluginWidgetName ), 3)
+    widgetName = "%s%sPanelWidget" % (pluginName, pluginWidgetName)
+    AddWidgetToConfig(csnFilename, pluginName, widgetName)
+    AddProcessorToConfig(csnFilename, pluginName)
     # append to WidgetCollective 
     EditFile(widgetCollname,"%sPanelWidget" % pluginWidgetName ,4)
     AddHeaderFile(widgetCollname,"#include \"%sWidgetCollective.h\"" % pluginName , "#include \"%s%sPanelWidget.h\"\nconst long wxID_%sPanelWidget = wxNewId();\n" % (pluginName,pluginWidgetName,pluginWidgetName) )
