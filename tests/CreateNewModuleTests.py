@@ -131,8 +131,6 @@ class CreateNewModuleTests(unittest.TestCase):
         assert os.path.exists(projectFolder)
         assert os.path.exists(projectFolder + "/build" )
         assert os.path.exists(projectFolder + "/doc" )
-        #assert os.path.exists(projectFolder + "/processors" )
-        #assert os.path.exists(projectFolder + "/widgets" )
         assert os.path.exists(projectFolder + "/__init__.py" )
         # check project csn file content
         assert os.path.exists(projectFolder + '/' + csnFileName )

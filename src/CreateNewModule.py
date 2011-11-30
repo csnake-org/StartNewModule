@@ -191,15 +191,6 @@ def CreatePlugin(rootPath, pluginName, rootForTemplateFiles, tkFilename, gimiasF
     ConfigureFile("%s/TemplatePlugin/TemplatePluginWidgetCollective.h" % rootForTemplateFiles, "%s/%s/%sWidgetCollective.h" % (rootPath, pluginName, pluginName), dictionary)    
     ConfigureFile("%s/TemplatePlugin/plugin.xml" % rootForTemplateFiles, "%s/%s/config.xml" % (rootPath, pluginName), dictionary)        
 
-    #ConfigureFile("%s/TemplatePlugin/processors/TemplatePluginSandboxProcessor.cxx" % rootForTemplateFiles, "%s/%s/processors/%sSandboxProcessor.cxx" % (rootPath, pluginName, pluginName), dictionary)    
-    #ConfigureFile("%s/TemplatePlugin/processors/TemplatePluginSandboxProcessor.h" % rootForTemplateFiles, "%s/%s/processors/%sSandboxProcessor.h" % (rootPath, pluginName, pluginName), dictionary)    
-
-    #ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidget.cpp" % rootForTemplateFiles, "%s/%s/widgets/%sSandboxPanelWidget/%sSandboxPanelWidget.cpp" % (rootPath, pluginName, pluginName, pluginName), dictionary)    
-    #ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidget.h" % rootForTemplateFiles, "%s/%s/widgets/%sSandboxPanelWidget/%sSandboxPanelWidget.h" % (rootPath, pluginName, pluginName, pluginName), dictionary)    
-    #ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidgetUI.cpp" % rootForTemplateFiles, "%s/%s/widgets/%sSandboxPanelWidget/%sSandboxPanelWidgetUI.cpp" % (rootPath, pluginName, pluginName, pluginName), dictionary)    
-    #ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidgetUI.h" % rootForTemplateFiles, "%s/%s/widgets/%sSandboxPanelWidget/%sSandboxPanelWidgetUI.h" % (rootPath, pluginName, pluginName, pluginName), dictionary)    
-    #ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginSandboxPanelWidgetUI.wxg" % rootForTemplateFiles, "%s/%s/widgets/%sSandboxPanelWidget/%sSandboxPanelWidgetUI.wxg" % (rootPath, pluginName, pluginName, pluginName), dictionary)
-    
     pathToPlugin = ""
     ( head , tail ) =os.path.split(rootPath)
     while not os.path.exists(os.path.join(head,os.path.basename(tkFilename))):
