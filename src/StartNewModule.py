@@ -39,13 +39,15 @@ class MainFrame(wx.Frame):
         self.btnSelectRootPath = wx.Button(self, -1, "...")
         self.static_line_1 = wx.StaticLine(self, -1)
         self.lblType = wx.StaticText(self, -1, "Type")
-        self.cmbType = wx.ComboBox(self, -1, choices=["Project","Library", "GIMIAS Plugin", "GIMIAS Plugin Widget", "ThirdParty", "CommandLine Plugin"], style=wx.CB_DROPDOWN)
+        self.cmbType = wx.ComboBox(self, -1, choices=["Project", "Library", "GIMIAS Plugin", "GIMIAS Plugin Widget", "ThirdParty", "CommandLine Plugin"], style=wx.CB_DROPDOWN)
         self.lblToolkitFile = wx.StaticText(self, -1, "Toolkit csn file")
         self.txtToolkitFile = wx.TextCtrl(self, -1, "")
         self.btnSelectToolkitFile = wx.Button(self, -1, "...")
         self.lblGimiasFile = wx.StaticText(self, -1, "Gimias csn file")
         self.txtGimiasFile = wx.TextCtrl(self, -1, "")
         self.btnSelectGimiasFile = wx.Button(self, -1, "...")
+        self.lblGimiasVersion = wx.StaticText(self, -1, "Gimias version")
+        self.cmbGimiasVersion = wx.ComboBox(self, -1, choices=["1.4", "1.3"], style=wx.CB_DROPDOWN)
         self.static_line_2 = wx.StaticLine(self, -1)
         self.btnCreate = wx.Button(self, -1, "Start New Module")
 
@@ -79,13 +81,15 @@ class MainFrame(wx.Frame):
         self.lblType.SetToolTipString("The type of the module.")
         self.cmbType.SetSelection(0)
         self.lblToolkitFile.SetToolTipString("The location of the Toolkit csn file (csnMyToolkit.py).")
+        self.txtToolkitFile.Enable(False)
         self.btnSelectToolkitFile.SetToolTipString("Browse disk...")
+        self.btnSelectToolkitFile.Enable(False)
         self.lblGimiasFile.SetToolTipString("The location of theGimias csn file (csnGIMIAS.py).")
         self.txtGimiasFile.Enable(False)
-        self.btnSelectToolkitFile.Enable(False)
-        self.txtToolkitFile.Enable(False)
         self.btnSelectGimiasFile.SetToolTipString("Browse disk...")
         self.btnSelectGimiasFile.Enable(False)
+        self.cmbGimiasVersion.Enable(False)
+        self.cmbGimiasVersion.SetSelection(0)
         self.btnCreate.SetToolTipString("Start a new project in the Project Folder based on a template.")
         # end wxGlade
 
@@ -96,6 +100,7 @@ class MainFrame(wx.Frame):
         sizerCreateBtn = wx.BoxSizer(wx.HORIZONTAL)
         box_3 = wx.BoxSizer(wx.HORIZONTAL)
         gridFiles = wx.GridSizer(2, 1, 0, 0)
+        sizerGimiasVersion = wx.BoxSizer(wx.HORIZONTAL)
         sizerGimiasFile = wx.BoxSizer(wx.HORIZONTAL)
         sizerToolkitFile = wx.BoxSizer(wx.HORIZONTAL)
         box_2 = wx.BoxSizer(wx.HORIZONTAL)
@@ -126,6 +131,9 @@ class MainFrame(wx.Frame):
         sizerGimiasFile.Add(self.txtGimiasFile, 2, wx.ALL, 5)
         sizerGimiasFile.Add(self.btnSelectGimiasFile, 1, wx.ALL, 5)
         gridFiles.Add(sizerGimiasFile, 4, wx.ALL|wx.EXPAND, 5)
+        sizerGimiasVersion.Add(self.lblGimiasVersion, 1, wx.ALL|wx.EXPAND, 5)
+        sizerGimiasVersion.Add(self.cmbGimiasVersion, 3, wx.ALL, 5)
+        gridFiles.Add(sizerGimiasVersion, 4, wx.ALL|wx.EXPAND, 5)
         box_3.Add(gridFiles, 1, wx.EXPAND, 0)
         sizer_main.Add(box_3, 0, wx.EXPAND, 0)
         sizer_main.Add(self.static_line_2, 0, wx.EXPAND, 0)
@@ -192,31 +200,37 @@ class MainFrame(wx.Frame):
             self.btnSelectToolkitFile.Enable()
             self.txtGimiasFile.Disable()
             self.btnSelectGimiasFile.Disable()
+            self.cmbGimiasVersion.Disable()
         elif( self.cmbType.GetValue() == "GIMIAS Plugin" ):
             self.txtToolkitFile.Enable()
             self.btnSelectToolkitFile.Enable()
             self.txtGimiasFile.Enable()
             self.btnSelectGimiasFile.Enable()
+            self.cmbGimiasVersion.Enable()
         elif( self.cmbType.GetValue() == "GIMIAS Plugin Widget" ):
             self.txtToolkitFile.Disable()
             self.btnSelectToolkitFile.Disable()
             self.txtGimiasFile.Disable()
             self.btnSelectGimiasFile.Disable()
+            self.cmbGimiasVersion.Enable()
         elif( self.cmbType.GetValue() == "ThirdParty" ):
             self.txtToolkitFile.Enable()
             self.btnSelectToolkitFile.Enable()
             self.txtGimiasFile.Disable()
             self.btnSelectGimiasFile.Disable()
+            self.cmbGimiasVersion.Disable()
         elif(self.cmbType.GetValue() == "Project"):
             self.txtToolkitFile.Disable()
             self.btnSelectToolkitFile.Disable()
             self.txtGimiasFile.Disable()
             self.btnSelectGimiasFile.Disable()
+            self.cmbGimiasVersion.Disable()
         elif(self.cmbType.GetValue() == "CommandLine Plugin"):
             self.txtToolkitFile.Disable()
             self.btnSelectToolkitFile.Disable()
             self.txtGimiasFile.Disable()
             self.btnSelectGimiasFile.Disable()
+            self.cmbGimiasVersion.Disable()
         else:
             self._handleError("Unsupported module type", ValueError())
 
@@ -251,7 +265,8 @@ class MainFrame(wx.Frame):
                      self.txtName.GetValue(), 
                      pathToResources,
                      self.txtToolkitFile.GetValue(),
-                     self.txtGimiasFile.GetValue())
+                     self.txtGimiasFile.GetValue(),
+                     self.cmbGimiasVersion.GetValue())
             except ValueError, error:
                 self._handleError("Error creating plugin.", error)
                 withError = True
@@ -264,7 +279,8 @@ class MainFrame(wx.Frame):
                 CreateNewModule.CreatePluginWidget(
                        self.txtRootPath.GetValue(), 
                        self.txtName.GetValue(), 
-                       pathToResources)
+                       pathToResources,
+                       self.cmbGimiasVersion.GetValue())
             except ValueError, error:
                 withError = True
                 self._handleError("Error creating widget.", error)
@@ -342,7 +358,8 @@ if __name__ == "__main__":
         pathToResources = root + folder
         if os.path.exists( pathToResources ):
             break
-    assert os.path.exists("%s/TemplatePlugin" % pathToResources), "Template plugin folder not found in: %s" % pathToResources
+    assert os.path.exists("%s/TemplatePlugin13" % pathToResources), "Template plugin folder for gimias 1.3 not found in: %s" % pathToResources
+    assert os.path.exists("%s/TemplatePlugin14" % pathToResources), "Template plugin folder for gimias 1.4 not found in: %s" % pathToResources
     assert os.path.exists("%s/TemplateLibrary" % pathToResources), "Template library folder not found in: %s" % pathToResources
     assert os.path.exists("%s/TemplateThirdParty" % pathToResources), "Template thirdParty folder not found in: %s" % pathToResources
     

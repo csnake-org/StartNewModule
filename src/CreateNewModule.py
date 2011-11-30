@@ -189,8 +189,8 @@ def CreateLibrary(rootPath, libraryName, rootForTemplateFiles, tkFilename):
     if not tkFilenameBase == "csnToolkitOpen" :
         AddHeaderFile(libraryAppsCsnFile,"from csnToolkitOpen import *", "from %s import * \n" % tkFilenameBase )
 
-def CreatePlugin(rootPath, pluginName, rootForTemplateFiles, tkFilename, gimiasFilename):
-    """ Create a new Plugin from template. """
+def CreatePlugin(rootPath, pluginName, rootForTemplateFiles, tkFilename, gimiasFilename, gimiasVersion):
+    """ Create a new Gimias Plugin from template. """
     # log
     logger = logging.getLogger("CreateNewModule")
     logger.info("Create Plugin.")
@@ -204,29 +204,32 @@ def CreatePlugin(rootPath, pluginName, rootForTemplateFiles, tkFilename, gimiasF
     if not os.path.exists(gimiasFilename):
         raise IOError("The gimias csnake file does not exist.")
 
+    # template plugin folder
+    templatePluginFolder = "%s/TemplatePlugin%s" % (rootForTemplateFiles, gimiasVersion.replace('.', ''))
+    
     # create dictionary
     dictionary = dict()
     dictionary["TemplatePlugin"] = pluginName;
     dictionary["templatePlugin"] = pluginName[ 0 ].lower( ) + pluginName[ 1: ];
 
     # copy template files
-    ConfigureFile("%s/TemplatePlugin/build/config.xml" % rootForTemplateFiles, "%s/%s/build/config.xml" % (rootPath, pluginName), dictionary)        
+    ConfigureFile("%s/build/config.xml" % templatePluginFolder, "%s/%s/build/config.xml" % (rootPath, pluginName), dictionary)        
 
-    ConfigureFile("%s/TemplatePlugin/tests/templateTest.h" % rootForTemplateFiles, "%s/%s/tests/templateTest.h" % (rootPath, pluginName), dictionary)
-    ConfigureFile("%s/TemplatePlugin/doc/Doxyfile.doxy" % rootForTemplateFiles, "%s/%s/doc/Doxyfile.doxy" % (rootPath, pluginName), dictionary)        
-    ConfigureFile("%s/TemplatePlugin/doc/MainPage.dox" % rootForTemplateFiles, "%s/%s/doc/MainPage.dox" % (rootPath, pluginName), dictionary)        
-    ConfigureFile("%s/TemplatePlugin/doc/Modules.dox" % rootForTemplateFiles, "%s/%s/doc/Modules.dox" % (rootPath, pluginName), dictionary)        
+    ConfigureFile("%s/tests/templateTest.h" % templatePluginFolder, "%s/%s/tests/templateTest.h" % (rootPath, pluginName), dictionary)
+    ConfigureFile("%s/doc/Doxyfile.doxy" % templatePluginFolder, "%s/%s/doc/Doxyfile.doxy" % (rootPath, pluginName), dictionary)        
+    ConfigureFile("%s/doc/MainPage.dox" % templatePluginFolder, "%s/%s/doc/MainPage.dox" % (rootPath, pluginName), dictionary)        
+    ConfigureFile("%s/doc/Modules.dox" % templatePluginFolder, "%s/%s/doc/Modules.dox" % (rootPath, pluginName), dictionary)        
 
-    ConfigureFile("%s/TemplatePlugin/__init__.py" % rootForTemplateFiles, "%s/%s/__init__.py" % (rootPath, pluginName), dictionary)
-    ConfigureFile("%s/TemplatePlugin/csnTemplatePlugin.py" % rootForTemplateFiles, "%s/%s/csn%s.py" % (rootPath, pluginName, pluginName), dictionary)
-    ConfigureFile("%s/TemplatePlugin/TemplatePlugin.cxx" % rootForTemplateFiles, "%s/%s/%s.cxx" % (rootPath, pluginName, pluginName), dictionary)    
-    ConfigureFile("%s/TemplatePlugin/TemplatePlugin.h" % rootForTemplateFiles, "%s/%s/%s.h" % (rootPath, pluginName, pluginName), dictionary)    
-    ConfigureFile("%s/TemplatePlugin/TemplatePluginPCH.h" % rootForTemplateFiles, "%s/%s/%sPCH.h" % (rootPath, pluginName, pluginName), dictionary)    
-    ConfigureFile("%s/TemplatePlugin/TemplatePluginProcessorCollective.cxx" % rootForTemplateFiles, "%s/%s/%sProcessorCollective.cxx" % (rootPath, pluginName, pluginName), dictionary)    
-    ConfigureFile("%s/TemplatePlugin/TemplatePluginProcessorCollective.h" % rootForTemplateFiles, "%s/%s/%sProcessorCollective.h" % (rootPath, pluginName, pluginName), dictionary)    
-    ConfigureFile("%s/TemplatePlugin/TemplatePluginWidgetCollective.cxx" % rootForTemplateFiles, "%s/%s/%sWidgetCollective.cxx" % (rootPath, pluginName, pluginName), dictionary)    
-    ConfigureFile("%s/TemplatePlugin/TemplatePluginWidgetCollective.h" % rootForTemplateFiles, "%s/%s/%sWidgetCollective.h" % (rootPath, pluginName, pluginName), dictionary)    
-    ConfigureFile("%s/TemplatePlugin/plugin.xml" % rootForTemplateFiles, "%s/%s/config.xml" % (rootPath, pluginName), dictionary)        
+    ConfigureFile("%s/__init__.py" % templatePluginFolder, "%s/%s/__init__.py" % (rootPath, pluginName), dictionary)
+    ConfigureFile("%s/csnTemplatePlugin.py" % templatePluginFolder, "%s/%s/csn%s.py" % (rootPath, pluginName, pluginName), dictionary)
+    ConfigureFile("%s/TemplatePlugin.cxx" % templatePluginFolder, "%s/%s/%s.cxx" % (rootPath, pluginName, pluginName), dictionary)    
+    ConfigureFile("%s/TemplatePlugin.h" % templatePluginFolder, "%s/%s/%s.h" % (rootPath, pluginName, pluginName), dictionary)    
+    ConfigureFile("%s/TemplatePluginPCH.h" % templatePluginFolder, "%s/%s/%sPCH.h" % (rootPath, pluginName, pluginName), dictionary)    
+    ConfigureFile("%s/TemplatePluginProcessorCollective.cxx" % templatePluginFolder, "%s/%s/%sProcessorCollective.cxx" % (rootPath, pluginName, pluginName), dictionary)    
+    ConfigureFile("%s/TemplatePluginProcessorCollective.h" % templatePluginFolder, "%s/%s/%sProcessorCollective.h" % (rootPath, pluginName, pluginName), dictionary)    
+    ConfigureFile("%s/TemplatePluginWidgetCollective.cxx" % templatePluginFolder, "%s/%s/%sWidgetCollective.cxx" % (rootPath, pluginName, pluginName), dictionary)    
+    ConfigureFile("%s/TemplatePluginWidgetCollective.h" % templatePluginFolder, "%s/%s/%sWidgetCollective.h" % (rootPath, pluginName, pluginName), dictionary)    
+    ConfigureFile("%s/plugin.xml" % templatePluginFolder, "%s/%s/config.xml" % (rootPath, pluginName), dictionary)        
 
     pathToPlugin = ""
     ( head , tail ) =os.path.split(rootPath)
@@ -246,8 +249,8 @@ def CreatePlugin(rootPath, pluginName, rootForTemplateFiles, tkFilename, gimiasF
     if not os.path.basename(tkFilename) == "csnGIMIASDef.py" :
         AddHeaderFile(plugincsnFile,"from csnGIMIASDef import *", "from %s import * \n" % tkFilenameBase )
 
-def CreatePluginWidget(rootPath, pluginWidgetName, rootForTemplateFiles):
-    """ Create a new Widget from template. """
+def CreatePluginWidget(rootPath, pluginWidgetName, rootForTemplateFiles, gimiasVersion):
+    """ Create a new Gimias Plugin Widget from template. """
     # log
     logger = logging.getLogger("CreateNewModule")
     logger.info("Create Plugin Widget.")
@@ -268,6 +271,8 @@ def CreatePluginWidget(rootPath, pluginWidgetName, rootForTemplateFiles):
     #if not os.path.exists(procCollname):
     #    raise IOError("The plugin processor collective file does not exist.")
 
+    # template plugin folder
+    templatePluginFolder = "%s/TemplatePlugin%s" % (rootForTemplateFiles, gimiasVersion.replace('.', ''))
     
     # create dictionary
     dictionary = dict()
@@ -276,13 +281,13 @@ def CreatePluginWidget(rootPath, pluginWidgetName, rootForTemplateFiles):
     dictionary["TemplatePlugin"] = pluginName;
     
     # copy template files
-    ConfigureFile("%s/TemplatePlugin/processors/TemplatePluginTemplProcessor.cxx" % rootForTemplateFiles, "%s/processors/%s%sProcessor.cxx" % (rootPath, pluginName, pluginWidgetName), dictionary)
-    ConfigureFile("%s/TemplatePlugin/processors/TemplatePluginTemplProcessor.h" % rootForTemplateFiles, "%s/processors/%s%sProcessor.h" % (rootPath, pluginName, pluginWidgetName), dictionary)
-    ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidget.cpp" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidget.cpp" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
-    ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidget.h" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidget.h" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
-    ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidgetUI.cpp" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.cpp" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
-    ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidgetUI.h" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.h" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
-    ConfigureFile("%s/TemplatePlugin/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidgetUI.wxg" % rootForTemplateFiles, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.wxg" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)
+    ConfigureFile("%s/processors/TemplatePluginTemplProcessor.cxx" % templatePluginFolder, "%s/processors/%s%sProcessor.cxx" % (rootPath, pluginName, pluginWidgetName), dictionary)
+    ConfigureFile("%s/processors/TemplatePluginTemplProcessor.h" % templatePluginFolder, "%s/processors/%s%sProcessor.h" % (rootPath, pluginName, pluginWidgetName), dictionary)
+    ConfigureFile("%s/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidget.cpp" % templatePluginFolder, "%s/widgets/%s%sPanelWidget/%s%sPanelWidget.cpp" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
+    ConfigureFile("%s/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidget.h" % templatePluginFolder, "%s/widgets/%s%sPanelWidget/%s%sPanelWidget.h" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
+    ConfigureFile("%s/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidgetUI.cpp" % templatePluginFolder, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.cpp" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
+    ConfigureFile("%s/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidgetUI.h" % templatePluginFolder, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.h" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
+    ConfigureFile("%s/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidgetUI.wxg" % templatePluginFolder, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.wxg" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)
     
     # append to toolkit files
     widgetName = "%s%sPanelWidget" % (pluginName, pluginWidgetName)
