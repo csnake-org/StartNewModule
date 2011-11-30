@@ -14,7 +14,8 @@
 // CoreLib
 #include "coreFrontEndPlugin.h"
 
-namespace TemplatePlugin{
+namespace templatePlugin
+{
 
 /** 
 \brief Creates all objects of the plug-in and connect them.
@@ -27,8 +28,6 @@ of creating a dependency between the processor and any class of the rest
 of the plug-in.
 
 \ingroup TemplatePlugin
-\author Jakub Lyko
-\date 07 April 2008
 */
 class PLUGIN_EXPORT TemplatePlugin : public Core::FrontEndPlugin::FrontEndPlugin
 {
@@ -57,8 +56,8 @@ private:
 
 	//! Contains all the widgets for the plugin
 	WidgetCollective::Pointer m_Widgets;
-};
+}; // class TemplatePlugin
 
-} // namespace TemplatePlugin
+} // namespace templatePlugin
 
 #endif // TemplatePlugin_H

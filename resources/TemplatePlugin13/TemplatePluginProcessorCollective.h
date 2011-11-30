@@ -11,15 +11,13 @@
 #include "coreSmartPointerMacros.h"
 #include "coreObject.h"
 
-
-namespace TemplatePlugin{
+namespace templatePlugin
+{
 
 /**
 This class instantiates all processors used in the plugin and registers them.
 
 \ingroup TemplatePlugin
-\author Maarten Nieber
-\date 18 jun 2008
 */
 
 class ProcessorCollective : public Core::SmartPointerObject
@@ -32,8 +30,8 @@ private:
 	//! The constructor instantiates all the processors and connects them.
 	ProcessorCollective();
 
-};
+}; // class ProcessorCollective
 
-} // namespace TemplatePlugin{
+} // namespace templatePlugin{
 
 #endif //_TemplatePluginProcessorCollective_H

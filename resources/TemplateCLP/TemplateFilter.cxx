@@ -27,7 +27,7 @@ template<class T> int DoIt( int argc, char * argv[], T )
 {
   PARSE_ARGS;
 
-  typedef    T       InputPixelType;
+  typedef T InputPixelType;
  
  // Reader reads file inputVolume.c_str()
 

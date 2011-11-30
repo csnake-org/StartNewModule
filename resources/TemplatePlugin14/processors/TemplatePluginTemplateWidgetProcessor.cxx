@@ -5,7 +5,7 @@
 * See license.txt file for details.
 */
 
-#include "TemplatePluginTemplProcessor.h"
+#include "TemplatePluginTemplateWidgetProcessor.h"
 
 #include <string>
 #include <iostream>
@@ -20,7 +20,10 @@
 
 #include "vtkSmartPointer.h"
 
-TemplatePlugin::TemplProcessor::TemplProcessor( )
+namespace templatePlugin
+{
+
+TemplateWidgetProcessor::TemplateWidgetProcessor( )
 {
 	SetName( "TemplProcessor" );
 	
@@ -33,30 +36,29 @@ TemplatePlugin::TemplProcessor::TemplProcessor( )
 	
 }
 
-TemplatePlugin::TemplProcessor::~TemplProcessor()
+TemplateWidgetProcessor::~TemplateWidgetProcessor()
 {
 }
 
-void TemplatePlugin::TemplProcessor::Update()
+void TemplateWidgetProcessor::Update()
 {
 	// Get the first image
 	ImageType::Pointer itkInputImage;
-	GetProcessingData(INPUT_0,
-		itkInputImage);
+	GetProcessingData(INPUT_0, itkInputImage);
 
 	Core::vtkPolyDataPtr vtkInput;
-	GetProcessingData(INPUT_1,
-		vtkInput );
+	GetProcessingData(INPUT_1, vtkInput );
 		
 	Core::vtkImageDataPtr vtkInputImage;
-	GetProcessingData(INPUT_0,
-		vtkInputImage );
+	GetProcessingData(INPUT_0, vtkInputImage );
 		
 	// here goes the filter or the functions that determine the processor
 	// the output should go in the update functions
 	
 	// Set the output to the output of this processor
-	UpdateOutput( 0 ,itkInputImage, "TemplProcessorImage");	
-	UpdateOutput(1, vtkInput, "TemplProcessorSurface");
-	UpdateOutput(2, vtkInputImage, "TemplProcessorImageVTK");
+	UpdateOutput( 0, itkInputImage, "TemplateWidgetProcessorImage");	
+	UpdateOutput( 1, vtkInput, "TemplateWidgetProcessorSurface");
+	UpdateOutput( 2, vtkInputImage, "TemplateWidgetProcessorImageVTK");
 }
+
+} // namespace templatePlugin

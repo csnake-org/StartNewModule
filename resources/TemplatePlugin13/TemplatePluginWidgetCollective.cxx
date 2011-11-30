@@ -12,12 +12,16 @@
 #include "coreFrontEndPlugin.h"
 #include "corePluginTab.h"
 
-TemplatePlugin::WidgetCollective::WidgetCollective( ) 
+namespace templatePlugin
+{
+
+WidgetCollective::WidgetCollective( ) 
 {
 	Core::Runtime::Kernel::GetGraphicalInterface()->CreatePluginTab( "TemplatePlugin" );
 
 	// Panel widgets
 	Core::WindowConfig config;
 	config.ProcessorObservers().TabPage( "TemplatePlugin" ).CommandPanel();
-
 }
+
+} // namespace templatePlugin

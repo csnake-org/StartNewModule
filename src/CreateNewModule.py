@@ -88,9 +88,11 @@ def AddWidgetToConfig(fileName, pluginName, widgetName):
     f = open(fileName, 'r')
     template = f.read()
     f.close()
+    # instance name
+    instanceName = pluginName[ 0 ].lower( ) + pluginName[ 1: ];
     # check if the section is present
     if template.find("widgetModules = [") == -1:
-        template = "%s\n%s" % ( template, "# plugin widgets\nwidgetModules = [\n]\n%s.AddWidgetModules(widgetModules, _useQt = 0)" % pluginName)
+        template = "%s\n%s" % ( template, "# plugin widgets\nwidgetModules = [\n]\n%s.AddWidgetModules(widgetModules, _useQt = 0)" % instanceName)
     # add widget
     if template.find(widgetName) == -1:
         template = template.replace( "widgetModules = [", "widgetModules = [\n  \"%s\"," % widgetName)
@@ -107,15 +109,17 @@ def AddProcessorToConfig(fileName, pluginName):
     # check source file
     if not os.path.exists(fileName):
         raise IOError("File not found: %s" % fileName)
+    # instance name
+    instanceName = pluginName[ 0 ].lower( ) + pluginName[ 1: ];
     # open and read file
     f = open(fileName, 'r')
     template = f.read()
     f.close()
     # check if the section is present
     if template.find("AddIncludeFolders") == -1:
-        template = "%s\n%s" % ( template, "%s.AddIncludeFolders([])" % pluginName)
+        template = "%s\n%s" % ( template, "%s.AddIncludeFolders([])" % instanceName)
     # update file
-    template = template.replace("%s.AddIncludeFolders" % pluginName, "%s.AddSources([\"processors/*.cxx\", \"processors/*.h\"])\n%s.AddIncludeFolders" % (pluginName, pluginName))
+    template = template.replace("%s.AddIncludeFolders" % instanceName, "%s.AddSources([\"processors/*.cxx\", \"processors/*.h\"])\n%s.AddIncludeFolders" % (instanceName, instanceName))
     template = template.replace("AddIncludeFolders([", "AddIncludeFolders([\"processors\",")
     # save file
     f = open(fileName, 'w')
@@ -276,18 +280,19 @@ def CreatePluginWidget(rootPath, pluginWidgetName, rootForTemplateFiles, gimiasV
     
     # create dictionary
     dictionary = dict()
-    dictionary["Templ"] = pluginWidgetName;
-    dictionary["templ"] = pluginWidgetName[ 0 ].lower( ) + pluginWidgetName[ 1: ];
+    dictionary["TemplateWidget"] = pluginWidgetName;
+    dictionary["templateWidget"] = pluginWidgetName[ 0 ].lower( ) + pluginWidgetName[ 1: ];
     dictionary["TemplatePlugin"] = pluginName;
+    dictionary["templatePlugin"] = pluginName[ 0 ].lower( ) + pluginName[ 1: ];
     
     # copy template files
-    ConfigureFile("%s/processors/TemplatePluginTemplProcessor.cxx" % templatePluginFolder, "%s/processors/%s%sProcessor.cxx" % (rootPath, pluginName, pluginWidgetName), dictionary)
-    ConfigureFile("%s/processors/TemplatePluginTemplProcessor.h" % templatePluginFolder, "%s/processors/%s%sProcessor.h" % (rootPath, pluginName, pluginWidgetName), dictionary)
-    ConfigureFile("%s/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidget.cpp" % templatePluginFolder, "%s/widgets/%s%sPanelWidget/%s%sPanelWidget.cpp" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
-    ConfigureFile("%s/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidget.h" % templatePluginFolder, "%s/widgets/%s%sPanelWidget/%s%sPanelWidget.h" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
-    ConfigureFile("%s/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidgetUI.cpp" % templatePluginFolder, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.cpp" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
-    ConfigureFile("%s/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidgetUI.h" % templatePluginFolder, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.h" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
-    ConfigureFile("%s/widgets/TemplatePluginPanelWidget/TemplatePluginTemplPanelWidgetUI.wxg" % templatePluginFolder, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.wxg" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)
+    ConfigureFile("%s/processors/TemplatePluginTemplateWidgetProcessor.cxx" % templatePluginFolder, "%s/processors/%s%sProcessor.cxx" % (rootPath, pluginName, pluginWidgetName), dictionary)
+    ConfigureFile("%s/processors/TemplatePluginTemplateWidgetProcessor.h" % templatePluginFolder, "%s/processors/%s%sProcessor.h" % (rootPath, pluginName, pluginWidgetName), dictionary)
+    ConfigureFile("%s/widgets/TemplatePluginPanelWidget/TemplatePluginTemplateWidgetPanelWidget.cpp" % templatePluginFolder, "%s/widgets/%s%sPanelWidget/%s%sPanelWidget.cpp" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
+    ConfigureFile("%s/widgets/TemplatePluginPanelWidget/TemplatePluginTemplateWidgetPanelWidget.h" % templatePluginFolder, "%s/widgets/%s%sPanelWidget/%s%sPanelWidget.h" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
+    ConfigureFile("%s/widgets/TemplatePluginPanelWidget/TemplatePluginTemplateWidgetPanelWidgetUI.cpp" % templatePluginFolder, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.cpp" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
+    ConfigureFile("%s/widgets/TemplatePluginPanelWidget/TemplatePluginTemplateWidgetPanelWidgetUI.h" % templatePluginFolder, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.h" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)    
+    ConfigureFile("%s/widgets/TemplatePluginPanelWidget/TemplatePluginTemplateWidgetPanelWidgetUI.wxg" % templatePluginFolder, "%s/widgets/%s%sPanelWidget/%s%sPanelWidgetUI.wxg" % (rootPath, pluginName, pluginWidgetName, pluginName, pluginWidgetName), dictionary)
     
     # append to toolkit files
     widgetName = "%s%sPanelWidget" % (pluginName, pluginWidgetName)

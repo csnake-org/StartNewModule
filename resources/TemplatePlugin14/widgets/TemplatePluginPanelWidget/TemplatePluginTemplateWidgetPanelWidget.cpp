@@ -5,7 +5,7 @@
 * See license.txt file for details.
 */
 
-#include "TemplatePluginTemplPanelWidget.h"
+#include "TemplatePluginTemplateWidgetPanelWidget.h"
 
 // GuiBridgeLib
 #include "gblWxBridgeLib.h"
@@ -20,53 +20,53 @@
 #include "coreDataTreeHelper.h"
 #include "coreReportExceptionMacros.h"
 
-
-TemplatePlugin::TemplPanelWidget::TemplPanelWidget(  wxWindow* parent, int id/*= wxID_ANY*/,
-													   const wxPoint&  pos /*= wxDefaultPosition*/, 
-													   const wxSize&  size /*= wxDefaultSize*/, 
-													   long style/* = 0*/ )
-: TemplatePluginTemplPanelWidgetUI(parent, id,pos,size,style)
+namespace templatePlugin
 {
-	m_Processor = TemplatePlugin::TemplProcessor::New();
+
+TemplateWidgetPanelWidget::TemplateWidgetPanelWidget(  wxWindow* parent, int id/*= wxID_ANY*/,
+    const wxPoint&  pos /*= wxDefaultPosition*/, 
+    const wxSize&  size /*= wxDefaultSize*/, 
+    long style/* = 0*/ )
+: TemplatePluginTemplateWidgetPanelWidgetUI(parent, id,pos,size,style)
+{
+	m_Processor = templatePlugin::TemplateWidgetProcessor::New();
 
 	SetName( "Templ Panel Widget" );
 }
 
-TemplatePlugin::TemplPanelWidget::~TemplPanelWidget( )
+TemplateWidgetPanelWidget::~TemplateWidgetPanelWidget( )
 {
 	// We don't need to destroy anything because all the child windows 
 	// of this wxWindow are destroyed automatically
 }
 
-void TemplatePlugin::TemplPanelWidget::OnInit( )
+void TemplateWidgetPanelWidget::OnInit( )
 {
 	//------------------------------------------------------
 	// Observers to data
 	m_Processor->GetOutputDataEntityHolder( 0 )->AddObserver( 
 		this, 
-		&TemplPanelWidget::OnModifiedOutputDataEntity );
+		&TemplateWidgetPanelWidget::OnModifiedOutputDataEntity );
 
-	m_Processor->GetInputDataEntityHolder( TemplProcessor::INPUT_0 )->AddObserver( 
+	m_Processor->GetInputDataEntityHolder( TemplateWidgetProcessor::INPUT_0 )->AddObserver( 
 		this, 
-		&TemplPanelWidget::OnModifiedInputDataEntity );
+		&TemplateWidgetPanelWidget::OnModifiedInputDataEntity );
 
 
 	UpdateWidget();
 }
 
-void TemplatePlugin::TemplPanelWidget::UpdateWidget()
+void TemplateWidgetPanelWidget::UpdateWidget()
 {
-	
 	UpdateHelperWidget( );
-
 }
 
-void TemplatePlugin::TemplPanelWidget::UpdateData()
+void TemplateWidgetPanelWidget::UpdateData()
 {
 	// Set parameters to processor. Pending
 }
 
-void TemplatePlugin::TemplPanelWidget::OnBtnApply(wxCommandEvent& event)
+void TemplateWidgetPanelWidget::OnBtnApply(wxCommandEvent& event)
 {
 	// Catch the exception from the processor and show the message box
 	try
@@ -78,22 +78,22 @@ void TemplatePlugin::TemplPanelWidget::OnBtnApply(wxCommandEvent& event)
         GetProcessor()->SetMultithreading( false );
         Core::Runtime::Kernel::GetProcessorManager()->Execute( GetProcessor() );
 	}
-	coreCatchExceptionsReportAndNoThrowMacro( "TemplPanelWidget::OnBtnApply" );
+	coreCatchExceptionsReportAndNoThrowMacro( "TemplateWidgetPanelWidget::OnBtnApply" );
 }
 
 
-void TemplatePlugin::TemplPanelWidget::OnModifiedOutputDataEntity()
+void TemplateWidgetPanelWidget::OnModifiedOutputDataEntity()
 {
-	try{
-
+	try
+    {
 		Core::DataEntity::Pointer inputDataEntity;
-		inputDataEntity = m_Processor->GetInputDataEntity( TemplProcessor::INPUT_0 );
+		inputDataEntity = m_Processor->GetInputDataEntity(TemplateWidgetProcessor::INPUT_0 );
 
 		// Hide input if is different from output and output is not empty
 		if ( m_Processor->GetOutputDataEntity( 0 ).IsNotNull() && 
 			 m_Processor->GetOutputDataEntity( 0 ) != inputDataEntity )
 		{
-			GetRenderingTree( )->Show( inputDataEntity, false );
+			GetRenderingTree()->Show( inputDataEntity, false );
 		}
 
 		// Add output to the data list and render it
@@ -106,25 +106,23 @@ void TemplatePlugin::TemplPanelWidget::OnModifiedOutputDataEntity()
 	
 	}
 	coreCatchExceptionsLogAndNoThrowMacro( 
-		"CardiacInitializationPanelWidget::OnModifiedOutputDataEntity")
-
+		"TemplateWidgetPanelWidget::OnModifiedOutputDataEntity")
 }
 
-void TemplatePlugin::TemplPanelWidget::UpdateHelperWidget()
+void TemplateWidgetPanelWidget::UpdateHelperWidget()
 {
 	if ( GetHelperWidget( ) == NULL )
 	{
 		return;
 	}
-		GetHelperWidget( )->SetInfo( 
-			Core::Widgets::HELPER_INFO_LEFT_BUTTON, 
-			" info that is useful in order to use the processor" );
-
+    GetHelperWidget( )->SetInfo( 
+        Core::Widgets::HELPER_INFO_LEFT_BUTTON, 
+        " info that is useful in order to use the processor" );
 }
 
-bool TemplatePlugin::TemplPanelWidget::Enable( bool enable /*= true */ )
+bool TemplateWidgetPanelWidget::Enable( bool enable /*= true */ )
 {
-	bool bReturn = TemplatePluginTemplPanelWidgetUI::Enable( enable );
+	bool bReturn = TemplatePluginTemplateWidgetPanelWidgetUI::Enable( enable );
 
 	// If this panel widget is selected -> Update the widget
 	if ( enable )
@@ -135,12 +133,14 @@ bool TemplatePlugin::TemplPanelWidget::Enable( bool enable /*= true */ )
 	return bReturn;
 }
 
-void TemplatePlugin::TemplPanelWidget::OnModifiedInputDataEntity()
+void TemplateWidgetPanelWidget::OnModifiedInputDataEntity()
 {
 	UpdateWidget();
 }
 
-Core::BaseProcessor::Pointer TemplatePlugin::TemplPanelWidget::GetProcessor()
+Core::BaseProcessor::Pointer TemplateWidgetPanelWidget::GetProcessor()
 {
 	return m_Processor.GetPointer( );
 }
+
+} //namespace templatePlugin

@@ -3,10 +3,12 @@ import csnBuild
 import csnCilab
 import csnUtility
 
+# GIMIAS definitions
 from csnGIMIASDef import *
 
+# plugin project definition
 templatePlugin = csnCilab.GimiasPluginProject("TemplatePlugin")
-
+# plugin dependencies
 projects = [
     gmCore, 
     guiBridgeLib, 
@@ -14,16 +16,8 @@ projects = [
     guiBridgeLibWxWidgets
 ]
 templatePlugin.AddProjects(projects)
-
+# plugin sources
 templatePlugin.AddSources(["*.cxx", "*.h"])
-templatePlugin.AddSources(["processors/*.cxx", "processors/*.h"])
-templatePlugin.AddIncludeFolders(["processors"])
-
-widgetModules = [
-#  "TemplatePluginSandboxPanelWidget"
-  ]
-templatePlugin.AddWidgetModules(widgetModules, _useQt = 0)
-
 templatePlugin.SetPrecompiledHeader("TemplatePluginPCH.h")
-
+# plugin tests
 templatePlugin.AddTests(["tests/*.*"], cxxTest)

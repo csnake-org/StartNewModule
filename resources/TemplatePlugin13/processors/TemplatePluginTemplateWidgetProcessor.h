@@ -5,21 +5,21 @@
 * See license.txt file for details.
 */
 
-#ifndef _TemplatePluginTemplProcessor_H
-#define _TemplatePluginTemplProcessor_H
+#ifndef _TemplatePluginTemplateWidgetProcessor_H
+#define _TemplatePluginTemplateWidgetProcessor_H
 
 #include "coreBaseProcessor.h"
+#include "coreProcessorFactory.h"
 
-namespace TemplatePlugin{
+namespace templatePlugin
+{
 
 /**
-Processor for 
+Processor for ...
 
 \ingroup TemplatePlugin
-\author Xavi Planes
-\date 16 feb 2009
 */
-class TemplProcessor : public Core::BaseProcessor
+class TemplateWidgetProcessor : public Core::BaseProcessor
 {
 public:
 
@@ -41,25 +41,25 @@ public:
 	}OUTPUT_TYPE;
 public:
 	//!
-	coreProcessor(TemplProcessor, Core::BaseProcessor);
+	coreProcessor(TemplateWidgetProcessor, Core::BaseProcessor);
 	
 	//! Call library to perform operation
 	void Update( );
 
 private:
 	//!
-	TemplProcessor();
+	TemplateWidgetProcessor();
 
 	//!
-	~TemplProcessor();
+	~TemplateWidgetProcessor();
 
 	//! Purposely not implemented
-	TemplProcessor( const Self& );
+	TemplateWidgetProcessor( const Self& );
 
 	//! Purposely not implemented
 	void operator = ( const Self& );
-};
+}; // class TemplateWidgetProcessor
     
-} // namespace TemplatePlugin{
+} // namespace templatePlugin
 
-#endif //_TemplatePluginTemplProcessor_H
+#endif //_TemplatePluginTemplateWidgetProcessor_H

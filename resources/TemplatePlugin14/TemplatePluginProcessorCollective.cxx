@@ -7,6 +7,11 @@
 
 #include "TemplatePluginProcessorCollective.h"
 
-TemplatePlugin::ProcessorCollective::ProcessorCollective()
+namespace templatePlugin
+{
+
+ProcessorCollective::ProcessorCollective()
 {
 }
+
+} // namespace templatePlugin{

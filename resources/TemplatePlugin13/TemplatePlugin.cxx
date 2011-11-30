@@ -20,11 +20,14 @@
 #include "corePluginTab.h"
 
 // Declaration of the plugin
-coreBeginDefinePluginMacro(TemplatePlugin::TemplatePlugin)
+coreBeginDefinePluginMacro(templatePlugin::TemplatePlugin)
 	coreDefinePluginAddProfileMacro("TemplatePlugin")
 coreEndDefinePluginMacro()
 
-TemplatePlugin::TemplatePlugin::TemplatePlugin(void) : FrontEndPlugin()
+namespace templatePlugin
+{
+
+TemplatePlugin::TemplatePlugin(void) : FrontEndPlugin()
 {
 	try
 	{
@@ -34,6 +37,8 @@ TemplatePlugin::TemplatePlugin::TemplatePlugin(void) : FrontEndPlugin()
 	coreCatchExceptionsReportAndNoThrowMacro(TemplatePlugin::TemplatePlugin)
 }
 
-TemplatePlugin::TemplatePlugin::~TemplatePlugin(void)
+TemplatePlugin::~TemplatePlugin(void)
 {
 }
+
+} // namespace templatePlugin

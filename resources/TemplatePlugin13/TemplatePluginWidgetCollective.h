@@ -15,7 +15,8 @@
 
 #include "TemplatePluginProcessorCollective.h"
 
-namespace TemplatePlugin{
+namespace templatePlugin
+{
 
 /**
 This class instantiates all widgets used in the plugin. The widgets are used to operate the plugin processors
@@ -24,8 +25,6 @@ In the TemplatePlugin, there is currently only one widget, but when the number o
 ensures that the code remains maintainable.
 
 \ingroup TemplatePlugin
-\author Maarten Nieber
-\date 18 jun 2008
 */
 
 class WidgetCollective : public Core::WidgetCollective
@@ -42,6 +41,6 @@ private:
 
 };
 
-} // namespace TemplatePlugin
+} // namespace templatePlugin
 
 #endif //_TemplatePluginWidgetCollective_H

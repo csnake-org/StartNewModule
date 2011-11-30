@@ -13,7 +13,7 @@
 *\brief Tests for MyLib
 *\ingroup MyLibTests
 */
-class templateTest : public CxxTest::TestSuite 
+class TemplateTest : public CxxTest::TestSuite 
 {
 public:
 
@@ -22,6 +22,6 @@ void TestOne()
    TSM_ASSERT( "TestOne run ok.", true );
 }
 
-}; // class templateTest
+}; // class TemplateTest
 
 #endif TEMPLATETEST_H
