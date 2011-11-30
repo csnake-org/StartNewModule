@@ -9,7 +9,6 @@
 #define _TemplatePluginTemplProcessor_H
 
 #include "coreBaseProcessor.h"
-#include "coreProcessorFactory.h"
 
 namespace TemplatePlugin{
 

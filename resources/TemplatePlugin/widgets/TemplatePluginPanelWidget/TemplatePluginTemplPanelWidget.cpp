@@ -13,6 +13,8 @@
 // Core
 #include "coreDataEntityHelper.h"
 #include "coreUserHelperWidget.h"
+#include "coreFactoryManager.h"
+#include "coreProcessorManager.h"
 
 // Core
 #include "coreDataTreeHelper.h"
@@ -72,7 +74,9 @@ void TemplatePlugin::TemplPanelWidget::OnBtnApply(wxCommandEvent& event)
 		// Update the scale values from widget to processor
 		UpdateData();
 
-		m_Processor->Update( );
+        // Set multithreading to false if you want to execute it directly by main GUI thread
+        GetProcessor()->SetMultithreading( false );
+        Core::Runtime::Kernel::GetProcessorManager()->Execute( GetProcessor() );
 	}
 	coreCatchExceptionsReportAndNoThrowMacro( "TemplPanelWidget::OnBtnApply" );
 }

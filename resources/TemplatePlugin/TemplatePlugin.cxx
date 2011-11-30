@@ -21,7 +21,6 @@
 
 // Declaration of the plugin
 coreBeginDefinePluginMacro(TemplatePlugin::TemplatePlugin)
-	coreDefinePluginAddProfileMacro("TemplatePlugin")
 coreEndDefinePluginMacro()
 
 TemplatePlugin::TemplatePlugin::TemplatePlugin(void) : FrontEndPlugin()
