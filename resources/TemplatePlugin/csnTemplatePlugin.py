@@ -18,7 +18,6 @@ projects = [
 templatePlugin.AddProjects(projects)
 # plugin sources
 templatePlugin.AddSources(["*.cxx", "*.h"])
-templatePlugin.AddIncludeFolders([])
 templatePlugin.SetPrecompiledHeader("TemplatePluginPCH.h")
 # plugin tests
 templatePlugin.AddTests(["tests/*.*"], cxxTest)
