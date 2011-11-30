@@ -241,7 +241,7 @@ class MainFrame(wx.Frame):
         # set up frame for creation begin 
         self.mainFrame_statusbar.SetStatusText("Creating module...")
         self.btnCreate.Disable()
-        progressDialog = wx.ProgressDialog( "Progress", "Creating module...", maximum = 100, style = wx.PD_CAN_ABORT|wx.PD_APP_MODAL )
+        progressDialog = wx.ProgressDialog( "Progress", "Creating module...", maximum = 100, style = wx.PD_CAN_ABORT|wx.PD_AUTO_HIDE|wx.PD_APP_MODAL )
         progressDialog.Update(0)
         # create library
         if( self.cmbType.GetValue() == "Library" ):
