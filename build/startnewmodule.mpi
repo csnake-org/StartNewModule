@@ -81,7 +81,7 @@ InstallPassword
 {}
 
 InstallVersion
-{0.1.5.0}
+{0.1.6.0}
 
 Language,ca
 {Yes}

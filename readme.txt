@@ -12,8 +12,14 @@ More information can be found on https://github.com/csnake-org/StartNewModule.
 
 Change log
 ----------
-v0.1.6beta:
- * ...
+v0.1.6:
+ * Add support for multiple Gimias versions
+ * Update plugin templates for Gimias 1.4
+ * Hide the progress bar when done
+ * Update template documentation
+ * Update cruise control to use git
+ * Readme and license at root level
+ * Fix plugin generation (processors)
 
 v0.1.5:
  * Adapted to new Gimias Release 1.3.0
