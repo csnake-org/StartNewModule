@@ -3,47 +3,21 @@
 
 \mainpage StartNewModule
 
-\section intro_sec Introduction
-Helper tool for new module/plugin configuration.
+\section introduction_sec Introduction
+Helper tool for new module/plugin configuration. Main links:
+\li <a href="https://github.com/csnake-org/StartNewModule">source</a>,
+\li <a href="https://github.com/csnake-org/StartNewModule/wiki">wiki</a>,
+\li <a href="https://github.com/csnake-org/StartNewModule/issues">issues</a>.
 
-\section quick_Sec Quick How To
-<ol>
-<li>Put the name you want for your module in field Name</li>
-<ul>
-<li>for type "Project" put something like MyProject</li>
-<li>for type "Library" put something like MyNewNameLib</li>
-<li>for type "Gimias Plugin" put something like MyNewNamePlugin</li>
-<li>for type "Gimias Plugin widget" put only MyNewFunctionality it will add
- automatically PanelWidget and Processor</li>
-<li>for type "ThirdParty" put something like MyNewThirdParty</li>
-<li>for type "CommandLinePlugin" put something like MyCommandLinePlugin</li>
-</ul>
-<li>Set the root path to your module:</li>
-<ul>
-<li>for type "Library" for example MyProject/MyProject_src/modules</li>
-<li>for type "Gimias Plugin" for example MyProject/MyProject_src/plugins</li>
-<li>for type "Gimias Plugin widget" for example MyProject/MyProject_src/plugins/MyNewNamePlugin</li>
-<li>for type "ThirdParty" for example MyProject/MyProject_src/thirdparties</li>
-<li>for type "CommandLinePlugin" for example MyProject/MyProject_src/modules/MyModuleLib</li>
-</ul>
-<li>Select Type "Project" or "Library" or "Gimias Plugin" or "Gimias Plugin widget"
- or "ThirdParty" or "CommandLinePlugin"</li>
-<li>(for type "Library", "Gimias Plugin" and "ThirdParty" only) Set Toolkit csn file
- to your MyProject/MyProject_src/csnMyProjectToolkit.py</li>
-<li>(for type "Gimias Plugin" only) Set your Application csn file to your
- MyProject/MyProject_src/csnMyProject.py</li>
-<li>Press on the StartNewModule button.</li>
-</ol>
-
-\section det_sec Details
+\section details_sec Details
 \li Library maintainer: Yves Martelli (ymartelli@cistib.upf.edu)
-\li Library license: Open Source (see \ref license information)
+\li Library license: Open Source, BSD License (see \ref license information)
 
-\section dep_sec Dependencies
+\section depends_sec Dependencies
 \li Python: version 2.6 (http://www.python.org)
 \li WxPython: version 2.8 (http://www.wxpython.org)
 
-\section chg_sec Change Log
+\section changelog_sec Change Log
 See the \ref readme information.
 
 */
