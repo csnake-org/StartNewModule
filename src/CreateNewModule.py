@@ -1,7 +1,7 @@
 import os.path
 import logging
 
-def ConfigureFile(source, dest, dict):
+def ConfigureFile(source, dest, dictionary):
     """ Replace string in source file according to a dictionary. """
     # log
     logger = logging.getLogger("CreateNewModule")
@@ -14,8 +14,8 @@ def ConfigureFile(source, dest, dict):
     template = f.read()        
     f.close()
     # replace strings according to the dictionary
-    for varName in dict.keys():
-        template = template.replace("%s" % varName, dict[varName])
+    for varName in dictionary.keys():
+        template = template.replace("%s" % varName, dictionary[varName])
     # create path to dest if not there
     os.path.exists(os.path.dirname(dest)) or os.makedirs(os.path.dirname(dest))
     # write destination file
@@ -27,7 +27,7 @@ def CreateDirectory(dest):
     """Create directory in the dest """
     os.path.exists(dest) or os.makedirs(dest)
 
-def EditFile(source, line, type):
+def EditFile(source, line, typeOption):
     """ Append line to a file according to type."""
     # log
     logger = logging.getLogger("CreateNewModule")
@@ -36,7 +36,7 @@ def EditFile(source, line, type):
     if not os.path.exists(source):
         raise IOError("File not found: %s" % source)
     # type 1: main csn file
-    if( type == 1) :
+    if( typeOption == 1) :
     # read file
         f = open(source, 'r')
         content = f.read() 
@@ -47,7 +47,7 @@ def EditFile(source, line, type):
             f.write("\n%s\n" % line); 
             f.close()
     # type 2: gimias csn file
-    if( type == 2 ):
+    if( typeOption == 2 ):
         f = open(source, 'r')
         template = f.read() 
         f.close()
@@ -58,7 +58,7 @@ def EditFile(source, line, type):
             f.write(template)
             f.close()
     # type 4: widget collective
-    if( type == 4 ):
+    if( typeOption == 4 ):
         f = open(source, 'r')
         template = f.read()
         f.close()
@@ -67,7 +67,7 @@ def EditFile(source, line, type):
         f.write(template)
         f.close()
     # type 5: processor collective
-    if( type == 5 ):
+    if( typeOption == 5 ):
         f = open(source, 'r')
         template = f.read()
         f.close()
