@@ -233,7 +233,7 @@ def CreatePlugin(rootPath, pluginName, rootForTemplateFiles, tkFilename, gimiasF
     ConfigureFile("%s/TemplatePluginProcessorCollective.h" % templatePluginFolder, "%s/%s/%sProcessorCollective.h" % (rootPath, pluginName, pluginName), dictionary)    
     ConfigureFile("%s/TemplatePluginWidgetCollective.cxx" % templatePluginFolder, "%s/%s/%sWidgetCollective.cxx" % (rootPath, pluginName, pluginName), dictionary)    
     ConfigureFile("%s/TemplatePluginWidgetCollective.h" % templatePluginFolder, "%s/%s/%sWidgetCollective.h" % (rootPath, pluginName, pluginName), dictionary)    
-    ConfigureFile("%s/plugin.xml" % templatePluginFolder, "%s/%s/config.xml" % (rootPath, pluginName), dictionary)        
+    ConfigureFile("%s/plugin.xml" % templatePluginFolder, "%s/%s/plugin.xml" % (rootPath, pluginName), dictionary)        
 
     pathToPlugin = ""
     ( head , tail ) =os.path.split(rootPath)
