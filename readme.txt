@@ -19,7 +19,9 @@ v0.1.6:
  * Update template documentation
  * Update cruise control to use git
  * Readme and license at root level
- * Fix plugin generation (processors)
+ * FIX: Fix plugin generation (processors)
+ * FIX: Problem(s) with CLP generation
+ * FIX: No plugins.xml renaming
 
 v0.1.5:
  * Adapted to new Gimias Release 1.3.0
