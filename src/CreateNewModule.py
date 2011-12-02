@@ -389,6 +389,8 @@ def CreateCommandLine(rootPath, commandLineName, rootForTemplateFiles):
     dictionary["templateFilter"] = commandLineName.lower();
     
     #copy template files
+    if not os.path.exists("%s/__init__.py" % (rootPath)):
+        ConfigureFile("%s/TemplateCLP/__init__.py" % rootForTemplateFiles, "%s/__init__.py" % (rootPath), dictionary)
     ConfigureFile("%s/TemplateCLP/TemplateFilter.cxx" % rootForTemplateFiles, "%s/applications/%s/%s.cxx" % (rootPath, commandLineName,commandLineName),dictionary)
     ConfigureFile("%s/TemplateCLP/TemplateFilter.xml" % rootForTemplateFiles ,"%s/applications/%s/%s.xml" % (rootPath, commandLineName, commandLineName),dictionary)
     ConfigureFile("%s/TemplateCLP/csnTemplateFilter.py" % rootForTemplateFiles ,"%s/csn%s.py" % (rootPath, commandLineName),dictionary)
