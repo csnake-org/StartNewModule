@@ -2455,13 +2455,13 @@ Windows,ProgramFolderName
 {<%AppName%>}
 
 Windows,ProgramLicense
-{<%InstallDir%>/resources/license.txt}
+{<%InstallDir%>/license.txt}
 
 Windows,ProgramName
 {}
 
 Windows,ProgramReadme
-{<%InstallDir%>/resources/readme.txt}
+{<%InstallDir%>/readme.txt}
 
 Windows,RequireAdministrator
 {Yes}
