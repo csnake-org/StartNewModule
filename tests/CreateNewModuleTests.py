@@ -121,7 +121,7 @@ class CreateNewModuleTests(unittest.TestCase):
         projectName = "TestPlugin"
         rootForTemplateFiles = "./../resources"
         # call method
-        gimiasVersion = "1.4"
+        gimiasVersion = "1.5"
         CreateNewModule.CreatePlugin(pluginsRoot, projectName, 
            rootForTemplateFiles, csnToolkitFilePath, 
            csnGimiasFilePath, gimiasVersion)
@@ -177,7 +177,7 @@ class CreateNewModuleTests(unittest.TestCase):
         widgetName = "TestWidget"
         rootForTemplateFiles = "./../resources"
         # call method
-        gimiasVersion = "1.4"
+        gimiasVersion = "1.5"
         CreateNewModule.CreatePluginWidget(projectRoot, widgetName, 
            rootForTemplateFiles, gimiasVersion)
 

@@ -47,7 +47,7 @@ class MainFrame(wx.Frame):
         self.txtGimiasFile = wx.TextCtrl(self, -1, "")
         self.btnSelectGimiasFile = wx.Button(self, -1, "...")
         self.lblGimiasVersion = wx.StaticText(self, -1, "Gimias version")
-        self.cmbGimiasVersion = wx.ComboBox(self, -1, choices=["1.4", "1.3"], style=wx.CB_DROPDOWN)
+        self.cmbGimiasVersion = wx.ComboBox(self, -1, choices=["1.5", "1.4", "1.3"], style=wx.CB_DROPDOWN)
         self.static_line_2 = wx.StaticLine(self, -1)
         self.btnCreate = wx.Button(self, -1, "Start New Module")
 
@@ -361,6 +361,7 @@ if __name__ == "__main__":
             break
     assert os.path.exists("%s/TemplatePlugin13" % pathToResources), "Template plugin folder for gimias 1.3 not found in: %s" % pathToResources
     assert os.path.exists("%s/TemplatePlugin14" % pathToResources), "Template plugin folder for gimias 1.4 not found in: %s" % pathToResources
+    assert os.path.exists("%s/TemplatePlugin15" % pathToResources), "Template plugin folder for gimias 1.5 not found in: %s" % pathToResources
     assert os.path.exists("%s/TemplateLibrary" % pathToResources), "Template library folder not found in: %s" % pathToResources
     assert os.path.exists("%s/TemplateThirdParty" % pathToResources), "Template thirdParty folder not found in: %s" % pathToResources
     
