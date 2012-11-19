@@ -1,9 +1,14 @@
-# Used to configure TemplateThirdParty
-import csnBuild
+# CSNake configuration of the Template Third Party
 
-templateThirdParty = csnBuild.Project("TemplateThirdParty", "third party")
-templateThirdParty.pathsManager.useFilePath = "%s/TemplateThirdParty/UseTemplateThirdParty.cmake" % templateThirdParty.GetBuildFolder()
-templateThirdParty.pathsManager.configFilePath = "%s/TemplateThirdParty/TemplateThirdPartyConfig.cmake" % templateThirdParty.GetBuildFolder()
+# CSNake imports
+from csnAPIPublic import GetAPI
+api = GetAPI("2.5.0")
 
-templateThirdParty.AddFilesToInstall( templateThirdParty.Glob("lib/nameofyourdlldebug.dll"), _debugOnly = 1, _WIN32 = 1)
-templateThirdParty.AddFilesToInstall( templateThirdParty.Glob("lib/nameofyourdllrelease.dll"), _releaseOnly = 1, _WIN32 = 1)
+# Definition of the template third party
+templateTP = api.CreateThirdPartyProject("TemplateThirdParty")
+templateTP.SetUseFilePath("%s/TemplateThirdParty/UseTemplateThirdParty.cmake" % templateTP.GetBuildFolder())
+templateTP.SetConfigFilePath("%s/TemplateThirdParty/TemplateThirdPartyConfig.cmake" % templateTP.GetBuildFolder())
+
+if api.GetCompiler().TargetIsWindows():
+  templateTP.AddFilesToInstall( templateTP.Glob("lib/nameofyourdlldebug.dll"), debugOnly = 1)
+  templateTP.AddFilesToInstall( templateTP.Glob("lib/nameofyourdllrelease.dll"), releaseOnly = 1)

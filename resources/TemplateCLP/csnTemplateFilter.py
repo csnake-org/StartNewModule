@@ -1,19 +1,17 @@
-# Copyright 2007 Pompeu Fabra University (Computational Imaging Laboratory), Barcelona, Spain. Web: www.cilab.upf.edu.
-# This software is distributed WITHOUT ANY WARRANTY;
-# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# 
+# CSNake configuration of the Template filters
 
-import csnBuild
-import csnCilab
-import csnUtility
-#from csnToolkitOpen import *
-#from csnToolkitPrivate import *
-from csnGIMIASDef import *
+# CSNake imports
+from csnAPIPublic import GetAPI
+api = GetAPI("2.5.0")
+# Other dependencies
+from csnToolkitOpen import *
+#from csnGIMIASDef import *
 
-templateFilterCLP = csnCilab.CommandLinePlugin("TemplateFilterCLP")
+# Definition of the templateFilter CLP
+templateFilterCLP = CommandLinePlugin("TemplateFilterCLP")
 templateFilterCLP.AddSources([u'applications/TemplateFilter/TemplateFilter.cxx'])
-templateFilterCLP.AddProjects([itk, slicer,generateClp])
-#templateFilterCLP.AddDefinitions(["/bigobj"], _private = 1, _WIN32 = 1) 
+templateFilterCLP.AddProjects([itk, slicer, generateClp])
 	
-#EveryCLP = csnCilab.CilabModuleProject("templateFilterCLP", "container")
-#EveryCLP.AddProjects( [templateFilterCLP] )
+# Contained for all the CLP of this file
+#everyCLP = api.CreateStandardModuleProject("templateFilterCLP", "container")
+#everyCLP.AddProjects([templateFilterCLP])

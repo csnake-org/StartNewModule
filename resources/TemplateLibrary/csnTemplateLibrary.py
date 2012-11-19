@@ -1,8 +1,13 @@
-# Used to configure TemplateLibrary
-import csnCilab
+# CSNake configuration of the Template library
+
+# CSNake imports
+from csnAPIPublic import GetAPI
+api = GetAPI("2.5.0")
+# Other dependencies
 from csnToolkitOpen import *
 
-templateLibrary = csnCilab.CilabModuleProject("TemplateLibrary", "library")
+# Definition of the template library
+templateLibrary = api.CreateStandardModuleProject("TemplateLibrary", "library")
 templateLibrary.AddLibraryModules(["tlFirst"])
 templateLibrary.AddProjects([baseLib])
 templateLibrary.AddTests(["tests/tlFirstTest/*.*"], cxxTest)
