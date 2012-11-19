@@ -12,6 +12,10 @@ More information can be found on https://github.com/csnake-org/StartNewModule.
 
 Change log
 ----------
+v0.1.7:
+ * Update CSNake configuration files to use CSNake api
+ * Update plugin templates for Gimias 1.5
+
 v0.1.6:
  * Add support for multiple Gimias versions
  * Update plugin templates for Gimias 1.4
