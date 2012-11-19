@@ -37,7 +37,7 @@ def EditFile(source, line, typeOption):
         raise IOError("File not found: %s" % source)
     # type 1: main csn file
     if( typeOption == 1) :
-    # read file
+        # read file
         f = open(source, 'r')
         content = f.read() 
         f.close()
@@ -46,23 +46,31 @@ def EditFile(source, line, typeOption):
             f = open(source, 'a')
             f.write("\n%s\n" % line); 
             f.close()
+        else:
+            logger.warn("The line to insert ('%s') is already present in %s" % (line, source))
     # type 2: gimias csn file
     if( typeOption == 2 ):
         f = open(source, 'r')
         template = f.read() 
         f.close()
+        # check if the 'AddProjects' string is present
+        if template.find( "AddProjects([" ) == -1:
+            raise IOError("Could not find the project group (starting with 'AddProjects(['), \
+            are you sure you provided the proper input file?")
         # check if line is not already there
         if template.find( line ) == -1:
-            template = template.replace( "AddProjects([", "AddProjects([\n    %s," % line)
+            template = template.replace( "AddProjects([", "AddProjects([\n    %s," % line, 1)
             f = open(source, 'w')
             f.write(template)
             f.close()
+        else:
+            logger.warn("The line to insert ('%s') is already present in %s" % (line, source))
     # type 4: widget collective
     if( typeOption == 4 ):
         f = open(source, 'r')
         template = f.read()
         f.close()
-        template = template.replace(".CommandPanel();", ".CommandPanel();\n   Core::Runtime::Kernel::GetGraphicalInterface()->RegisterFactory(\n    %s::Factory::NewBase(), \n    config.Caption(\"%s\").\n    Id(wxID_%s) );\n" % (line,line,line))
+        template = template.replace(".CommandPanel();", ".CommandPanel();\n   Core::Runtime::Kernel::GetGraphicalInterface()->RegisterFactory(\n    %s::Factory::NewBase(), \n    config.Caption(\"%s\").\n    Id(wxID_%s) );\n" % (line,line,line), 1)
         f = open(source, 'w')
         f.write(template)
         f.close()
@@ -71,7 +79,7 @@ def EditFile(source, line, typeOption):
         f = open(source, 'r')
         template = f.read()
         f.close()
-        template = template.replace("Core::Runtime::Kernel::GetProcessorFactories();", "Core::Runtime::Kernel::GetProcessorFactories();\n    factories->RegisterFactory( %s::Factory::NewBase( ) );\n" % line)
+        template = template.replace("Core::Runtime::Kernel::GetProcessorFactories();", "Core::Runtime::Kernel::GetProcessorFactories();\n    factories->RegisterFactory( %s::Factory::NewBase( ) );\n" % line, 1)
         f = open(source, 'w')
         f.write(template)
         f.close()
@@ -151,6 +159,8 @@ def CreateLibrary(rootPath, libraryName, rootForTemplateFiles, tkFilename):
         raise ValueError("No library name provided.")
     if not os.path.exists(tkFilename):
         raise IOError("The toolkit csnake file does not exist.")
+    if not os.path.isfile(tkFilename):
+        raise IOError("The toolkit csnake file is not a file.")
     
     # create dictionary
     dictionary = dict()
@@ -205,8 +215,12 @@ def CreatePlugin(rootPath, pluginName, rootForTemplateFiles, tkFilename, gimiasF
         raise ValueError("No plugin name provided.")
     if not os.path.exists(tkFilename):
         raise IOError("The toolkit csnake file does not exist.")
+    if not os.path.isfile(tkFilename):
+        raise IOError("The toolkit csnake file is not a file.")
     if not os.path.exists(gimiasFilename):
         raise IOError("The gimias csnake file does not exist.")
+    if not os.path.isfile(gimiasFilename):
+        raise IOError("The gimias csnake file is not a file.")
 
     # template plugin folder
     templatePluginFolder = "%s/TemplatePlugin%s" % (rootForTemplateFiles, gimiasVersion.replace('.', ''))
@@ -317,6 +331,8 @@ def CreateThirdParty(rootPath, thirdPartyName, rootForTemplateFiles, tkFilename)
         raise ValueError("No thirdparty name provided.")
     if not os.path.exists(tkFilename):
         raise IOError("The toolkit csnake file does not exist.")
+    if not os.path.isfile(tkFilename):
+        raise IOError("The toolkit csnake file is not a file.")
     cmakeFileName = os.path.join(rootPath ,"CMakeLists.txt")
     if not os.path.exists(cmakeFileName):
         raise IOError("The CMakeLists file does not exist.")
