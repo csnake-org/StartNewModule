@@ -1,0 +1,19 @@
+# Main page for the documentation of this library.
+/**
+
+\mainpage TemplatePlugin
+
+\section introduction_sec Introduction
+<em>Description of the library.</em>
+
+\section details_sec Details
+\li Library maintainer: <name> (mail@cistib.upf.edu)
+\li Library license: <Proprietary/Open Source>
+
+\section depends_sec Dependencies
+<em>The dependencies of the library.</em>
+
+\section changelog_sec Change Log
+<em>The main changes that happend to the library.</em>
+
+*/
