@@ -10,6 +10,9 @@ It is mainly used in the context of the GIMIAS (http://www.gimias.org/) software
 
 More information can be found on https://github.com/csnake-org/StartNewModule.
 
+Download from: https://github.com/csnake-org/StartNewModule/releases or 
+https://github.com/csnake-org/StartNewModule/downloads
+
 Change log
 ----------
 v0.1.7:
